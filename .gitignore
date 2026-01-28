@@ -24,6 +24,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
+.env.*
 .env*.local
 
 # vercel
@@ -38,3 +40,10 @@ next-env.d.ts
 .vscode/
 *.swp
 *.swo
+
+# temp/sensitive files
+list-windows.ps1
+loops_key.txt
+loops_trans.txt
+posthog_host.txt
+env_temp.txt
