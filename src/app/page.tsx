@@ -3,15 +3,11 @@
 import { motion } from "framer-motion";
 import {
   Terminal,
-  Zap,
-  Cpu,
   Github,
   ArrowRight,
   Check,
+  X,
   Copy,
-  Monitor,
-  Bot,
-  Layers,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -68,21 +64,27 @@ function CodeBlock({
 }
 
 function FeatureCard({
-  icon: Icon,
   title,
   description,
+  index,
 }: {
-  icon: React.ElementType;
   title: string;
   description: string;
+  index: number;
 }) {
   return (
     <motion.div
       variants={fadeInUp}
-      className="group p-6 border border-zinc-800 rounded-lg hover:border-zinc-700 transition-all duration-300 hover:bg-zinc-900/50"
+      className="group p-6 border border-zinc-800 rounded-lg hover:border-accent/50 transition-all duration-300 hover:bg-zinc-900/50"
     >
-      <div className="w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center mb-4 group-hover:bg-accent/10 transition-colors">
-        <Icon className="w-5 h-5 text-zinc-400 group-hover:text-accent transition-colors" />
+      <div className="flex items-center gap-3 mb-4">
+        <motion.span
+          className="font-mono text-2xl font-bold text-accent/60 group-hover:text-accent transition-colors"
+          whileHover={{ scale: 1.1 }}
+        >
+          {String(index).padStart(2, "0")}
+        </motion.span>
+        <div className="h-px flex-1 bg-zinc-800 group-hover:bg-accent/30 transition-colors" />
       </div>
       <h3 className="font-mono font-semibold text-lg mb-2">{title}</h3>
       <p className="text-zinc-400 text-sm leading-relaxed">{description}</p>
@@ -103,10 +105,14 @@ function ComparisonRow({
 }) {
   const renderCell = (value: boolean | string) => {
     if (typeof value === "boolean") {
-      return value ? (
-        <Check className="w-5 h-5 text-green-500" />
-      ) : (
-        <span className="text-zinc-600">—</span>
+      return (
+        <div className="flex items-center justify-center">
+          {value ? (
+            <Check className="w-5 h-5 text-green-500" />
+          ) : (
+            <X className="w-5 h-5 text-red-500/70" />
+          )}
+        </div>
       );
     }
     return <span className="text-zinc-400 text-sm">{value}</span>;
@@ -115,9 +121,9 @@ function ComparisonRow({
   return (
     <tr className="border-b border-zinc-800 hover:bg-zinc-900/30">
       <td className="py-4 px-4 text-sm font-medium">{feature}</td>
-      <td className="py-4 px-4 text-center">{renderCell(terminator)}</td>
-      <td className="py-4 px-4 text-center">{renderCell(playwright)}</td>
-      <td className="py-4 px-4 text-center">{renderCell(others)}</td>
+      <td className="py-4 px-4">{renderCell(terminator)}</td>
+      <td className="py-4 px-4">{renderCell(playwright)}</td>
+      <td className="py-4 px-4">{renderCell(others)}</td>
     </tr>
   );
 }
@@ -334,32 +340,32 @@ export default function Home() {
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             <FeatureCard
-              icon={Terminal}
+              index={1}
               title="TypeScript SDK"
               description="Full-featured Desktop class with 60+ methods. Type-safe, async/await, fluent API."
             />
             <FeatureCard
-              icon={Bot}
+              index={2}
               title="MCP Server"
               description="35 tools for Claude, Cursor, and VS Code. AI assistants can control any app."
             />
             <FeatureCard
-              icon={Layers}
+              index={3}
               title="Smart Selectors"
               description="role:Button && name:Submit — intuitive selector syntax that just works."
             />
             <FeatureCard
-              icon={Monitor}
+              index={4}
               title="Cross-App"
               description="Not just browsers. Automate Notepad, Excel, SAP, legacy apps — anything with a UI."
             />
             <FeatureCard
-              icon={Zap}
+              index={5}
               title="100x Faster"
               description="Pre-recorded workflows run instantly. No AI latency for deterministic paths."
             />
             <FeatureCard
-              icon={Cpu}
+              index={6}
               title="AI Recovery"
               description="When the unexpected happens, Gemini vision kicks in to handle dynamic UIs."
             />
