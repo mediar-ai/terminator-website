@@ -10,6 +10,7 @@ import {
   Copy,
 } from "lucide-react";
 import { useState } from "react";
+import { WaitlistModal } from "@/components/WaitlistModal";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -129,8 +130,23 @@ function ComparisonRow({
 }
 
 export default function Home() {
+  const [waitlistModal, setWaitlistModal] = useState<{
+    isOpen: boolean;
+    platform: "macos" | "linux";
+  }>({ isOpen: false, platform: "macos" });
+
+  const openWaitlist = (platform: "macos" | "linux") => {
+    setWaitlistModal({ isOpen: true, platform });
+  };
+
   return (
     <main className="min-h-screen noise-overlay">
+      <WaitlistModal
+        isOpen={waitlistModal.isOpen}
+        platform={waitlistModal.platform}
+        onClose={() => setWaitlistModal((prev) => ({ ...prev, isOpen: false }))}
+      />
+
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -287,13 +303,13 @@ export default function Home() {
                 </svg>
                 <h3 className="font-mono font-semibold text-lg mb-1 text-zinc-400">macOS</h3>
                 <p className="text-zinc-500 text-sm mb-3">In development</p>
-                <a
-                  href="#waitlist"
+                <button
+                  onClick={() => openWaitlist("macos")}
                   className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-mono border border-zinc-600 rounded hover:border-accent hover:text-accent transition-colors"
                 >
                   Join waitlist
                   <ArrowRight className="w-3 h-3" />
-                </a>
+                </button>
               </div>
             </motion.div>
 
@@ -311,13 +327,13 @@ export default function Home() {
                 </svg>
                 <h3 className="font-mono font-semibold text-lg mb-1 text-zinc-400">Linux</h3>
                 <p className="text-zinc-500 text-sm mb-3">In development</p>
-                <a
-                  href="#waitlist"
+                <button
+                  onClick={() => openWaitlist("linux")}
                   className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-mono border border-zinc-600 rounded hover:border-accent hover:text-accent transition-colors"
                 >
                   Join waitlist
                   <ArrowRight className="w-3 h-3" />
-                </a>
+                </button>
               </div>
             </motion.div>
           </motion.div>
