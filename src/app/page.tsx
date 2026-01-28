@@ -106,14 +106,10 @@ function ComparisonRow({
 }) {
   const renderCell = (value: boolean | string) => {
     if (typeof value === "boolean") {
-      return (
-        <div className="flex items-center justify-center">
-          {value ? (
-            <Check className="w-5 h-5 text-green-500" />
-          ) : (
-            <X className="w-5 h-5 text-red-500/70" />
-          )}
-        </div>
+      return value ? (
+        <Check className="w-5 h-5 text-green-500" />
+      ) : (
+        <X className="w-5 h-5 text-red-500/70" />
       );
     }
     return <span className="text-zinc-400 text-sm">{value}</span>;
@@ -122,9 +118,9 @@ function ComparisonRow({
   return (
     <tr className="border-b border-zinc-800 hover:bg-zinc-900/30">
       <td className="py-4 px-4 text-sm font-medium">{feature}</td>
-      <td className="py-4 px-4">{renderCell(terminator)}</td>
-      <td className="py-4 px-4">{renderCell(playwright)}</td>
-      <td className="py-4 px-4">{renderCell(others)}</td>
+      <td className="py-4 px-4 text-center">{renderCell(terminator)}</td>
+      <td className="py-4 px-4 text-center">{renderCell(playwright)}</td>
+      <td className="py-4 px-4 text-center">{renderCell(others)}</td>
     </tr>
   );
 }
