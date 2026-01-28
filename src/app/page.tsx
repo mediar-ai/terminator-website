@@ -4,9 +4,6 @@ import { motion } from "framer-motion";
 import {
   Terminal,
   Zap,
-  Eye,
-  MousePointer2,
-  Code2,
   Cpu,
   Github,
   ArrowRight,
@@ -225,16 +222,16 @@ export default function Home() {
           </motion.div>
 
           {/* Quick install */}
-          <motion.div variants={fadeInUp} className="max-w-md mx-auto">
-            <div className="terminal-box px-4 py-3 flex items-center justify-between">
-              <code className="font-mono text-sm text-zinc-300">
-                <span className="text-accent">$</span> npx @mediar-ai/cli --help
+          <motion.div variants={fadeInUp} className="max-w-2xl mx-auto">
+            <div className="terminal-box px-4 py-3 flex items-center justify-between gap-4">
+              <code className="font-mono text-sm text-zinc-300 overflow-x-auto">
+                <span className="text-accent">$</span> claude mcp add terminator &quot;npx -y terminator-mcp-agent@latest&quot;
               </code>
               <button
                 onClick={() =>
-                  navigator.clipboard.writeText("npx @mediar-ai/cli --help")
+                  navigator.clipboard.writeText('claude mcp add terminator "npx -y terminator-mcp-agent@latest"')
                 }
-                className="text-zinc-500 hover:text-zinc-300 transition-colors"
+                className="text-zinc-500 hover:text-zinc-300 transition-colors flex-shrink-0"
               >
                 <Copy className="w-4 h-4" />
               </button>
@@ -253,33 +250,54 @@ export default function Home() {
             variants={stagger}
             className="grid md:grid-cols-3 gap-8"
           >
-            <motion.div variants={fadeInUp} className="text-center p-6">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-transparent flex items-center justify-center mx-auto mb-4">
-                <MousePointer2 className="w-8 h-8 text-accent" />
-              </div>
-              <h3 className="font-mono font-semibold text-xl mb-2">Click</h3>
+            <motion.div
+              variants={fadeInUp}
+              className="text-center p-6 group"
+            >
+              <motion.h3
+                className="font-mono font-bold text-4xl mb-4 text-accent"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                Click
+              </motion.h3>
+              <div className="h-0.5 w-12 bg-accent/50 mx-auto mb-4 group-hover:w-24 transition-all duration-300" />
               <p className="text-zinc-400">
                 Find and click any UI element by role, name, or text. No XPath.
                 No brittle selectors.
               </p>
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="text-center p-6">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-transparent flex items-center justify-center mx-auto mb-4">
-                <Code2 className="w-8 h-8 text-accent" />
-              </div>
-              <h3 className="font-mono font-semibold text-xl mb-2">Type</h3>
+            <motion.div
+              variants={fadeInUp}
+              className="text-center p-6 group"
+            >
+              <motion.h3
+                className="font-mono font-bold text-4xl mb-4 text-accent"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                Type
+              </motion.h3>
+              <div className="h-0.5 w-12 bg-accent/50 mx-auto mb-4 group-hover:w-24 transition-all duration-300" />
               <p className="text-zinc-400">
                 Input text into any field. Handles focus, clearing, and special
                 keys automatically.
               </p>
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="text-center p-6">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-transparent flex items-center justify-center mx-auto mb-4">
-                <Eye className="w-8 h-8 text-accent" />
-              </div>
-              <h3 className="font-mono font-semibold text-xl mb-2">See</h3>
+            <motion.div
+              variants={fadeInUp}
+              className="text-center p-6 group"
+            >
+              <motion.h3
+                className="font-mono font-bold text-4xl mb-4 text-accent"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                See
+              </motion.h3>
+              <div className="h-0.5 w-12 bg-accent/50 mx-auto mb-4 group-hover:w-24 transition-all duration-300" />
               <p className="text-zinc-400">
                 Capture screenshots, read UI trees, OCR text, or use AI vision
                 for complex elements.
@@ -406,9 +424,12 @@ await saveBtn.click();`}
                 language="json"
                 code={`{
   "mcpServers": {
-    "terminator": {
+    "terminator-mcp-agent": {
       "command": "npx",
-      "args": ["-y", "terminator-mcp-agent"]
+      "args": ["-y", "terminator-mcp-agent@latest"],
+      "env": {
+        "LOG_LEVEL": "info"
+      }
     }
   }
 }
@@ -418,7 +439,6 @@ await saveBtn.click();`}
 // - type_into_element
 // - get_window_tree
 // - capture_screenshot
-// - execute_browser_script
 // ... and 30 more`}
               />
             </motion.div>
@@ -600,9 +620,12 @@ await saveBtn.click();`}
                 <span className="w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-mono flex items-center justify-center">
                   1
                 </span>
-                <span className="font-mono text-zinc-300">Run without install</span>
+                <span className="font-mono text-zinc-300">Add MCP to Claude Code</span>
               </div>
-              <CodeBlock code="npx @mediar-ai/cli --help" language="bash" />
+              <CodeBlock
+                code='claude mcp add terminator "npx -y terminator-mcp-agent@latest"'
+                language="bash"
+              />
             </motion.div>
 
             <motion.div variants={fadeInUp}>
@@ -610,9 +633,9 @@ await saveBtn.click();`}
                 <span className="w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-mono flex items-center justify-center">
                   2
                 </span>
-                <span className="font-mono text-zinc-300">Or install globally</span>
+                <span className="font-mono text-zinc-300">Or use the TypeScript SDK</span>
               </div>
-              <CodeBlock code="npm i -g @mediar-ai/cli" language="bash" />
+              <CodeBlock code="npm install @mediar-ai/terminator" language="bash" />
             </motion.div>
 
             <motion.div variants={fadeInUp}>
@@ -620,11 +643,13 @@ await saveBtn.click();`}
                 <span className="w-6 h-6 rounded-full bg-accent/20 text-accent text-sm font-mono flex items-center justify-center">
                   3
                 </span>
-                <span className="font-mono text-zinc-300">Add to Claude Code</span>
+                <span className="font-mono text-zinc-300">Start automating</span>
               </div>
               <CodeBlock
-                code="claude mcp add terminator -- npx -y terminator-mcp-agent"
-                language="bash"
+                code={`import { Desktop } from '@mediar-ai/terminator';
+const desktop = new Desktop();
+await desktop.openApplication('notepad');`}
+                language="typescript"
               />
             </motion.div>
           </motion.div>
