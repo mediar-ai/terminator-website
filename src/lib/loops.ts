@@ -6,25 +6,56 @@ export async function addToWaitlist(
   const userGroup = `terminator_waitlist_${platform}`;
 
   try {
-    // Step 1: Subscribe to newsletter/waitlist
-    const subscribeResponse = await fetch(
-      "https://app.loops.so/api/newsletter-form/clkotuj73009emj0nyov824h1",
+    // Step 1: Add contact via Contacts API (avoids triggering newsletter campaigns)
+    // Using the Contacts API instead of newsletter form to prevent
+    // automated campaign emails from other products in the shared Loops account
+    if (!process.env.LOOPS_API_KEY) {
+      return { success: false, error: "Loops API key not configured." };
+    }
+
+    const contactResponse = await fetch(
+      "https://app.loops.so/api/v1/contacts/create",
       {
         method: "POST",
-        body: `userGroup=${encodeURIComponent(userGroup)}&email=${encodeURIComponent(email)}`,
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.LOOPS_API_KEY}`,
+        },
+        body: JSON.stringify({
+          email,
+          userGroup,
+          source: "terminator_website",
+        }),
       }
     );
 
-    if (!subscribeResponse.ok) {
-      const status = subscribeResponse.status;
+    if (!contactResponse.ok) {
+      const status = contactResponse.status;
       if (status === 429) {
         return { success: false, error: "Too many requests. Please try again later." };
       }
       if (status === 400) {
-        return { success: false, error: "Invalid email address." };
+        // Contact may already exist, try to update instead
+        const updateResponse = await fetch(
+          "https://app.loops.so/api/v1/contacts/update",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${process.env.LOOPS_API_KEY}`,
+            },
+            body: JSON.stringify({
+              email,
+              userGroup,
+            }),
+          }
+        );
+        if (!updateResponse.ok) {
+          return { success: false, error: "Failed to join waitlist." };
+        }
+      } else {
+        return { success: false, error: "Failed to join waitlist." };
       }
-      return { success: false, error: "Failed to join waitlist." };
     }
 
     // Step 2: Send transactional email to user
