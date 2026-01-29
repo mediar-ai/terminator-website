@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, Check, Loader2 } from "lucide-react";
 import { posthog } from "./PostHogProvider";
+import { trackWaitlistClosed } from "@/lib/analytics";
 
 type Platform = "macos" | "linux";
 
@@ -51,6 +52,10 @@ export function WaitlistModal({ isOpen, onClose, platform }: WaitlistModalProps)
   };
 
   const handleClose = () => {
+    // Only track close if user didn't successfully submit
+    if (status !== "success") {
+      trackWaitlistClosed(platform, email.length > 0);
+    }
     setEmail("");
     setStatus("idle");
     setErrorMessage("");

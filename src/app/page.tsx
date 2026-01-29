@@ -9,8 +9,21 @@ import {
   X,
   Copy,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { WaitlistModal } from "@/components/WaitlistModal";
+import {
+  trackInstallCopied,
+  trackCodeCopied,
+  trackCtaClicked,
+  trackExternalLinkClicked,
+  trackNavClicked,
+  trackSectionViewed,
+  trackWaitlistOpened,
+  trackComparisonViewed,
+  trackScrollDepth,
+  trackTimeOnPage,
+  trackLogoClicked,
+} from "@/lib/analytics";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -28,15 +41,18 @@ const stagger = {
 function CodeBlock({
   code,
   language = "typescript",
+  section = "unknown",
 }: {
   code: string;
   language?: string;
+  section?: string;
 }) {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(code);
     setCopied(true);
+    trackCodeCopied(section, language);
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -125,15 +141,112 @@ function ComparisonRow({
   );
 }
 
+// Custom hook for section visibility tracking
+function useSectionTracking(sectionId: string) {
+  const ref = useRef<HTMLElement>(null);
+  const hasTracked = useRef(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasTracked.current) {
+            trackSectionViewed(sectionId);
+            hasTracked.current = true;
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [sectionId]);
+
+  return ref;
+}
+
 export default function Home() {
   const [waitlistModal, setWaitlistModal] = useState<{
     isOpen: boolean;
     platform: "macos" | "linux";
   }>({ isOpen: false, platform: "macos" });
 
-  const openWaitlist = (platform: "macos" | "linux") => {
+  // Scroll depth tracking
+  const scrollMilestones = useRef<Set<number>>(new Set());
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (window.scrollY / scrollHeight) * 100;
+
+      const milestones = [25, 50, 75, 100] as const;
+      milestones.forEach((milestone) => {
+        if (scrollPercent >= milestone && !scrollMilestones.current.has(milestone)) {
+          scrollMilestones.current.add(milestone);
+          trackScrollDepth(milestone);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Time on page tracking
+  useEffect(() => {
+    const timeIntervals = [30, 60, 120, 300]; // 30s, 1m, 2m, 5m
+    const trackedTimes = new Set<number>();
+    const startTime = Date.now();
+
+    const interval = setInterval(() => {
+      const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+      timeIntervals.forEach((seconds) => {
+        if (elapsedSeconds >= seconds && !trackedTimes.has(seconds)) {
+          trackedTimes.add(seconds);
+          trackTimeOnPage(seconds);
+        }
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Section refs for tracking
+  const heroRef = useSectionTracking("hero");
+  const platformRef = useSectionTracking("platform_support");
+  const actionsRef = useSectionTracking("actions");
+  const featuresRef = useSectionTracking("features");
+  const docsRef = useSectionTracking("docs");
+  const comparisonRef = useSectionTracking("comparison");
+  const quickstartRef = useSectionTracking("quickstart");
+  const ctaRef = useSectionTracking("cta");
+
+  const openWaitlist = useCallback((platform: "macos" | "linux") => {
+    trackWaitlistOpened(platform);
     setWaitlistModal({ isOpen: true, platform });
-  };
+  }, []);
+
+  // Track comparison section specifically
+  const comparisonTracked = useRef(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !comparisonTracked.current) {
+          trackComparisonViewed();
+          comparisonTracked.current = true;
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    const section = document.querySelector("[data-section='comparison']");
+    if (section) observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <main className="min-h-screen noise-overlay">
@@ -146,19 +259,27 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              trackLogoClicked();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex items-center gap-2 cursor-pointer"
+          >
             <Terminal className="w-6 h-6 text-accent" />
             <span className="font-mono font-bold text-lg">terminator</span>
-          </div>
+          </button>
           <div className="flex items-center gap-6">
             <a
               href="#features"
+              onClick={() => trackNavClicked("features", "nav")}
               className="text-sm text-zinc-400 hover:text-white transition-colors animated-underline"
             >
               Features
             </a>
             <a
               href="#docs"
+              onClick={() => trackNavClicked("docs", "nav")}
               className="text-sm text-zinc-400 hover:text-white transition-colors animated-underline"
             >
               Docs
@@ -167,6 +288,10 @@ export default function Home() {
               href="https://github.com/mediar-ai/terminator"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackExternalLinkClicked("https://github.com/mediar-ai/terminator", "github");
+                trackCtaClicked("github", "nav");
+              }}
               className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors"
             >
               <Github className="w-4 h-4" />
@@ -177,7 +302,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6 grid-bg">
+      <section ref={heroRef} className="relative pt-32 pb-20 px-6 grid-bg">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950" />
         <motion.div
           initial="hidden"
@@ -223,6 +348,10 @@ export default function Home() {
           >
             <a
               href="#quickstart"
+              onClick={() => {
+                trackCtaClicked("get_started", "hero");
+                trackNavClicked("quickstart", "inline");
+              }}
               className="group flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-hover text-black font-mono font-semibold rounded-lg transition-all"
             >
               Get Started
@@ -232,6 +361,10 @@ export default function Home() {
               href="https://github.com/mediar-ai/terminator"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackExternalLinkClicked("https://github.com/mediar-ai/terminator", "github");
+                trackCtaClicked("view_on_github", "hero");
+              }}
               className="flex items-center gap-2 px-6 py-3 border border-zinc-700 hover:border-zinc-500 rounded-lg font-mono transition-colors"
             >
               <Github className="w-4 h-4" />
@@ -246,9 +379,10 @@ export default function Home() {
                 <span className="text-accent">$</span> claude mcp add terminator &quot;npx -y terminator-mcp-agent@latest&quot;
               </code>
               <button
-                onClick={() =>
-                  navigator.clipboard.writeText('claude mcp add terminator "npx -y terminator-mcp-agent@latest"')
-                }
+                onClick={() => {
+                  navigator.clipboard.writeText('claude mcp add terminator "npx -y terminator-mcp-agent@latest"');
+                  trackInstallCopied("hero");
+                }}
                 className="text-zinc-500 hover:text-zinc-300 transition-colors flex-shrink-0"
               >
                 <Copy className="w-4 h-4" />
@@ -259,7 +393,7 @@ export default function Home() {
       </section>
 
       {/* Platform Support */}
-      <section className="py-16 px-6 border-t border-zinc-800">
+      <section ref={platformRef} className="py-16 px-6 border-t border-zinc-800">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial="hidden"
@@ -337,7 +471,7 @@ export default function Home() {
       </section>
 
       {/* What It Does */}
-      <section className="py-20 px-6 border-t border-zinc-800">
+      <section ref={actionsRef} className="py-20 px-6 border-t border-zinc-800">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -404,7 +538,7 @@ export default function Home() {
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="py-20 px-6 border-t border-zinc-800">
+      <section ref={featuresRef} id="features" className="py-20 px-6 border-t border-zinc-800">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -464,7 +598,7 @@ export default function Home() {
       </section>
 
       {/* Code Examples */}
-      <section id="docs" className="py-20 px-6 border-t border-zinc-800">
+      <section ref={docsRef} id="docs" className="py-20 px-6 border-t border-zinc-800">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -493,6 +627,7 @@ export default function Home() {
                 TypeScript SDK
               </h3>
               <CodeBlock
+                section="docs_typescript_sdk"
                 code={`import { Desktop } from '@mediar-ai/terminator';
 
 const desktop = new Desktop();
@@ -517,6 +652,7 @@ await saveBtn.click();`}
                 MCP for Claude
               </h3>
               <CodeBlock
+                section="docs_mcp_config"
                 language="json"
                 code={`{
   "mcpServers": {
@@ -596,7 +732,7 @@ await saveBtn.click();`}
       </section>
 
       {/* Comparison Table */}
-      <section className="py-20 px-6 border-t border-zinc-800">
+      <section ref={comparisonRef} data-section="comparison" className="py-20 px-6 border-t border-zinc-800">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial="hidden"
@@ -688,6 +824,7 @@ await saveBtn.click();`}
 
       {/* Quick Start */}
       <section
+        ref={quickstartRef}
         id="quickstart"
         className="py-20 px-6 border-t border-zinc-800 bg-gradient-to-b from-zinc-900/50 to-transparent"
       >
@@ -719,6 +856,7 @@ await saveBtn.click();`}
                 <span className="font-mono text-zinc-300">Add MCP to Claude Code</span>
               </div>
               <CodeBlock
+                section="quickstart_step1"
                 code='claude mcp add terminator "npx -y terminator-mcp-agent@latest"'
                 language="bash"
               />
@@ -731,7 +869,11 @@ await saveBtn.click();`}
                 </span>
                 <span className="font-mono text-zinc-300">Or use the TypeScript SDK</span>
               </div>
-              <CodeBlock code="npm install @mediar-ai/terminator" language="bash" />
+              <CodeBlock
+                section="quickstart_step2"
+                code="npm install @mediar-ai/terminator"
+                language="bash"
+              />
             </motion.div>
 
             <motion.div variants={fadeInUp}>
@@ -742,6 +884,7 @@ await saveBtn.click();`}
                 <span className="font-mono text-zinc-300">Start automating</span>
               </div>
               <CodeBlock
+                section="quickstart_step3"
                 code={`import { Desktop } from '@mediar-ai/terminator';
 const desktop = new Desktop();
 await desktop.openApplication('notepad');`}
@@ -753,7 +896,7 @@ await desktop.openApplication('notepad');`}
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 border-t border-zinc-800">
+      <section ref={ctaRef} className="py-20 px-6 border-t border-zinc-800">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -772,6 +915,10 @@ await desktop.openApplication('notepad');`}
               href="https://github.com/mediar-ai/terminator"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackExternalLinkClicked("https://github.com/mediar-ai/terminator", "github");
+                trackCtaClicked("star_on_github", "cta_section");
+              }}
               className="group flex items-center gap-2 px-8 py-4 bg-white text-black font-mono font-semibold rounded-lg hover:bg-zinc-200 transition-colors"
             >
               <Github className="w-5 h-5" />
@@ -781,6 +928,10 @@ await desktop.openApplication('notepad');`}
               href="https://discord.gg/mediar"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackExternalLinkClicked("https://discord.gg/mediar", "discord");
+                trackCtaClicked("join_discord", "cta_section");
+              }}
               className="flex items-center gap-2 px-8 py-4 border border-zinc-700 hover:border-zinc-500 rounded-lg font-mono transition-colors"
             >
               Join Discord
@@ -800,23 +951,30 @@ await desktop.openApplication('notepad');`}
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <a
               href="https://github.com/mediar-ai/terminator"
+              onClick={() => trackExternalLinkClicked("https://github.com/mediar-ai/terminator", "github")}
               className="hover:text-white transition-colors"
             >
               GitHub
             </a>
             <a
               href="https://www.npmjs.com/package/@mediar-ai/terminator"
+              onClick={() => trackExternalLinkClicked("https://www.npmjs.com/package/@mediar-ai/terminator", "npm")}
               className="hover:text-white transition-colors"
             >
               npm
             </a>
             <a
               href="https://pypi.org/project/terminator/"
+              onClick={() => trackExternalLinkClicked("https://pypi.org/project/terminator/", "pypi")}
               className="hover:text-white transition-colors"
             >
               PyPI
             </a>
-            <a href="https://mediar.ai" className="hover:text-white transition-colors">
+            <a
+              href="https://mediar.ai"
+              onClick={() => trackExternalLinkClicked("https://mediar.ai", "mediar")}
+              className="hover:text-white transition-colors"
+            >
               mediar.ai
             </a>
           </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { PostHogProvider } from "@/components/PostHogProvider";
+import { CrispChat } from "@/components/CrispChat";
 
 export const metadata: Metadata = {
   title: "Terminator - AI-Native Desktop Automation",
@@ -39,7 +40,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <PostHogProvider>{children}</PostHogProvider>
+        <PostHogProvider>
+          {children}
+          <CrispChat />
+        </PostHogProvider>
       </body>
     </html>
   );
