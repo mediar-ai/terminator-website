@@ -18,6 +18,10 @@ export const metadata: Metadata = {
     "UI automation",
   ],
   authors: [{ name: "Mediar AI" }],
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Terminator - AI-Native Desktop Automation",
     description: "Give AI hands to control any Windows application.",
