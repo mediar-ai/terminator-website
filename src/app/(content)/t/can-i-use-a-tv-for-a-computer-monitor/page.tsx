@@ -388,7 +388,7 @@ export default function Page() {
             <Breadcrumbs items={breadcrumbItems} />
 
             <div className="mt-6 mb-5 flex flex-wrap gap-2">
-              <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
+              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-medium px-3 py-1 rounded-full border border-orange-300">
                 Guide
               </span>
               <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
@@ -456,7 +456,7 @@ export default function Page() {
           <RemotionClip
             title="Your TV is now part of every overlay your PC draws."
             subtitle="Not just more pixels. A bigger virtual screen."
-            accent="teal"
+            accent="orange"
             captions={[
               "Plug the TV in. SM_CXVIRTUALSCREEN doubles.",
               "Terminator's status banner sizes itself by that metric.",
@@ -475,19 +475,19 @@ export default function Page() {
           <p className="text-zinc-600 mb-6 max-w-3xl">
             Windows exposes four metrics that together describe the bounding
             rectangle of every monitor the OS can see.{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               SM_XVIRTUALSCREEN
             </code>
             ,{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               SM_YVIRTUALSCREEN
             </code>
             ,{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               SM_CXVIRTUALSCREEN
             </code>
             ,{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               SM_CYVIRTUALSCREEN
             </code>
             . Plug a 4K TV to the right of a 2560x1600 laptop, and the
@@ -515,16 +515,16 @@ export default function Page() {
           </h2>
           <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             Inside{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               create_overlay_window()
             </code>{" "}
             in{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               crates/terminator/src/platforms/windows/action_overlay.rs
             </code>
             , lines 287 through 291 read the virtual screen directly from
             Windows and pass those values to{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               CreateWindowExW
             </code>
             . No branching on monitor count, no special TV handling. The OS
@@ -542,7 +542,7 @@ export default function Page() {
             That is the entire reason the banner stretches onto the TV. It
             is not a multi-monitor mode. It is four Windows system metrics
             feeding a single{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               WS_EX_TRANSPARENT
             </code>{" "}
             window. Everything else in the overlay system, the cooldowns,
@@ -620,13 +620,13 @@ export default function Page() {
             Same automation script. First invocation paints the status
             banner across laptop + TV. Second invocation runs silently
             because{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               TERMINATOR_ACTION_OVERLAY=0
             </code>{" "}
             flips{" "}
             <NumberTicker
               value={1}
-              className="text-teal-400"
+              className="text-orange-600"
             />{" "}
             atomic bool in process memory.
           </p>

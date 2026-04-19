@@ -396,7 +396,7 @@ export default function HowToUseTwoComputerScreensPage() {
             <Breadcrumbs items={breadcrumbItems} />
 
             <div className="mt-6 mb-5 flex flex-wrap gap-2">
-              <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
+              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-medium px-3 py-1 rounded-full border border-orange-300">
                 Guide
               </span>
               <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
@@ -425,15 +425,15 @@ export default function HowToUseTwoComputerScreensPage() {
               has its own DPI scale factor, and what breaks when an automation
               tool tries to click something on screen two. All anchored to
               real code: Terminator&apos;s{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 Monitor
               </code>{" "}
               struct at{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 crates/terminator/src/lib.rs:272
               </code>
               , and a real Windows UIA bug fixed in commit{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 e36b9785
               </code>{" "}
               on April 2, 2026.
@@ -475,7 +475,7 @@ export default function HowToUseTwoComputerScreensPage() {
           <RemotionClip
             title="Two screens. Two coordinate worlds."
             subtitle="Most guides stop at the cable. This page picks up where they stop."
-            accent="teal"
+            accent="orange"
             captions={[
               "Every display has its own pixel grid and its own DPI",
               "One virtual coordinate space stitches them together",
@@ -503,7 +503,7 @@ export default function HowToUseTwoComputerScreensPage() {
             answer a new set of questions on your behalf. Which monitor does
             this window belong to? What is the DPI of the monitor the cursor
             is on right now? If I click at pixel{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               (3520, 540)
             </code>
             , which physical screen does that land on? If I take a screenshot,
@@ -529,7 +529,7 @@ export default function HowToUseTwoComputerScreensPage() {
             On the left: everything an agent or script might ask. On the
             right: the platform APIs that answer. In the middle:
             Terminator&apos;s{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               Monitor
             </code>{" "}
             abstraction that normalises them. This is the contract consumer
@@ -582,11 +582,11 @@ export default function HowToUseTwoComputerScreensPage() {
           <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Every question a dual-monitor agent has to answer reduces to one
             of these. Each one is a method on{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               Desktop
             </code>{" "}
             or{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               UIElement
             </code>
             , implemented the same way in the Rust, Python, and Node SDKs.
@@ -619,7 +619,7 @@ export default function HowToUseTwoComputerScreensPage() {
           </h2>
           <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             The runnable example lives at{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               crates/terminator/examples/monitor_management.rs
             </code>
             . Here is the output on a setup with a 2560x1440 primary at 100%
@@ -628,7 +628,7 @@ export default function HowToUseTwoComputerScreensPage() {
             about: the captured image of DISPLAY2 is{" "}
             <NumberTicker value={2400} />x<NumberTicker value={1350} />, not
             1920x1080, because the capture respects{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               scale_factor
             </code>
             .
@@ -645,7 +645,7 @@ export default function HowToUseTwoComputerScreensPage() {
             All four come from the Terminator source. The line numbers are
             line numbers in the published repo; the commit SHA is the exact
             multi-monitor fix; the eight fields are the eight fields of the{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               Monitor
             </code>{" "}
             struct; the diff lines are the size of the fix.
@@ -677,7 +677,7 @@ export default function HowToUseTwoComputerScreensPage() {
             Terminator to click something in it, the click would be refused.
             Not with a clean &quot;element is on monitor 2&quot; message. With
             a generic{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               ElementNotVisible
             </code>{" "}
             error. The reason was one call into Windows UIA.
@@ -816,7 +816,7 @@ export default function HowToUseTwoComputerScreensPage() {
               arrangement matches your desk. This controls where the mouse
               crosses from one screen to the other, and it is what decides
               the sign of{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 Monitor.x
               </code>
               .
@@ -825,7 +825,7 @@ export default function HowToUseTwoComputerScreensPage() {
               Pick a primary that makes sense. It is the one the taskbar and
               most new windows default to, and on Windows it is the only one
               whose{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 work_area
               </code>{" "}
               is exposed cleanly.

@@ -342,7 +342,7 @@ export default function Page() {
             <Breadcrumbs items={breadcrumbItems} />
 
             <div className="mt-6 mb-5 flex flex-wrap gap-2">
-              <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
+              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-medium px-3 py-1 rounded-full border border-orange-300">
                 Guide
               </span>
               <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
@@ -408,7 +408,7 @@ export default function Page() {
           <RemotionClip
             title="MCP server means more than a protocol interface."
             subtitle="It means the process that hosts it, with all its side effects."
-            accent="teal"
+            accent="orange"
             captions={[
               "A running process, not a spec document",
               "Saves your keyboard focus before a tool acts",
@@ -428,11 +428,11 @@ export default function Page() {
             The textbook: an MCP server is a program that speaks the Model
             Context Protocol, exposes a set of named tools plus optional
             resources and prompts, and responds to{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               list_tools
             </code>{" "}
             and{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               tools/call
             </code>
             . That definition is correct and incomplete. It describes an
@@ -451,11 +451,11 @@ export default function Page() {
           </p>
           <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             If you want to see the operational layer in one file, open{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               crates/terminator-mcp-agent/src/server.rs
             </code>{" "}
             and search for{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               async fn call_tool
             </code>
             . It starts at line 10541. The actual match block that dispatches
@@ -473,7 +473,7 @@ export default function Page() {
             Numbers counted in the current open-source repo. The first is the
             number of operational layers wrapped around each dispatch. The
             second is the line count of{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               server.rs
             </code>
             . The third is the default per-machine concurrency limit in HTTP
@@ -497,7 +497,7 @@ export default function Page() {
           </h2>
           <p className="text-zinc-600 mb-4 max-w-3xl">
             On the left: clients that reach the server. In the middle:{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               call_tool
             </code>
             , which is not the dispatcher. It is the wrapper. On the right:
@@ -532,7 +532,7 @@ export default function Page() {
           </h2>
           <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             Scroll to line 10621 of{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               crates/terminator-mcp-agent/src/server.rs
             </code>
             . This is the single place the server decides whether it will
@@ -551,23 +551,23 @@ export default function Page() {
 
           <p className="text-zinc-600 mt-6 mb-4 max-w-3xl leading-relaxed">
             The implementation lives in{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               crates/terminator/src/platforms/windows/input.rs:171
             </code>
             . It creates a{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               IUIAutomation
             </code>{" "}
             instance, calls{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               GetFocusedElement
             </code>
             , and if the element supports{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               TextPattern2
             </code>{" "}
             it also saves the caret range. On restore, it calls{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               SetFocus()
             </code>{" "}
             on the saved element and, if a caret range was captured, writes it
@@ -576,23 +576,23 @@ export default function Page() {
             your keyboard.
           </p>
 
-          <div className="mt-6 p-5 rounded-xl bg-teal-500/10 border border-teal-500/30">
+          <div className="mt-6 p-5 rounded-xl bg-orange-50 border border-orange-300">
             <p className="text-zinc-700 leading-relaxed">
               Verify in 10 seconds:{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 git clone https://github.com/mediar-ai/terminator
               </code>
               , then{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 grep -n restore_focus_default
                 crates/terminator-mcp-agent/src/server.rs
               </code>
               . Two hits: one in{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 call_tool
               </code>
               , one in{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 dispatch_tool
               </code>
               . Both apply the same matches! rule. This is not a hypothetical.
@@ -612,11 +612,11 @@ export default function Page() {
           </h2>
           <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             Here is what happens between the moment{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               call_tool
             </code>{" "}
             receives a{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               CallToolRequestParam
             </code>{" "}
             and the moment the handler actually runs. And what happens after.
@@ -633,7 +633,7 @@ export default function Page() {
           <p className="text-zinc-600 mb-4 max-w-3xl">
             Each arm is a tiny tokio::select race. If the client hangs up or
             fires{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               stop_execution
             </code>
             , the ct token trips and the tool loses the race. The handler
@@ -668,15 +668,15 @@ export default function Page() {
           </h2>
           <p className="text-zinc-600 mb-4 max-w-3xl">
             In HTTP mode, the server exposes three endpoints:{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               GET /health
             </code>{" "}
             for liveness,{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               GET /status
             </code>{" "}
             for busy-aware routing, and{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               POST /mcp
             </code>{" "}
             for the JSON-RPC body. /status is the operational primitive: it
@@ -742,7 +742,7 @@ export default function Page() {
               Accessibility APIs, and every single tool call has to be polite
               about the user&apos;s session. That politeness is implemented
               line by line in{" "}
-              <code className="font-mono text-xs bg-white/60 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-white/60 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 call_tool
               </code>
               , not inherited from the protocol.
@@ -758,7 +758,7 @@ export default function Page() {
         {/* Number callout */}
         <section className="max-w-4xl mx-auto px-6 py-6">
           <div className="rounded-2xl border border-zinc-200/60 bg-white/40 p-8 text-center">
-            <p className="text-sm font-mono uppercase tracking-widest text-teal-300 mb-3">
+            <p className="text-sm font-mono uppercase tracking-widest text-orange-600 mb-3">
               Lines of wrapper around each dispatch
             </p>
             <div className="text-6xl font-bold text-zinc-800 mb-2">

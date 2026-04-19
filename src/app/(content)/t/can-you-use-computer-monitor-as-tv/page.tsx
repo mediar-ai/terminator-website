@@ -338,7 +338,7 @@ export default function Page() {
           <Breadcrumbs items={breadcrumbItems} />
 
           <div className="mt-8 mb-6 inline-flex items-center gap-2">
-            <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-teal-900/30 text-teal-300 border border-teal-500/30">
+            <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-orange-100 text-orange-600 border border-orange-300">
               Guide
             </span>
             <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-zinc-100/60 text-zinc-700">
@@ -366,13 +366,13 @@ export default function Page() {
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
               href="https://github.com/mediar-ai/terminator/blob/main/examples/vlc_auto_player.py"
-              className="inline-flex items-center gap-2 rounded-full bg-teal-500 px-5 py-2.5 text-sm font-semibold text-zinc-900 hover:bg-teal-400 transition"
+              className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-5 py-2.5 text-sm font-semibold text-zinc-900 hover:bg-orange-400 transition"
             >
               Read the 151-line example on GitHub
             </a>
             <a
               href="#anchor-fact"
-              className="text-sm text-teal-300 underline-offset-4 hover:underline"
+              className="text-sm text-orange-600 underline-offset-4 hover:underline"
             >
               Jump to the four accessibility calls that make it work
             </a>
@@ -406,7 +406,7 @@ export default function Page() {
           title="Your monitor is already a TV"
           subtitle="You just have not automated the tuner yet"
           captions={remotionCaptions}
-          accent="teal"
+          accent="orange"
           durationInFrames={210}
         />
       </section>
@@ -509,7 +509,7 @@ export default function Page() {
         className="bg-white/40 border-y border-zinc-200/60 mt-16"
       >
         <div className="max-w-4xl mx-auto px-6 py-12">
-          <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30">
+          <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-orange-50 text-orange-600 border border-orange-300">
             Anchor fact
           </span>
           <h2 className="mt-4 text-2xl md:text-3xl font-semibold text-zinc-800">
@@ -519,18 +519,18 @@ export default function Page() {
           <p className="mt-4 text-zinc-600 leading-relaxed">
             The trick is that VLC&apos;s Open Network Stream dialog exposes
             its URL field not as a plain text input but as a ComboBox named{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               Network Protocol Down
             </code>{" "}
             with an editable{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               role:Edit
             </code>{" "}
             child inside it. A browser-scraping approach would get lost here.
             Terminator finds the ComboBox by its accessibility name, then
             drills to the Edit child via a second locator call, types the URL,
             and clicks the button whose accessibility name is{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               Play Alt+P
             </code>
             . Four OS-level lookups total. That is the uncopyable part.
@@ -603,7 +603,7 @@ export default function Page() {
         </h2>
         <p className="mt-4 text-zinc-600 leading-relaxed">
           Anything VLC can open, the script can play. Swap the URL after{" "}
-          <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+          <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
             --youtube-link
           </code>{" "}
           and you have a new channel.
@@ -657,7 +657,7 @@ export default function Page() {
         </p>
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="rounded-2xl border border-zinc-200 bg-zinc-50/40 p-6">
-            <div className="text-4xl font-bold text-teal-300">
+            <div className="text-4xl font-bold text-orange-600">
               <NumberTicker value={151} />
             </div>
             <p className="mt-2 text-sm text-zinc-600">
@@ -665,7 +665,7 @@ export default function Page() {
             </p>
           </div>
           <div className="rounded-2xl border border-zinc-200 bg-zinc-50/40 p-6">
-            <div className="text-4xl font-bold text-teal-300">
+            <div className="text-4xl font-bold text-orange-600">
               <NumberTicker value={4} />
             </div>
             <p className="mt-2 text-sm text-zinc-600">
@@ -673,7 +673,7 @@ export default function Page() {
             </p>
           </div>
           <div className="rounded-2xl border border-zinc-200 bg-zinc-50/40 p-6">
-            <div className="text-4xl font-bold text-teal-300">
+            <div className="text-4xl font-bold text-orange-600">
               $<NumberTicker value={0} />
             </div>
             <p className="mt-2 text-sm text-zinc-600">
@@ -681,7 +681,7 @@ export default function Page() {
             </p>
           </div>
           <div className="rounded-2xl border border-zinc-200 bg-zinc-50/40 p-6">
-            <div className="text-4xl font-bold text-teal-300">
+            <div className="text-4xl font-bold text-orange-600">
               <NumberTicker value={3} />
             </div>
             <p className="mt-2 text-sm text-zinc-600">

@@ -356,7 +356,7 @@ export default function ClaudeComputerUsePage() {
             <Breadcrumbs items={breadcrumbItems} />
 
             <div className="mt-6 mb-5 flex flex-wrap gap-2">
-              <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
+              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-medium px-3 py-1 rounded-full border border-orange-300">
                 Guide
               </span>
               <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
@@ -381,7 +381,7 @@ export default function ClaudeComputerUsePage() {
               autonomous digital worker. None of them open the tool definition.
               The computer tool Anthropic ships is a pixel-coordinate loop:
               every turn, your harness sends a screenshot, Claude returns{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 {"{ action: \"left_click\", coordinate: [x, y] }"}
               </code>
               , you execute, screenshot again. That is the product. This page
@@ -389,7 +389,7 @@ export default function ClaudeComputerUsePage() {
               Claude pixels, give it selectors. Terminator&apos;s MCP agent
               exposes 32 tools that talk to the OS accessibility tree, so
               Claude calls{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 click_element(&quot;role:Button &amp;&amp; name:Save&quot;)
               </code>{" "}
               and nothing round-trips a screenshot through Anthropic.
@@ -431,7 +431,7 @@ export default function ClaudeComputerUsePage() {
           <RemotionClip
             title="Two paths into your desktop."
             subtitle="Both use Claude. Only one sends a screenshot every turn."
-            accent="teal"
+            accent="orange"
             captions={[
               "Native computer use: screenshot in, pixel coordinate out",
               "Terminator MCP: selector in, accessibility-tree match out",
@@ -516,7 +516,7 @@ export default function ClaudeComputerUsePage() {
           </h2>
           <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Left: the JSON Claude emits under Anthropic&apos;s{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               computer_20251022
             </code>{" "}
             tool schema. Right: the JSON Claude emits when Terminator&apos;s
@@ -572,7 +572,7 @@ export default function ClaudeComputerUsePage() {
           <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             The MCP agent sits between Claude and the OS. Every tool call flows
             through a single{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               dispatch_tool
             </code>{" "}
             function. Selector in, accessibility-tree match out, action
@@ -607,7 +607,7 @@ export default function ClaudeComputerUsePage() {
             Terminator&apos;s README claim, which is worth verifying yourself
             (it is the pitch of the project). All of them are checkable: the
             match arm count can be counted by reading{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               server.rs
             </code>
             , the line number is literally the line of the dispatch, and the
@@ -636,11 +636,11 @@ export default function ClaudeComputerUsePage() {
           </h2>
           <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             This is the anchor fact for the page. Open{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               crates/terminator-mcp-agent/src/server.rs
             </code>{" "}
             at line 9953. There is one{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               match tool_name
             </code>{" "}
             block, each arm wires a tool name to an async Rust handler, and
@@ -663,15 +663,15 @@ export default function ClaudeComputerUsePage() {
           </h2>
           <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Terminator&apos;s system prompt lives in{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               src/prompt.rs
             </code>
             . It starts by importing the compile-time tool list via{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               env!(&quot;MCP_TOOLS&quot;)
             </code>{" "}
             (populated by{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               build.rs:31
             </code>
             ) and then it explicitly forbids the model from inventing
@@ -728,7 +728,7 @@ export default function ClaudeComputerUsePage() {
           </h2>
           <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             The MCP agent ships as a single npm package. Claude Code exposes an{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               mcp add
             </code>{" "}
             helper that wires it up with the right stdio plumbing.

@@ -320,7 +320,7 @@ export default function Page() {
             <Breadcrumbs items={breadcrumbItems} />
 
             <div className="mt-6 mb-5 flex flex-wrap gap-2">
-              <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
+              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-medium px-3 py-1 rounded-full border border-orange-300">
                 Guide
               </span>
               <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
@@ -387,7 +387,7 @@ export default function Page() {
           <RemotionClip
             title="Plug in a TV. Double your pixels. Break half your scripts."
             subtitle="The TV-as-monitor decision has a software-side cost"
-            accent="teal"
+            accent="orange"
             captions={[
               "Monitor 1: laptop, 2560x1600, scale_factor 2.0",
               "Monitor 2: TV, 3840x2160, scale_factor 1.0",
@@ -435,11 +435,11 @@ export default function Page() {
           <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             The entire TV-as-second-monitor story, from the software side,
             collapses into nine values. They live in{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               crates/terminator/src/lib.rs
             </code>{" "}
             starting at line 274. Clone the repo, grep for{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               pub struct Monitor
             </code>
             , and the definition is right there.
@@ -455,9 +455,9 @@ export default function Page() {
             The two fields that matter most for a TV-as-monitor setup are{" "}
             <span className="text-zinc-800 font-medium">scale_factor</span> (a
             4K TV at 100% reports{" "}
-            <NumberTicker value={1} decimals={1} className="text-teal-400" />,
+            <NumberTicker value={1} decimals={1} className="text-orange-600" />,
             a HiDPI laptop panel reports{" "}
-            <NumberTicker value={2} decimals={1} className="text-teal-400" />
+            <NumberTicker value={2} decimals={1} className="text-orange-600" />
             ), and <span className="text-zinc-800 font-medium">x / y</span>,
             which can be negative if you mount the TV above your laptop. Every
             other TV-as-monitor article on the front page of Google stops at
@@ -509,7 +509,7 @@ export default function Page() {
           <p className="text-zinc-600 mb-6 max-w-3xl">
             Every capability below lives in the open-source Terminator repo,
             implemented once per platform behind a shared trait in{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               crates/terminator/src/platforms/mod.rs
             </code>
             .
@@ -524,7 +524,7 @@ export default function Page() {
           </h2>
           <p className="text-zinc-600 mb-6 max-w-3xl">
             This is a slimmed-down version of{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               examples/monitor_example.py
             </code>{" "}
             in the Terminator source tree. Run it with a TV plugged in and you
@@ -652,7 +652,7 @@ export default function Page() {
           <p className="text-xs text-zinc-500 mt-2">
             The exact string your OS reports depends on driver, firmware, and
             connection type. Print{" "}
-            <code className="text-teal-400">Monitor.name</code> once, then hard-code
+            <code className="text-orange-600">Monitor.name</code> once, then hard-code
             the match or use a substring check.
           </p>
         </section>

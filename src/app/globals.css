@@ -16,6 +16,14 @@
   --accent: #FF3E00;
   --muted: #F4F4F5;
   --border: #E4E4E7;
+
+  /* @m13v/seo-components brand override — propagates to GradientText, SitemapSidebar, GlowCard, BackgroundGrid, etc. */
+  --seo-accent: #FF3E00;
+  --seo-accent-light: #FF6B35;
+  --seo-accent-dark: #CC3200;
+  --seo-accent-rgb: 255, 62, 0;
+  --seo-accent-gradient-from: #FF6B35;
+  --seo-accent-gradient-to: #FF3E00;
 }
 
 * {

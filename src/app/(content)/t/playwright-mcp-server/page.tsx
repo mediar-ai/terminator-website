@@ -383,7 +383,7 @@ export default function Page() {
             <Breadcrumbs items={breadcrumbItems} />
 
             <div className="mt-6 mb-5 flex flex-wrap gap-2">
-              <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
+              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-medium px-3 py-1 rounded-full border border-orange-300">
                 Guide
               </span>
               <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
@@ -408,7 +408,7 @@ export default function Page() {
               what an MCP server looks like when its dispatch function does
               not stop at the browser. The server in question is Terminator;
               the anchor is its own Chrome extension on{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 ws://127.0.0.1:17373
               </code>
               .
@@ -452,7 +452,7 @@ export default function Page() {
           <RemotionClip
             title="Playwright MCP is browser-only. Terminator MCP is the same shape, OS-wide."
             subtitle="One dispatch function, two surfaces, one execute_sequence call."
-            accent="teal"
+            accent="orange"
             captions={[
               "Both speak MCP; both prefer accessibility trees over pixels",
               "playwright-mcp tools end at the browser tab",
@@ -555,7 +555,7 @@ export default function Page() {
           <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             Inside the Terminator repo, alongside the MCP agent crate, there
             is a directory called{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               crates/terminator/browser-extension/
             </code>
             . It contains an MV3 Chrome extension named &quot;Terminator
@@ -573,18 +573,18 @@ export default function Page() {
 
           <p className="text-zinc-600 mt-6 mb-6 max-w-3xl leading-relaxed">
             Two permissions are doing the work. The{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               debugger
             </code>{" "}
             permission lets the extension attach to the active tab via
             Chrome&apos;s DevTools Protocol and run arbitrary JavaScript
             without opening a DevTools window. The host permission{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               &lt;all_urls&gt;
             </code>{" "}
             lets it do that on any site. The MV3 service worker
             (worker.js) opens a WebSocket connection to{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               ws://127.0.0.1:17373
             </code>{" "}
             the moment Chrome boots, and waits for the local MCP server to
@@ -597,22 +597,22 @@ export default function Page() {
             filename="crates/terminator/browser-extension/worker.js"
           />
 
-          <div className="mt-6 p-5 rounded-xl bg-teal-500/10 border border-teal-500/30">
+          <div className="mt-6 p-5 rounded-xl bg-orange-50 border border-orange-300">
             <p className="text-zinc-700 leading-relaxed">
               Verify in 10 seconds: clone{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 mediar-ai/terminator
               </code>{" "}
               and{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 cat crates/terminator/browser-extension/manifest.json
               </code>
               . You will see the version, the{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 debugger
               </code>{" "}
               permission, and the manifest_version 3 declaration. Then{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 grep -n 17373 crates/terminator/browser-extension/worker.js
               </code>{" "}
               to find the WebSocket URL the worker connects to. The same
@@ -658,7 +658,7 @@ export default function Page() {
           <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             This is the shape of Terminator&apos;s dispatch function.
             Browser tools and native tools live in the same{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               match
             </code>
             , dispatched by the LLM&apos;s tool call name. There is no
@@ -681,7 +681,7 @@ export default function Page() {
             report. Scrape the rows out of the page DOM. Paste them back
             into Excel. Save. Six steps, two completely different surfaces,
             one{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
               execute_sequence
             </code>{" "}
             call.
@@ -693,16 +693,16 @@ export default function Page() {
           />
           <p className="text-zinc-500 text-sm mt-4 max-w-3xl leading-relaxed">
             Step 4 returns through the Chrome extension on{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1 py-0.5 rounded border border-zinc-200 text-orange-600">
               ws://127.0.0.1:17373
             </code>
             . Step 5 reads{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1 py-0.5 rounded border border-zinc-200 text-orange-600">
               {"${{rows_result}}"}
             </code>{" "}
             from the workflow env, which auto-populated because step 4 had
             an{" "}
-            <code className="font-mono text-xs bg-zinc-50 px-1 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1 py-0.5 rounded border border-zinc-200 text-orange-600">
               id
             </code>
             . The data passing is documented in the MCP Agent README under
@@ -714,7 +714,7 @@ export default function Page() {
         <section className="max-w-4xl mx-auto px-6 py-10">
           <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             How an{" "}
-            <code className="font-mono text-base bg-zinc-50 px-2 py-0.5 rounded border border-zinc-200 text-teal-300">
+            <code className="font-mono text-base bg-zinc-50 px-2 py-0.5 rounded border border-zinc-200 text-orange-600">
               execute_browser_script
             </code>{" "}
             call physically reaches the page
@@ -754,7 +754,7 @@ export default function Page() {
             {terminatorExtra.map((name) => (
               <span
                 key={name}
-                className="inline-flex items-center px-5 py-2 rounded-full border border-zinc-200 bg-zinc-50 text-teal-300 text-sm font-mono whitespace-nowrap"
+                className="inline-flex items-center px-5 py-2 rounded-full border border-zinc-200 bg-zinc-50 text-orange-600 text-sm font-mono whitespace-nowrap"
               >
                 {name}
               </span>
@@ -765,7 +765,7 @@ export default function Page() {
             playwright-mcp:{" "}
             {playwrightOnly.map((n, i) => (
               <span key={n}>
-                <code className="font-mono text-teal-300">{n}</code>
+                <code className="font-mono text-orange-600">{n}</code>
                 {i < playwrightOnly.length - 1 ? ", " : ""}
               </span>
             ))}
@@ -871,7 +871,7 @@ export default function Page() {
         {/* Number callout */}
         <section className="max-w-4xl mx-auto px-6 py-6">
           <div className="rounded-2xl border border-zinc-200/60 bg-white/40 p-8 text-center">
-            <p className="text-sm font-mono uppercase tracking-widest text-teal-300 mb-3">
+            <p className="text-sm font-mono uppercase tracking-widest text-orange-600 mb-3">
               Local WebSocket port the Chrome bridge listens on
             </p>
             <div className="text-6xl font-bold text-zinc-800 mb-2">
@@ -879,7 +879,7 @@ export default function Page() {
             </div>
             <p className="text-sm text-zinc-500">
               Defined in{" "}
-              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
                 browser-extension/worker.js
               </code>
               . Loopback only; never leaves the machine.

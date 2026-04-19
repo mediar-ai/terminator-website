@@ -363,7 +363,7 @@ export default function Page() {
           <Breadcrumbs items={breadcrumbItems} />
 
           <div className="mt-8 mb-6 inline-flex items-center gap-2">
-            <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-teal-900/30 text-teal-300 border border-teal-500/30">
+            <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-orange-100 text-orange-600 border border-orange-300">
               Guide
             </span>
             <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-zinc-100/60 text-zinc-700">
@@ -393,7 +393,7 @@ export default function Page() {
             </ShimmerButton>
             <a
               href="#anchor-fact"
-              className="text-sm text-teal-300 underline-offset-4 hover:underline"
+              className="text-sm text-orange-600 underline-offset-4 hover:underline"
             >
               Jump to the strict-less-than rule
             </a>
@@ -427,7 +427,7 @@ export default function Page() {
           title="The part nobody writes about"
           subtitle="Plugging a TV in resizes the coordinate space your scripts read"
           captions={remotionCaptions}
-          accent="teal"
+          accent="orange"
           durationInFrames={210}
         />
       </section>
@@ -493,7 +493,7 @@ export default function Page() {
         className="bg-white/40 border-y border-zinc-200/60 mt-16"
       >
         <div className="max-w-4xl mx-auto px-6 py-12">
-          <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30">
+          <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-orange-50 text-orange-600 border border-orange-300">
             Anchor fact
           </span>
           <h2 className="mt-4 text-2xl md:text-3xl font-semibold text-zinc-800">
@@ -503,11 +503,11 @@ export default function Page() {
           <p className="mt-4 text-zinc-600 leading-relaxed">
             Two facts about this function that are not in any TV-as-monitor
             guide on the web. First, the range check uses{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               {"<"}
             </code>
             , not{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               {"<="}
             </code>
             , on the right and bottom edges. A pixel that lands exactly on the
@@ -533,7 +533,7 @@ export default function Page() {
 
           <p className="mt-6 text-zinc-600 leading-relaxed">
             The companion helper{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               Monitor::contains_point(x, y)
             </code>{" "}
             ships the same rule as a public method, so you can predict where
@@ -611,13 +611,13 @@ export default function Page() {
         </h2>
         <p className="mt-4 text-zinc-600 leading-relaxed">
           Terminator ships{" "}
-          <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+          <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
             examples/monitor_example.py
           </code>
           , a 38-line script that walks every Window the OS reports and asks
           which monitor it is on. Run it once with the TV unplugged and once
           plugged in. The same window comes back with a different{" "}
-          <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+          <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
             monitor.id
           </code>{" "}
           and origin. No code change.

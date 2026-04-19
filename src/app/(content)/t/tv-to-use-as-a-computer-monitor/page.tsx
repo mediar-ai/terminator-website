@@ -394,7 +394,7 @@ export default function TvToUseAsAComputerMonitorPage() {
             <Breadcrumbs items={breadcrumbItems} />
 
             <div className="mt-6 mb-5 flex flex-wrap gap-2">
-              <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
+              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-medium px-3 py-1 rounded-full border border-orange-300">
                 Guide
               </span>
               <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
@@ -432,7 +432,7 @@ export default function TvToUseAsAComputerMonitorPage() {
               tree. It does not care whether the pixels are lighting up on a 65-inch
               TV, a 13-inch laptop panel, or a phantom 1920x1080 rendered by a
               virtual driver into nothing. The same{" "}
-              <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+              <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
                 click_element
               </code>{" "}
               call drives all three.
@@ -482,7 +482,7 @@ export default function TvToUseAsAComputerMonitorPage() {
               "Same selector, same code, same click",
               "The TV is not the automation story",
             ]}
-            accent="teal"
+            accent="orange"
           />
         </section>
 
@@ -495,11 +495,11 @@ export default function TvToUseAsAComputerMonitorPage() {
             The shopping guides talk about TVs as if they are a category of thing
             different from monitors. They are not, at least not to the OS. Windows
             UI Automation sees a sequence of{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               Monitor
             </code>{" "}
             structs with bounds and a name. macOS Accessibility sees a{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               CGDirectDisplayID
             </code>
             . Terminator wraps both the same way. A TV becomes one input to a
@@ -531,7 +531,7 @@ export default function TvToUseAsAComputerMonitorPage() {
           </h2>
           <p className="text-zinc-600 leading-relaxed mb-6">
             If you only look at one file, look at{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               crates/terminator/src/platforms/windows/virtual_display.rs
             </code>
             . It is 195 lines total. The top 24 lines define a struct that answers
@@ -545,7 +545,7 @@ export default function TvToUseAsAComputerMonitorPage() {
 
           <GlowCard>
             <div className="p-6">
-              <div className="text-sm text-teal-300 font-mono mb-2">
+              <div className="text-sm text-orange-600 font-mono mb-2">
                 virtual_display.rs:15
               </div>
               <div className="text-zinc-800 text-lg font-semibold mb-1">
@@ -614,11 +614,11 @@ export default function TvToUseAsAComputerMonitorPage() {
 
           <p className="text-zinc-600 leading-relaxed mt-6">
             The engine wires this into its boot sequence.{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               WindowsEngine::new
             </code>{" "}
             at engine.rs line 281 calls{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               is_headless_environment()
             </code>{" "}
             at construction time, and if it returns true, constructs a
@@ -692,11 +692,11 @@ export default function TvToUseAsAComputerMonitorPage() {
           </h2>
           <p className="text-zinc-600 leading-relaxed mb-6">
             These are two real invocations of the{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               virtual_display_test
             </code>{" "}
             example that ships in the Terminator repo (
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               crates/terminator/examples/virtual_display_test.rs
             </code>
             ). The binary is the same in both runs. The only difference is whether
@@ -732,7 +732,7 @@ export default function TvToUseAsAComputerMonitorPage() {
           <p className="text-zinc-600 leading-relaxed mb-8">
             None of these modes require a different code path in your automation
             script. All of them route through the same{" "}
-            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
               Monitor
             </code>{" "}
             abstraction.
@@ -752,7 +752,7 @@ export default function TvToUseAsAComputerMonitorPage() {
               virtual session stub so UIA calls do not crash, but nothing is being
               rendered into a real framebuffer. If you actually want a rendering
               surface, you pass a{" "}
-              <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+              <code className="bg-zinc-50 border border-zinc-200 text-orange-600 font-mono px-1.5 py-0.5 rounded text-sm">
                 driver_path
               </code>{" "}
               in VirtualDisplayConfig and Terminator shells out to the Windows
@@ -813,7 +813,7 @@ export default function TvToUseAsAComputerMonitorPage() {
             <li>
               <a
                 href="/t/tv-to-use-as-computer-monitor"
-                className="text-teal-300 hover:underline"
+                className="text-orange-600 hover:underline"
               >
                 The coordinate-space gotcha every hardware guide skips
               </a>
@@ -825,7 +825,7 @@ export default function TvToUseAsAComputerMonitorPage() {
             <li>
               <a
                 href="/t/can-i-use-tv-as-a-computer-monitor"
-                className="text-teal-300 hover:underline"
+                className="text-orange-600 hover:underline"
               >
                 The 9-field Monitor struct and get_monitor_by_name()
               </a>
@@ -837,7 +837,7 @@ export default function TvToUseAsAComputerMonitorPage() {
             <li>
               <a
                 href="/t/can-i-use-a-tv-for-a-computer-monitor"
-                className="text-teal-300 hover:underline"
+                className="text-orange-600 hover:underline"
               >
                 What happens to every overlay when you plug in the TV
               </a>
