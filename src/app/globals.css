@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
 
+@layer seo-components, theme, base, components, utilities;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@source "../../node_modules/@seo/components/src";
+@source "../../node_modules/@m13v/seo-components/src";
 
 :root {
   --background: #0A0A0A;

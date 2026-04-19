@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { HeadingAnchors } from "@seo/components";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { CrispChat } from "@/components/CrispChat";
+import { SiteSidebar } from "@/components/site-sidebar";
+import { GuideChat } from "@/components/guide-chat";
 
 export const metadata: Metadata = {
   title: "Terminator - AI-Native Desktop Automation",
@@ -42,10 +45,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" data-theme="dark">
       <body className="antialiased">
         <PostHogProvider>
-          {children}
+          <div className="flex min-h-screen">
+            <SiteSidebar />
+            <main className="flex-1 min-w-0">
+              <HeadingAnchors />
+              {children}
+            </main>
+            <GuideChat />
+          </div>
           <CrispChat />
         </PostHogProvider>
       </body>
