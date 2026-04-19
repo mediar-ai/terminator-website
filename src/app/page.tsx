@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { WaitlistModal } from "@/components/WaitlistModal";
+import { BookCallButton } from "@/components/book-call-button";
 import {
   trackInstallCopied,
   trackCodeCopied,
@@ -370,6 +371,7 @@ export default function Home() {
               <Github className="w-4 h-4" />
               View on GitHub
             </a>
+            <BookCallButton section="hero" />
           </motion.div>
 
           {/* Quick install */}
