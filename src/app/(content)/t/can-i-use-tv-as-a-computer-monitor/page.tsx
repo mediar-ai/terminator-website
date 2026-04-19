@@ -298,7 +298,7 @@ export default function Page() {
   const jsonLdFaq = faqPageSchema(faqs);
 
   return (
-    <div className="bg-zinc-950 text-zinc-100 min-h-screen">
+    <div className="bg-white text-zinc-800 min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }}
@@ -323,22 +323,22 @@ export default function Page() {
               <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
                 Guide
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Multi-monitor
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Terminator Monitor API
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-100 mb-6 leading-[1.05]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-800 mb-6 leading-[1.05]">
               Can I use a TV as a{" "}
               <GradientText variant="teal">computer monitor</GradientText>?
               Yes, and the piece every SERP result skips is what happens to your
               scripts.
             </h1>
 
-            <p className="text-lg text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+            <p className="text-lg text-zinc-600 mb-6 max-w-3xl leading-relaxed">
               Every top result for this query answers the cable question. HDMI
               2.1, chroma subsampling at 4:4:4, refresh rate, input lag,
               burn-in, viewing distance. All correct, all consumer-side. The
@@ -374,7 +374,7 @@ export default function Page() {
               </ShimmerButton>
               <a
                 href="#anchor-fact"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-800 text-zinc-300 hover:bg-zinc-900 transition-colors text-sm font-medium"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-200 text-zinc-700 hover:bg-zinc-50 transition-colors text-sm font-medium"
               >
                 Jump to the struct
               </a>
@@ -400,10 +400,10 @@ export default function Page() {
 
         {/* Metric row: the concrete numbers for a typical laptop + TV setup */}
         <section className="max-w-4xl mx-auto px-6 pt-4">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             A 4K TV plus a laptop, by the numbers
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             These are the values Terminator&apos;s Monitor struct returns from a
             typical MacBook Pro with an LG C2 plugged in over HDMI. Different
             hardware shifts the numbers, but the ratio between displays is the
@@ -427,19 +427,19 @@ export default function Page() {
           id="anchor-fact"
           className="max-w-4xl mx-auto px-6 py-14 scroll-mt-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-800 mb-4">
             The anchor fact:{" "}
             <GradientText variant="teal">nine fields</GradientText>, one struct,
             verifiable in the repo
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             The entire TV-as-second-monitor story, from the software side,
             collapses into nine values. They live in{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               crates/terminator/src/lib.rs
             </code>{" "}
             starting at line 274. Clone the repo, grep for{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               pub struct Monitor
             </code>
             , and the definition is right there.
@@ -451,14 +451,14 @@ export default function Page() {
             filename="crates/terminator/src/lib.rs"
           />
 
-          <p className="text-zinc-400 mt-4 leading-relaxed">
+          <p className="text-zinc-600 mt-4 leading-relaxed">
             The two fields that matter most for a TV-as-monitor setup are{" "}
-            <span className="text-zinc-200 font-medium">scale_factor</span> (a
+            <span className="text-zinc-800 font-medium">scale_factor</span> (a
             4K TV at 100% reports{" "}
             <NumberTicker value={1} decimals={1} className="text-teal-400" />,
             a HiDPI laptop panel reports{" "}
             <NumberTicker value={2} decimals={1} className="text-teal-400" />
-            ), and <span className="text-zinc-200 font-medium">x / y</span>,
+            ), and <span className="text-zinc-800 font-medium">x / y</span>,
             which can be negative if you mount the TV above your laptop. Every
             other TV-as-monitor article on the front page of Google stops at
             HDMI cables. None of them mention the per-display scale_factor
@@ -468,10 +468,10 @@ export default function Page() {
 
         {/* Flow: the monitor-aware path */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             The monitor-aware path, in five calls
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             Once a TV is plugged in, a reliable automation script follows this
             shape. Each step is a real method on the Terminator Desktop type.
           </p>
@@ -503,13 +503,13 @@ export default function Page() {
 
         {/* Bento grid: what the Monitor API exposes */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             What the Monitor API actually exposes
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             Every capability below lives in the open-source Terminator repo,
             implemented once per platform behind a shared trait in{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               crates/terminator/src/platforms/mod.rs
             </code>
             .
@@ -519,12 +519,12 @@ export default function Page() {
 
         {/* Python example: reading monitors */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             Read every display, every element&apos;s monitor
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             This is a slimmed-down version of{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               examples/monitor_example.py
             </code>{" "}
             in the Terminator source tree. Run it with a TV plugged in and you
@@ -557,10 +557,10 @@ export default function Page() {
 
         {/* Target the TV by name */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             Target the TV by name, not by index
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             Display indices shift every time the user unplugs and re-plugs
             things in a different order. Display names come from EDID and stay
             stable across reboots. Terminator lets you pick the one you mean.
@@ -586,10 +586,10 @@ export default function Page() {
         {/* Why this is the gap nobody fills, in a GlowCard */}
         <section className="max-w-4xl mx-auto px-6 py-8">
           <GlowCard>
-            <h3 className="text-xl sm:text-2xl font-semibold text-zinc-100 mb-3">
+            <h3 className="text-xl sm:text-2xl font-semibold text-zinc-800 mb-3">
               Why every SERP result stops at cables
             </h3>
-            <p className="text-zinc-300 leading-relaxed mb-3">
+            <p className="text-zinc-700 leading-relaxed mb-3">
               The top ten results for this keyword are all written for a reader
               sitting in a living room with an HDMI cable in one hand. HP,
               PCWorld, TCL, Lenovo, Microcenter, Quora, PC Richard, EasyPC.
@@ -597,7 +597,7 @@ export default function Page() {
               the cable fits, whether the picture looks right, whether gaming
               feels sluggish.
             </p>
-            <p className="text-zinc-300 leading-relaxed mb-3">
+            <p className="text-zinc-700 leading-relaxed mb-3">
               They do not cover the thing that matters the moment the TV is
               plugged in and the reader writes their first automation script,
               records their first RPA workflow, or points an AI agent at the
@@ -606,7 +606,7 @@ export default function Page() {
               concepts are the day-two story for anyone running software that
               touches the screen.
             </p>
-            <p className="text-zinc-300 leading-relaxed">
+            <p className="text-zinc-700 leading-relaxed">
               Terminator is a developer framework for that day-two story, not
               a consumer app. It gives existing AI coding assistants the
               ability to control your whole OS (not just write code), which is
@@ -618,10 +618,10 @@ export default function Page() {
 
         {/* Marquee of TV brands — they all report as named displays */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-2">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-2">
             Every TV brand shows up under a different name
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             Because the display name comes from EDID, the string your script
             matches against varies by manufacturer. These are common patterns
             that appear in Monitor.name.
@@ -643,7 +643,7 @@ export default function Page() {
             ].map((brand) => (
               <span
                 key={brand}
-                className="inline-flex items-center px-5 py-2 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-300 text-sm font-mono whitespace-nowrap"
+                className="inline-flex items-center px-5 py-2 rounded-full border border-zinc-200 bg-zinc-50 text-zinc-700 text-sm font-mono whitespace-nowrap"
               >
                 {brand}
               </span>

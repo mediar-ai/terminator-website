@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { HeadingAnchors } from "@seo/components";
 import { PostHogProvider } from "@/components/PostHogProvider";
-import { CrispChat } from "@/components/CrispChat";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { GuideChat } from "@/components/guide-chat";
 
@@ -45,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" data-theme="dark">
+    <html lang="en">
       <body className="antialiased">
         <PostHogProvider>
           <div className="flex min-h-screen">
@@ -56,7 +55,6 @@ export default function RootLayout({
             </main>
             <GuideChat />
           </div>
-          <CrispChat />
         </PostHogProvider>
       </body>
     </html>

@@ -359,29 +359,29 @@ export default function ClaudeComputerUsePage() {
               <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
                 Guide
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Claude computer use
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 MCP server
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Accessibility tree
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-100 mb-6 leading-[1.05]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-800 mb-6 leading-[1.05]">
               <GradientText variant="teal">Claude computer use</GradientText>,
               and the selector-based path the articles skip
             </h1>
 
-            <p className="text-lg text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+            <p className="text-lg text-zinc-600 mb-6 max-w-3xl leading-relaxed">
               Every explainer for this keyword says the same thing. Claude sees
               your screen, Claude controls your mouse, Claude is now an
               autonomous digital worker. None of them open the tool definition.
               The computer tool Anthropic ships is a pixel-coordinate loop:
               every turn, your harness sends a screenshot, Claude returns{" "}
-              <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
                 {"{ action: \"left_click\", coordinate: [x, y] }"}
               </code>
               , you execute, screenshot again. That is the product. This page
@@ -389,7 +389,7 @@ export default function ClaudeComputerUsePage() {
               Claude pixels, give it selectors. Terminator&apos;s MCP agent
               exposes 32 tools that talk to the OS accessibility tree, so
               Claude calls{" "}
-              <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
                 click_element(&quot;role:Button &amp;&amp; name:Save&quot;)
               </code>{" "}
               and nothing round-trips a screenshot through Anthropic.
@@ -418,7 +418,7 @@ export default function ClaudeComputerUsePage() {
               <ShimmerButton href="#install">Install in Claude Code</ShimmerButton>
               <a
                 href="#toolbox"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-800 text-zinc-300 hover:bg-zinc-900 transition-colors text-sm font-medium"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-200 text-zinc-700 hover:bg-zinc-50 transition-colors text-sm font-medium"
               >
                 See the 32 tools
               </a>
@@ -444,10 +444,10 @@ export default function ClaudeComputerUsePage() {
 
         {/* The short version */}
         <section className="max-w-4xl mx-auto px-6 pt-4">
-          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-100 mb-5">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-800 mb-5">
             The short version
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             Claude computer use is a tool Anthropic exposes via the API. The
             tool&apos;s contract is simple and that is the whole problem: the
             model takes a screenshot of your desktop as input and emits actions
@@ -455,7 +455,7 @@ export default function ClaudeComputerUsePage() {
             receive coordinate, execute, screenshot, send, receive, execute.
             Every cycle is one image upload and one model call.
           </p>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             On Windows and macOS, the OS already publishes a live accessibility
             tree that knows where every button, edit field, menu item, and
             checkbox is, what role it has, what its name is, and whether it is
@@ -465,7 +465,7 @@ export default function ClaudeComputerUsePage() {
             vast majority of actions, and the model is not in the critical path
             for element lookup.
           </p>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             You can run both at once. The interesting question is which one
             Claude reaches for first. When Terminator is attached, it should be
             the tree, not the screenshot.
@@ -474,10 +474,10 @@ export default function ClaudeComputerUsePage() {
 
         {/* Before / After: the two tool schemas */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             What Claude actually emits, in both worlds
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             This is the most concrete way to see the difference. Same user
             intent (&quot;click the Save button&quot;), two tool calls, two
             completely different sets of downstream work.
@@ -511,12 +511,12 @@ export default function ClaudeComputerUsePage() {
 
         {/* Side by side code */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             The tool calls, side by side
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Left: the JSON Claude emits under Anthropic&apos;s{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               computer_20251022
             </code>{" "}
             tool schema. Right: the JSON Claude emits when Terminator&apos;s
@@ -537,10 +537,10 @@ export default function ClaudeComputerUsePage() {
 
         {/* The native loop, drawn */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             The native pixel loop, drawn once
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             Eight actors, ten messages. The model is in the middle of every
             action. This is why long tasks cost real money and real time on
             Claude computer use: every arrow on the right-hand side is a paid
@@ -566,13 +566,13 @@ export default function ClaudeComputerUsePage() {
 
         {/* Terminator path drawn as a beam */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             The selector path, drawn as a beam
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             The MCP agent sits between Claude and the OS. Every tool call flows
             through a single{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               dispatch_tool
             </code>{" "}
             function. Selector in, accessibility-tree match out, action
@@ -599,15 +599,15 @@ export default function ClaudeComputerUsePage() {
 
         {/* Metrics */}
         <section className="max-w-4xl mx-auto px-6 pt-4">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             What the numbers look like
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             Three of these come straight from the repo. The fourth comes from
             Terminator&apos;s README claim, which is worth verifying yourself
             (it is the pitch of the project). All of them are checkable: the
             match arm count can be counted by reading{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               server.rs
             </code>
             , the line number is literally the line of the dispatch, and the
@@ -631,16 +631,16 @@ export default function ClaudeComputerUsePage() {
 
         {/* Anchor fact: the dispatch source */}
         <section id="toolbox" className="max-w-4xl mx-auto px-6 py-14 scroll-mt-16">
-          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-800 mb-4">
             <GradientText variant="teal">dispatch_tool</GradientText>: the 32 tools Claude sees
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             This is the anchor fact for the page. Open{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               crates/terminator-mcp-agent/src/server.rs
             </code>{" "}
             at line 9953. There is one{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               match tool_name
             </code>{" "}
             block, each arm wires a tool name to an async Rust handler, and
@@ -658,20 +658,20 @@ export default function ClaudeComputerUsePage() {
 
         {/* The system prompt */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             The rule the model is told, every session
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Terminator&apos;s system prompt lives in{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               src/prompt.rs
             </code>
             . It starts by importing the compile-time tool list via{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               env!(&quot;MCP_TOOLS&quot;)
             </code>{" "}
             (populated by{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               build.rs:31
             </code>
             ) and then it explicitly forbids the model from inventing
@@ -689,10 +689,10 @@ export default function ClaudeComputerUsePage() {
 
         {/* A concrete toolkit comparison */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             Four everyday tasks, both ways
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             The easiest way to understand the latency delta is to think about
             what happens step-by-step for tasks a normal agent flow actually
             does.
@@ -706,10 +706,10 @@ export default function ClaudeComputerUsePage() {
 
         {/* Architectural table */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             The architectural contrast
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Same LLM behind both. Different assumptions about where element
             lookup happens and what the model is expected to do with its
             tokens.
@@ -723,12 +723,12 @@ export default function ClaudeComputerUsePage() {
 
         {/* Install */}
         <section id="install" className="max-w-4xl mx-auto px-6 py-10 scroll-mt-16">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             Install in Claude Code in one command
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             The MCP agent ships as a single npm package. Claude Code exposes an{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               mcp add
             </code>{" "}
             helper that wires it up with the right stdio plumbing.
@@ -738,10 +738,10 @@ export default function ClaudeComputerUsePage() {
 
         {/* Step timeline: one click, end to end */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             What actually happens when Claude clicks Save
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Trace one click through the whole stack. This is the selector path,
             step by step, with the files you can open yourself.
           </p>

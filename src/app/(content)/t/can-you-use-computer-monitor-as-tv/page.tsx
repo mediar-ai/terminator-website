@@ -341,19 +341,19 @@ export default function Page() {
             <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-teal-900/30 text-teal-300 border border-teal-500/30">
               Guide
             </span>
-            <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-zinc-800/60 text-zinc-300">
+            <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-zinc-100/60 text-zinc-700">
               examples/vlc_auto_player.py
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-zinc-100 leading-tight tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-zinc-800 leading-tight tracking-tight">
             Can you use a{" "}
             <GradientText>computer monitor as a TV</GradientText>? If a PC is
             driving it, you can skip every adapter the other guides tell you
             to buy.
           </h1>
 
-          <p className="mt-6 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+          <p className="mt-6 text-lg text-zinc-600 leading-relaxed max-w-3xl">
             Every top-ranked result answers this question the same way: buy a
             streaming stick, plug in a set-top box, or wire up a coax-to-HDMI
             tuner. All correct if your monitor is sitting alone in a spare
@@ -366,7 +366,7 @@ export default function Page() {
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
               href="https://github.com/mediar-ai/terminator/blob/main/examples/vlc_auto_player.py"
-              className="inline-flex items-center gap-2 rounded-full bg-teal-500 px-5 py-2.5 text-sm font-semibold text-zinc-950 hover:bg-teal-400 transition"
+              className="inline-flex items-center gap-2 rounded-full bg-teal-500 px-5 py-2.5 text-sm font-semibold text-zinc-900 hover:bg-teal-400 transition"
             >
               Read the 151-line example on GitHub
             </a>
@@ -412,10 +412,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           What every top SERP result agrees on, and what they all skip
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           PCWorld, TCL, Digital Trends, TechFinitive, and Lenovo all answer
           the question the same way. Yes you can use a computer monitor as a
           TV, now here is the shopping list. Buy a streaming stick like a Fire
@@ -423,7 +423,7 @@ export default function Page() {
           you want over-the-air channels. Then deal with the audio problem
           because monitors rarely have speakers.
         </p>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           All correct in the narrow case where the monitor is the only
           hardware you own. But the far more common case is a monitor that
           already has a PC plugged into it. In that case the PC is a complete
@@ -462,10 +462,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           The signal path you build when the computer is the tuner
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           One request arrives, one stream plays. The path from an AI agent
           saying &quot;turn on the lofi channel&quot; to your monitor
           displaying video goes through exactly four pieces: Terminator, the
@@ -487,10 +487,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           The exact four accessibility calls that do the work
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           This is the whole flow, condensed. No DOM scraping, no pixel
           matching, no fragile image recognition. Four selector lookups
           against the Windows UI Automation tree and one keyboard shortcut.
@@ -506,31 +506,31 @@ export default function Page() {
 
       <section
         id="anchor-fact"
-        className="bg-zinc-950/40 border-y border-zinc-800/60 mt-16"
+        className="bg-white/40 border-y border-zinc-200/60 mt-16"
       >
         <div className="max-w-4xl mx-auto px-6 py-12">
           <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30">
             Anchor fact
           </span>
-          <h2 className="mt-4 text-2xl md:text-3xl font-semibold text-zinc-100">
+          <h2 className="mt-4 text-2xl md:text-3xl font-semibold text-zinc-800">
             One ComboBox, one Edit child, one Play button. That is the whole
             tuner.
           </h2>
-          <p className="mt-4 text-zinc-400 leading-relaxed">
+          <p className="mt-4 text-zinc-600 leading-relaxed">
             The trick is that VLC&apos;s Open Network Stream dialog exposes
             its URL field not as a plain text input but as a ComboBox named{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               Network Protocol Down
             </code>{" "}
             with an editable{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               role:Edit
             </code>{" "}
             child inside it. A browser-scraping approach would get lost here.
             Terminator finds the ComboBox by its accessibility name, then
             drills to the Edit child via a second locator call, types the URL,
             and clicks the button whose accessibility name is{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               Play Alt+P
             </code>
             . Four OS-level lookups total. That is the uncopyable part.
@@ -542,7 +542,7 @@ export default function Page() {
             source="examples/vlc_auto_player.py in the Terminator repo"
           />
 
-          <p className="mt-6 text-zinc-400 leading-relaxed">
+          <p className="mt-6 text-zinc-600 leading-relaxed">
             The reason this matters for the question &quot;can I use a
             computer monitor as a TV&quot; is that every other answer to that
             question routes you through hardware you have to buy. This answer
@@ -554,10 +554,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           Run the command, watch the output
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           Each step prints what it is doing. The whole thing takes about seven
           seconds wall-clock on a typical laptop: two seconds for VLC to
           launch, one and a half for the network dialog to appear, a half
@@ -570,10 +570,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           What the sequence actually looks like end to end
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           For readers who prefer sequence diagrams to code. Five actors, a
           dozen messages, one monitor showing TV at the end.
         </p>
@@ -585,10 +585,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           Everything this approach gives you that a streaming stick does not
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           A Fire Stick can play YouTube Live. It cannot be triggered by a
           cron job, cannot be piped into your terminal, and cannot be
           scripted by the same AI coding assistant you use for everything
@@ -598,12 +598,12 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-12">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           Any of these make a decent channel
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           Anything VLC can open, the script can play. Swap the URL after{" "}
-          <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+          <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
             --youtube-link
           </code>{" "}
           and you have a new channel.
@@ -613,7 +613,7 @@ export default function Page() {
             {marqueeChannels.map((channel) => (
               <span
                 key={channel}
-                className="mx-3 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-sm text-zinc-300 font-mono"
+                className="mx-3 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50/60 px-4 py-2 text-sm text-zinc-700 font-mono"
               >
                 {channel}
               </span>
@@ -623,10 +623,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           The full shopping list, if you call it that
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           Compare this list to the one PCWorld gives you. None of this costs
           extra; all of it is on your desk already.
         </p>
@@ -637,10 +637,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           Four steps to a working channel
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           Total setup time is under three minutes if VLC is already installed.
           Longer only if you are picking a URL to watch.
         </p>
@@ -648,43 +648,43 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           By the numbers
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           Four boundary crossings between your AI assistant and the photons
           on your panel, and about as many lines of Python to wire them up.
         </p>
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50/40 p-6">
             <div className="text-4xl font-bold text-teal-300">
               <NumberTicker value={151} />
             </div>
-            <p className="mt-2 text-sm text-zinc-400">
+            <p className="mt-2 text-sm text-zinc-600">
               Lines in vlc_auto_player.py (verified via wc -l)
             </p>
           </div>
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50/40 p-6">
             <div className="text-4xl font-bold text-teal-300">
               <NumberTicker value={4} />
             </div>
-            <p className="mt-2 text-sm text-zinc-400">
+            <p className="mt-2 text-sm text-zinc-600">
               Accessibility-API calls to open, paste, and play
             </p>
           </div>
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50/40 p-6">
             <div className="text-4xl font-bold text-teal-300">
               $<NumberTicker value={0} />
             </div>
-            <p className="mt-2 text-sm text-zinc-400">
+            <p className="mt-2 text-sm text-zinc-600">
               Streaming sticks required
             </p>
           </div>
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50/40 p-6">
             <div className="text-4xl font-bold text-teal-300">
               <NumberTicker value={3} />
             </div>
-            <p className="mt-2 text-sm text-zinc-400">
+            <p className="mt-2 text-sm text-zinc-600">
               Supported OSes: Windows, macOS, Linux
             </p>
           </div>
@@ -693,10 +693,10 @@ export default function Page() {
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
         <GlowCard>
-          <h2 className="text-xl md:text-2xl font-semibold text-zinc-100">
+          <h2 className="text-xl md:text-2xl font-semibold text-zinc-800">
             Why a desktop automation framework is the right shape for this
           </h2>
-          <p className="mt-4 text-zinc-400 leading-relaxed">
+          <p className="mt-4 text-zinc-600 leading-relaxed">
             Terminator is not a consumer app. It is a developer framework
             that gives existing AI coding assistants the ability to control
             your entire OS, not just write code. Playwright-shaped API for

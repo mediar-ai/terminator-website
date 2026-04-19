@@ -11,11 +11,11 @@
 @source "../../node_modules/@m13v/seo-components/src";
 
 :root {
-  --background: #0A0A0A;
-  --foreground: #FAFAFA;
+  --background: #FFFFFF;
+  --foreground: #0A0A0A;
   --accent: #FF3E00;
-  --muted: #27272A;
-  --border: #3F3F46;
+  --muted: #F4F4F5;
+  --border: #E4E4E7;
 }
 
 * {
@@ -65,7 +65,7 @@ code {
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #FF3E00 0%, #FF6B35 50%, #FAFAFA 100%);
+  background: linear-gradient(135deg, #FF3E00 0%, #FF6B35 50%, #0A0A0A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -73,25 +73,25 @@ code {
 
 /* Terminal-style box */
 .terminal-box {
-  background: linear-gradient(180deg, #18181B 0%, #0A0A0A 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
   border: 1px solid var(--border);
   border-radius: 8px;
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.03),
-    0 4px 6px -1px rgba(0, 0, 0, 0.5),
-    0 2px 4px -2px rgba(0, 0, 0, 0.5);
+    0 0 0 1px rgba(0, 0, 0, 0.02),
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* Glow effect */
 .glow {
-  box-shadow: 0 0 40px rgba(255, 62, 0, 0.15);
+  box-shadow: 0 0 40px rgba(255, 62, 0, 0.2);
 }
 
 /* Grid background */
 .grid-bg {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 

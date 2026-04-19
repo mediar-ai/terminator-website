@@ -382,21 +382,21 @@ export default function Page() {
               <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
                 Guide
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Model Context Protocol
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Terminator MCP agent
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-100 mb-6 leading-[1.05]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-800 mb-6 leading-[1.05]">
               What is an{" "}
               <GradientText variant="teal">MCP server</GradientText>? A real one,
               opened up in the editor, not the abstract definition.
             </h1>
 
-            <p className="text-lg text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+            <p className="text-lg text-zinc-600 mb-6 max-w-3xl leading-relaxed">
               Every article on the first page of Google defines MCP the same way.
               A protocol, a client, a server, three primitives (tools, resources,
               prompts), the same three example servers (files, GitHub, Slack).
@@ -433,7 +433,7 @@ export default function Page() {
               </ShimmerButton>
               <a
                 href="#dispatch-tool"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-800 text-zinc-300 hover:bg-zinc-900 transition-colors text-sm font-medium"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-200 text-zinc-700 hover:bg-zinc-50 transition-colors text-sm font-medium"
               >
                 Jump to the match block
               </a>
@@ -459,19 +459,19 @@ export default function Page() {
 
         {/* The short answer */}
         <section className="max-w-4xl mx-auto px-6 pt-4">
-          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-100 mb-5">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-800 mb-5">
             The short answer
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             An MCP server is a long-running process that exposes a set of named
             tools an LLM can call. It speaks JSON-RPC 2.0 over stdio or HTTP, it
-            responds to <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">list_tools</code> with a catalogue of what
-            it can do, and it responds to <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">tools/call</code> by dispatching to
+            responds to <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">list_tools</code> with a catalogue of what
+            it can do, and it responds to <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">tools/call</code> by dispatching to
             a handler keyed on the tool name. That is the whole protocol from
             the server&apos;s perspective. The value of an MCP server is whatever
             its handlers do.
           </p>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             Terminator&apos;s MCP server is worth looking at because its 31
             handlers wrap the Windows UI Automation and macOS Accessibility APIs.
             Which means the LLM it is connected to can click, type, scroll, and
@@ -482,10 +482,10 @@ export default function Page() {
 
         {/* Sequence diagram: the MCP call flow */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             How a single tool call flows through an MCP server
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             Four actors, nine messages. The model never touches the OS directly;
             it emits a tool name and waits.
           </p>
@@ -508,21 +508,21 @@ export default function Page() {
 
         {/* Metrics row */}
         <section className="max-w-4xl mx-auto px-6 pt-4">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             Terminator&apos;s MCP server, by the numbers
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             Numbers pulled from the current state of the open-source repo. The
             first is the count of match arms in{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               dispatch_tool
             </code>
             . The second is the count of exposed handler functions via{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               #[tool]
             </code>{" "}
             macros. The third is the line count of{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               src/server.rs
             </code>
             . The fourth is the default per-machine concurrency limit in HTTP mode.
@@ -539,19 +539,19 @@ export default function Page() {
 
         {/* The dispatch_tool source */}
         <section id="dispatch-tool" className="max-w-4xl mx-auto px-6 py-14 scroll-mt-16">
-          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-800 mb-4">
             <GradientText variant="teal">dispatch_tool</GradientText>: the whole
             server, on one screen
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             This is the core of Terminator&apos;s MCP server. Abbreviated, but
             shaped exactly like the real file. Open{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               crates/terminator-mcp-agent/src/server.rs
             </code>{" "}
             at line 9953 to see all 31 arms. Each arm deserializes JSON into a
             typed Args struct, awaits an async handler, and wraps cancellation
-            via <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">tokio::select</code>. There is no
+            via <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">tokio::select</code>. There is no
             routing framework. No middleware chain. One match block.
           </p>
 
@@ -561,7 +561,7 @@ export default function Page() {
             filename="crates/terminator-mcp-agent/src/server.rs"
           />
 
-          <p className="text-zinc-400 mt-4 leading-relaxed">
+          <p className="text-zinc-600 mt-4 leading-relaxed">
             That is it. Every MCP tool call the LLM makes, for every tool the
             server exposes, passes through that match. If you remember one
             thing about MCP servers from this page, let it be that the protocol
@@ -570,24 +570,24 @@ export default function Page() {
         </section>
 
         {/* Anchor fact: the build.rs trick */}
-        <section className="max-w-4xl mx-auto px-6 py-10 bg-zinc-950/40 border-y border-zinc-800/60">
-          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-100 mb-4">
+        <section className="max-w-4xl mx-auto px-6 py-10 bg-white/40 border-y border-zinc-200/60">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-800 mb-4">
             The anchor fact:{" "}
             <GradientText variant="teal">build.rs</GradientText> keeps the
             system prompt in sync with the code
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             Here is the part no other MCP explainer mentions, because no other
             server does it. Terminator&apos;s{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               build.rs
             </code>{" "}
             runs at compile time. It opens{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               src/server.rs
             </code>
             , walks every line until it hits the string{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               let result = match tool_name
             </code>
             , then collects the tool names from the match arms below. The
@@ -601,10 +601,10 @@ export default function Page() {
             filename="crates/terminator-mcp-agent/build.rs"
           />
 
-          <p className="text-zinc-400 mt-6 mb-4 max-w-3xl leading-relaxed">
-            At runtime, <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">prompt.rs</code> reads the
+          <p className="text-zinc-600 mt-6 mb-4 max-w-3xl leading-relaxed">
+            At runtime, <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">prompt.rs</code> reads the
             baked-in list and pastes it verbatim into the system instructions
-            the server announces on <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">initialize</code>. The LLM&apos;s
+            the server announces on <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">initialize</code>. The LLM&apos;s
             system prompt literally contains the names the match block
             dispatches against.
           </p>
@@ -616,14 +616,14 @@ export default function Page() {
           />
 
           <div className="mt-6 p-5 rounded-xl bg-teal-500/10 border border-teal-500/30">
-            <p className="text-zinc-300 leading-relaxed">
+            <p className="text-zinc-700 leading-relaxed">
               You can verify this in 10 seconds: clone the repo and run{" "}
-              <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
                 grep -n MCP_TOOLS crates/terminator-mcp-agent/build.rs
                 crates/terminator-mcp-agent/src/prompt.rs
               </code>
               . Three matches come back: one writing the env var in build.rs, one
-              reading it with <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">env!</code>, and one interpolating it into
+              reading it with <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">env!</code>, and one interpolating it into
               the instructions string. The prompt cannot drift from the
               implementation, because changing either requires recompiling and
               the build step parses the match block fresh every time.
@@ -633,10 +633,10 @@ export default function Page() {
 
         {/* The 31 tools marquee */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             The 31 tool names, end to end
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             This is the exact set the build step extracts, in source order. The
             LLM sees this list inside its system prompt and picks a name when
             it wants to act.
@@ -645,7 +645,7 @@ export default function Page() {
             {toolList.map((name) => (
               <span
                 key={name}
-                className="inline-flex items-center px-5 py-2 rounded-full border border-zinc-800 bg-zinc-900 text-teal-300 text-sm font-mono whitespace-nowrap"
+                className="inline-flex items-center px-5 py-2 rounded-full border border-zinc-200 bg-zinc-50 text-teal-300 text-sm font-mono whitespace-nowrap"
               >
                 {name}
               </span>
@@ -661,10 +661,10 @@ export default function Page() {
 
         {/* Anatomy bento */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             Anatomy of a real MCP server
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             Every MCP server boils down to these six parts. The names change,
             the shapes do not. Below is how Terminator implements each one.
           </p>
@@ -691,10 +691,10 @@ export default function Page() {
 
         {/* Step timeline: what happens end to end */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             End to end, what happens when an LLM calls a tool
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             Six steps from cold start to rendered result. No hand-waving, no
             "the framework handles it" boxes.
           </p>
@@ -703,10 +703,10 @@ export default function Page() {
 
         {/* Install terminal */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             Try it against a real server in two minutes
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             This is the actual installer path the Terminator README ships. Once
             Claude recognizes the server, the 31 tool names show up in its
             internal tool picker and your AI can drive your desktop.
@@ -716,10 +716,10 @@ export default function Page() {
 
         {/* Orbiting circles: ecosystem */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             What orbits a Terminator MCP server once it is running
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             Six real tool names from the dispatch match, circling the server
             that exposes them. These are the verbs an LLM has available the
             moment the process is up.
@@ -729,12 +729,12 @@ export default function Page() {
             radius={150}
             duration={30}
             items={[
-              <span key="a" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900">click_element</span>,
-              <span key="b" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900">type_into_element</span>,
-              <span key="c" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900">get_window_tree</span>,
-              <span key="d" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900">execute_sequence</span>,
-              <span key="e" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900">navigate_browser</span>,
-              <span key="f" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900">run_command</span>,
+              <span key="a" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-200 bg-zinc-50">click_element</span>,
+              <span key="b" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-200 bg-zinc-50">type_into_element</span>,
+              <span key="c" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-200 bg-zinc-50">get_window_tree</span>,
+              <span key="d" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-200 bg-zinc-50">execute_sequence</span>,
+              <span key="e" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-200 bg-zinc-50">navigate_browser</span>,
+              <span key="f" className="text-xs font-mono text-teal-300 px-3 py-1.5 rounded-full border border-zinc-200 bg-zinc-50">run_command</span>,
             ]}
           />
         </section>
@@ -762,25 +762,25 @@ export default function Page() {
         {/* Glow card: the 'what is it for' punchline */}
         <section className="max-w-4xl mx-auto px-6 py-8">
           <GlowCard>
-            <h3 className="text-xl sm:text-2xl font-semibold text-zinc-100 mb-3">
+            <h3 className="text-xl sm:text-2xl font-semibold text-zinc-800 mb-3">
               Why MCP matters for the desktop case specifically
             </h3>
-            <p className="text-zinc-300 leading-relaxed mb-3">
+            <p className="text-zinc-700 leading-relaxed mb-3">
               A file system MCP server is nice. A GitHub MCP server is nice.
               What is new is that the same protocol also lets an LLM drive the
               UI of arbitrary apps. Calculator, Excel, Chrome, a legacy
               Win32 accounting system your team still uses. Any of those, via
-              the accessibility tree, through one <code className="font-mono text-xs bg-zinc-950/60 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">dispatch_tool</code> match block.
+              the accessibility tree, through one <code className="font-mono text-xs bg-white/60 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">dispatch_tool</code> match block.
             </p>
-            <p className="text-zinc-300 leading-relaxed mb-3">
+            <p className="text-zinc-700 leading-relaxed mb-3">
               Terminator is that MCP server. It is a developer framework for
               building desktop automation, not a consumer app. It gives
               existing AI coding assistants the ability to control your entire
               OS, not just write code. Like Playwright, but for every app on
               your desktop, and the surface the LLM sees is the 31-tool list
-              the build step extracts from <code className="font-mono text-xs bg-zinc-950/60 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">server.rs</code>.
+              the build step extracts from <code className="font-mono text-xs bg-white/60 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">server.rs</code>.
             </p>
-            <p className="text-zinc-300 leading-relaxed">
+            <p className="text-zinc-700 leading-relaxed">
               If you were looking for a definition of MCP server, the short
               answer is at the top of this page. If you were looking for the
               thing it is actually good for, this is it.
@@ -800,11 +800,11 @@ export default function Page() {
 
         {/* Count stat callout */}
         <section className="max-w-4xl mx-auto px-6 py-6">
-          <div className="rounded-2xl border border-zinc-800/60 bg-zinc-950/40 p-8 text-center">
+          <div className="rounded-2xl border border-zinc-200/60 bg-white/40 p-8 text-center">
             <p className="text-sm font-mono uppercase tracking-widest text-teal-300 mb-3">
               Desktop tools currently exposed
             </p>
-            <div className="text-6xl font-bold text-zinc-100 mb-2">
+            <div className="text-6xl font-bold text-zinc-800 mb-2">
               <NumberTicker value={31} />
             </div>
             <p className="text-sm text-zinc-500">

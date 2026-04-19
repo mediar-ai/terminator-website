@@ -399,24 +399,24 @@ export default function HowToUseTwoComputerScreensPage() {
               <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
                 Guide
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Multi-monitor
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Per-monitor DPI
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Windows UIA + macOS AX
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-100 mb-6 leading-[1.05]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-800 mb-6 leading-[1.05]">
               How to use{" "}
               <GradientText variant="teal">two computer screens</GradientText>,
               from a developer&apos;s perspective
             </h1>
 
-            <p className="text-lg text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+            <p className="text-lg text-zinc-600 mb-6 max-w-3xl leading-relaxed">
               Every guide for this keyword has the same shape. Buy a cable.
               Plug it in. Open Display settings. Click Extend these displays.
               That is correct for setup and it is covered well by Microsoft,
@@ -425,15 +425,15 @@ export default function HowToUseTwoComputerScreensPage() {
               has its own DPI scale factor, and what breaks when an automation
               tool tries to click something on screen two. All anchored to
               real code: Terminator&apos;s{" "}
-              <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
                 Monitor
               </code>{" "}
               struct at{" "}
-              <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
                 crates/terminator/src/lib.rs:272
               </code>
               , and a real Windows UIA bug fixed in commit{" "}
-              <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
                 e36b9785
               </code>{" "}
               on April 2, 2026.
@@ -462,7 +462,7 @@ export default function HowToUseTwoComputerScreensPage() {
               <ShimmerButton href="#bug">See the UIA bug, and the fix</ShimmerButton>
               <a
                 href="#api"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-800 text-zinc-300 hover:bg-zinc-900 transition-colors text-sm font-medium"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-200 text-zinc-700 hover:bg-zinc-50 transition-colors text-sm font-medium"
               >
                 See the monitor API
               </a>
@@ -488,22 +488,22 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* Why this page exists */}
         <section className="max-w-4xl mx-auto px-6 pt-4">
-          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-100 mb-5">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-800 mb-5">
             What the consumer guides leave out
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             Microsoft Support, Dell, HP, Lenovo, and every productivity blog
             all answer the same version of this question: which cable, which
             port, how to drag the monitor icons around in Display Settings. If
             you are setting up a second monitor at your desk, those guides are
             fine. They stop where the interesting part starts.
           </p>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             Once two displays are attached, your operating system has to
             answer a new set of questions on your behalf. Which monitor does
             this window belong to? What is the DPI of the monitor the cursor
             is on right now? If I click at pixel{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               (3520, 540)
             </code>
             , which physical screen does that land on? If I take a screenshot,
@@ -511,7 +511,7 @@ export default function HowToUseTwoComputerScreensPage() {
             what resolution? These are developer questions. They are also the
             questions where multi-monitor automation breaks.
           </p>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             The rest of this page walks through each of them with real code
             from Terminator, a cross-platform desktop automation framework.
             Terminator is open source, MIT, and it has to handle every
@@ -522,14 +522,14 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* The flow */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             Where automation tools talk to your monitors
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             On the left: everything an agent or script might ask. On the
             right: the platform APIs that answer. In the middle:
             Terminator&apos;s{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               Monitor
             </code>{" "}
             abstraction that normalises them. This is the contract consumer
@@ -556,10 +556,10 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* The Monitor struct */}
         <section id="api" className="max-w-4xl mx-auto px-6 py-10 scroll-mt-16">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             What a monitor actually is, to software
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Windows Display Settings shows each screen as an icon with a
             number on it. From your code&apos;s point of view, a monitor is a
             struct with these eight fields. If you squint, this list is also
@@ -576,17 +576,17 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* Bento grid of API methods */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             The six calls that cover every multi-monitor question
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Every question a dual-monitor agent has to answer reduces to one
             of these. Each one is a method on{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               Desktop
             </code>{" "}
             or{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               UIElement
             </code>
             , implemented the same way in the Rust, Python, and Node SDKs.
@@ -596,10 +596,10 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* Code example - listing monitors */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             Listing every monitor in six lines
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             No capture. No clicks. Just enumeration. The output from this
             exact call is what drives every other multi-monitor decision the
             rest of an agent makes.
@@ -614,12 +614,12 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* Terminal output */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             What that looks like on a real dual-monitor rig
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             The runnable example lives at{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               crates/terminator/examples/monitor_management.rs
             </code>
             . Here is the output on a setup with a 2560x1440 primary at 100%
@@ -628,7 +628,7 @@ export default function HowToUseTwoComputerScreensPage() {
             about: the captured image of DISPLAY2 is{" "}
             <NumberTicker value={2400} />x<NumberTicker value={1350} />, not
             1920x1080, because the capture respects{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               scale_factor
             </code>
             .
@@ -638,14 +638,14 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* Metrics */}
         <section className="max-w-4xl mx-auto px-6 pt-4">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             Numbers you can check yourself
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             All four come from the Terminator source. The line numbers are
             line numbers in the published repo; the commit SHA is the exact
             multi-monitor fix; the eight fields are the eight fields of the{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               Monitor
             </code>{" "}
             struct; the diff lines are the size of the fix.
@@ -668,16 +668,16 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* The bug */}
         <section id="bug" className="max-w-4xl mx-auto px-6 py-14 scroll-mt-16">
-          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-800 mb-4">
             The <GradientText variant="teal">is_offscreen()</GradientText> trap on screen two
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             This is the anchor fact for this page. Before April 2, 2026, if
             your app was on your secondary monitor and an agent asked
             Terminator to click something in it, the click would be refused.
             Not with a clean &quot;element is on monitor 2&quot; message. With
             a generic{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               ElementNotVisible
             </code>{" "}
             error. The reason was one call into Windows UIA.
@@ -711,10 +711,10 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* The two code blocks side by side */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             The code, before and after
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Left: the removed call that was wrong on multi-monitor setups.
             Right: the replacement helper. Same file. Same line range. One
             function call became one loop, and the framework stopped lying to
@@ -734,10 +734,10 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* Coordinate space table */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             Consumer view vs developer view
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Same six questions, answered from both sides. The left column is
             what Dell and Microsoft write about. The right column is what your
             code actually has to know if it wants to work across two screens.
@@ -751,10 +751,10 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* Step timeline */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             What happens when an agent clicks a button on screen two
           </h2>
-          <p className="text-zinc-400 mb-5 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-5 max-w-3xl leading-relaxed">
             Tracing one click end to end makes the multi-monitor plumbing
             concrete. This is the selector path, not the pixel path, so the
             coordinates are derived from the OS accessibility tree, not from
@@ -798,15 +798,15 @@ export default function HowToUseTwoComputerScreensPage() {
 
         {/* Practical setup tips for non-devs */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-3">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-3">
             Practical tips if you are setting screens up for the first time
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-4 max-w-3xl leading-relaxed">
             The developer side is this page. The user side is short enough
             that it fits below. If you are stuck on setup, these five points
             plus the Windows and Dell links in the FAQ cover 90% of it.
           </p>
-          <ul className="space-y-3 text-zinc-400 max-w-3xl leading-relaxed list-disc pl-6 mb-4">
+          <ul className="space-y-3 text-zinc-600 max-w-3xl leading-relaxed list-disc pl-6 mb-4">
             <li>
               Match resolutions if you can. Mixing 1440p and 1080p is fine but
               you will see the DPI jump as the cursor crosses the boundary.
@@ -816,7 +816,7 @@ export default function HowToUseTwoComputerScreensPage() {
               arrangement matches your desk. This controls where the mouse
               crosses from one screen to the other, and it is what decides
               the sign of{" "}
-              <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
                 Monitor.x
               </code>
               .
@@ -825,7 +825,7 @@ export default function HowToUseTwoComputerScreensPage() {
               Pick a primary that makes sense. It is the one the taskbar and
               most new windows default to, and on Windows it is the only one
               whose{" "}
-              <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+              <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
                 work_area
               </code>{" "}
               is exposed cleanly.

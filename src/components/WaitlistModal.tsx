@@ -82,11 +82,11 @@ export function WaitlistModal({ isOpen, onClose, platform }: WaitlistModalProps)
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md"
           >
-            <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-2xl">
+            <div className="bg-white border border-zinc-200 rounded-xl p-6 shadow-2xl">
               {/* Close button */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 text-zinc-500 hover:text-white transition-colors"
+                className="absolute top-4 right-4 text-zinc-500 hover:text-black transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -97,7 +97,7 @@ export function WaitlistModal({ isOpen, onClose, platform }: WaitlistModalProps)
                     <Check className="w-8 h-8 text-green-500" />
                   </div>
                   <h3 className="font-mono font-semibold text-xl mb-2">You&apos;re on the list!</h3>
-                  <p className="text-zinc-400 text-sm">
+                  <p className="text-zinc-600 text-sm">
                     We&apos;ll notify you when {platformName} support is ready.
                   </p>
                 </div>
@@ -106,7 +106,7 @@ export function WaitlistModal({ isOpen, onClose, platform }: WaitlistModalProps)
                   <h3 className="font-mono font-semibold text-xl mb-2">
                     Join the {platformName} Waitlist
                   </h3>
-                  <p className="text-zinc-400 text-sm mb-6">
+                  <p className="text-zinc-600 text-sm mb-6">
                     Be the first to know when Terminator comes to {platformName}.
                   </p>
 
@@ -118,18 +118,18 @@ export function WaitlistModal({ isOpen, onClose, platform }: WaitlistModalProps)
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@example.com"
                         required
-                        className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg font-mono text-sm focus:outline-none focus:border-accent transition-colors"
+                        className="w-full px-4 py-3 bg-zinc-50 border border-zinc-200 rounded-lg font-mono text-sm focus:outline-none focus:border-accent transition-colors"
                       />
                     </div>
 
                     {status === "error" && (
-                      <p className="text-red-400 text-sm">{errorMessage}</p>
+                      <p className="text-red-600 text-sm">{errorMessage}</p>
                     )}
 
                     <button
                       type="submit"
                       disabled={status === "loading"}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-accent hover:bg-accent-hover text-black font-mono font-semibold rounded-lg transition-colors disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-accent hover:bg-accent-hover text-white font-mono font-semibold rounded-lg transition-colors disabled:opacity-50"
                     >
                       {status === "loading" ? (
                         <Loader2 className="w-4 h-4 animate-spin" />

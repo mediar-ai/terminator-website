@@ -397,24 +397,24 @@ export default function TvToUseAsAComputerMonitorPage() {
               <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
                 Guide
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 TV as monitor
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Virtual display
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Headless automation
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-zinc-100 tracking-tight leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-zinc-800 tracking-tight leading-tight">
               A TV to use as a computer monitor is one end of a{" "}
               <GradientText variant="teal">display spectrum</GradientText>. The
               other end is no monitor at all.
             </h1>
 
-            <p className="mt-6 text-lg text-zinc-400 leading-relaxed">
+            <p className="mt-6 text-lg text-zinc-600 leading-relaxed">
               Every top SERP result for this keyword ranks TVs by input lag, chroma
               4:4:4, burn-in risk, and whether PC mode cleans up text fringes. Useful,
               if you are shopping. Missing, if you are shipping software. When you
@@ -425,14 +425,14 @@ export default function TvToUseAsAComputerMonitorPage() {
               Server image on EC2.
             </p>
 
-            <p className="mt-4 text-lg text-zinc-400 leading-relaxed">
+            <p className="mt-4 text-lg text-zinc-600 leading-relaxed">
               Terminator is a developer framework for desktop automation. It gives
               your AI coding assistant (or any script) the ability to click, type,
               and read any application window the OS exposes to the accessibility
               tree. It does not care whether the pixels are lighting up on a 65-inch
               TV, a 13-inch laptop panel, or a phantom 1920x1080 rendered by a
               virtual driver into nothing. The same{" "}
-              <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+              <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
                 click_element
               </code>{" "}
               call drives all three.
@@ -444,7 +444,7 @@ export default function TvToUseAsAComputerMonitorPage() {
               </ShimmerButton>
               <a
                 href="#the-anchor"
-                className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-transparent px-6 py-3 text-sm font-semibold text-zinc-300 hover:bg-zinc-900 transition-colors"
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-transparent px-6 py-3 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 transition-colors"
               >
                 Jump to the 1920x1080 default
               </a>
@@ -488,18 +488,18 @@ export default function TvToUseAsAComputerMonitorPage() {
 
         {/* The display spectrum beam */}
         <section className="max-w-4xl mx-auto px-6 mt-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-800 mb-4">
             Five display environments, one automation engine
           </h2>
-          <p className="text-zinc-400 leading-relaxed mb-6">
+          <p className="text-zinc-600 leading-relaxed mb-6">
             The shopping guides talk about TVs as if they are a category of thing
             different from monitors. They are not, at least not to the OS. Windows
             UI Automation sees a sequence of{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               Monitor
             </code>{" "}
             structs with bounds and a name. macOS Accessibility sees a{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               CGDirectDisplayID
             </code>
             . Terminator wraps both the same way. A TV becomes one input to a
@@ -526,12 +526,12 @@ export default function TvToUseAsAComputerMonitorPage() {
 
         {/* Anchor fact */}
         <section id="the-anchor" className="max-w-4xl mx-auto px-6 mt-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-800 mb-4">
             The 23-line Rust struct that makes &ldquo;no monitor&rdquo; a valid mode
           </h2>
-          <p className="text-zinc-400 leading-relaxed mb-6">
+          <p className="text-zinc-600 leading-relaxed mb-6">
             If you only look at one file, look at{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               crates/terminator/src/platforms/windows/virtual_display.rs
             </code>
             . It is 195 lines total. The top 24 lines define a struct that answers
@@ -548,10 +548,10 @@ export default function TvToUseAsAComputerMonitorPage() {
               <div className="text-sm text-teal-300 font-mono mb-2">
                 virtual_display.rs:15
               </div>
-              <div className="text-zinc-100 text-lg font-semibold mb-1">
+              <div className="text-zinc-800 text-lg font-semibold mb-1">
                 VirtualDisplayConfig::default()
               </div>
-              <div className="text-zinc-400 text-sm">
+              <div className="text-zinc-600 text-sm">
                 width: 1920. height: 1080. color_depth: 32. refresh_rate: 60.
                 driver_path: None. The contract your headless automation script
                 can rely on.
@@ -595,10 +595,10 @@ export default function TvToUseAsAComputerMonitorPage() {
 
         {/* Headless detection code */}
         <section className="max-w-4xl mx-auto px-6 mt-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-800 mb-4">
             One environment variable flips the whole engine
           </h2>
-          <p className="text-zinc-400 leading-relaxed mb-6">
+          <p className="text-zinc-600 leading-relaxed mb-6">
             The choice between &ldquo;drive the TV that is plugged in&rdquo; and
             &ldquo;drive a phantom 1920x1080&rdquo; is not in your code. It is in
             one function at line 165, which reads one environment variable. Your
@@ -612,13 +612,13 @@ export default function TvToUseAsAComputerMonitorPage() {
             filename="virtual_display.rs:165-177"
           />
 
-          <p className="text-zinc-400 leading-relaxed mt-6">
+          <p className="text-zinc-600 leading-relaxed mt-6">
             The engine wires this into its boot sequence.{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               WindowsEngine::new
             </code>{" "}
             at engine.rs line 281 calls{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               is_headless_environment()
             </code>{" "}
             at construction time, and if it returns true, constructs a
@@ -647,10 +647,10 @@ export default function TvToUseAsAComputerMonitorPage() {
 
         {/* Before / After */}
         <section className="max-w-4xl mx-auto px-6 mt-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-800 mb-4">
             Same framework, two endpoints
           </h2>
-          <p className="text-zinc-400 leading-relaxed mb-6">
+          <p className="text-zinc-600 leading-relaxed mb-6">
             The same binary, run against the same suite of automation scripts,
             behaves differently depending on whether a TV is plugged in and whether
             TERMINATOR_HEADLESS is set. Flip between the two states to see what
@@ -687,16 +687,16 @@ export default function TvToUseAsAComputerMonitorPage() {
 
         {/* Terminal output x 2 */}
         <section className="max-w-4xl mx-auto px-6 mt-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-800 mb-4">
             What the logs look like at each end
           </h2>
-          <p className="text-zinc-400 leading-relaxed mb-6">
+          <p className="text-zinc-600 leading-relaxed mb-6">
             These are two real invocations of the{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               virtual_display_test
             </code>{" "}
             example that ships in the Terminator repo (
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               crates/terminator/examples/virtual_display_test.rs
             </code>
             ). The binary is the same in both runs. The only difference is whether
@@ -726,13 +726,13 @@ export default function TvToUseAsAComputerMonitorPage() {
 
         {/* Bento of display modes */}
         <section className="max-w-4xl mx-auto px-6 mt-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-800 mb-4">
             Five display modes, one engine, one line of config
           </h2>
-          <p className="text-zinc-400 leading-relaxed mb-8">
+          <p className="text-zinc-600 leading-relaxed mb-8">
             None of these modes require a different code path in your automation
             script. All of them route through the same{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               Monitor
             </code>{" "}
             abstraction.
@@ -742,17 +742,17 @@ export default function TvToUseAsAComputerMonitorPage() {
         </section>
 
         {/* Driver install detail */}
-        <section className="bg-zinc-950/40 border-y border-zinc-800/60 py-16 mt-16">
+        <section className="bg-white/40 border-y border-zinc-200/60 py-16 mt-16">
           <div className="max-w-4xl mx-auto px-6">
-            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-100 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-800 mb-4">
               How the phantom TV actually gets registered
             </h2>
-            <p className="text-zinc-400 leading-relaxed mb-6">
+            <p className="text-zinc-600 leading-relaxed mb-6">
               The default behavior is to run without a driver: Terminator sets up a
               virtual session stub so UIA calls do not crash, but nothing is being
               rendered into a real framebuffer. If you actually want a rendering
               surface, you pass a{" "}
-              <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+              <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
                 driver_path
               </code>{" "}
               in VirtualDisplayConfig and Terminator shells out to the Windows
@@ -765,12 +765,12 @@ export default function TvToUseAsAComputerMonitorPage() {
               filename="virtual_display.rs:117-139"
             />
 
-            <p className="text-zinc-400 leading-relaxed mt-6">
+            <p className="text-zinc-600 leading-relaxed mt-6">
               The usual pick for the driver path is the Microsoft IDD sample driver
               or the MTT Virtual Display Driver. Either gives Windows a real
               monitor device that apps can draw into, at whatever resolution you
               configure. You can set the virtual panel to match your TV exactly (
-              <span className="text-zinc-300 font-mono text-sm">
+              <span className="text-zinc-700 font-mono text-sm">
                 3840 x 2160 at 60Hz
               </span>
               ) and develop against the same pixel grid your CI runs against.
@@ -806,10 +806,10 @@ export default function TvToUseAsAComputerMonitorPage() {
 
         {/* Related links */}
         <section className="max-w-4xl mx-auto px-6 mt-8 pb-20">
-          <h2 className="text-2xl font-bold text-zinc-100 mb-6">
+          <h2 className="text-2xl font-bold text-zinc-800 mb-6">
             Adjacent reading in this series
           </h2>
-          <ul className="space-y-3 text-zinc-400">
+          <ul className="space-y-3 text-zinc-600">
             <li>
               <a
                 href="/t/tv-to-use-as-computer-monitor"

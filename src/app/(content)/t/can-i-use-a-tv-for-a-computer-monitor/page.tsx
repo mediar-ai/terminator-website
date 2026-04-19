@@ -221,7 +221,7 @@ const motionFrames = [
   {
     title: "Step 1. One display, everything normal",
     body: (
-      <p className="text-zinc-300 text-base leading-relaxed">
+      <p className="text-zinc-700 text-base leading-relaxed">
         SM_CXVIRTUALSCREEN returns the laptop&apos;s width (2560). The action
         overlay paints a 2560x1600 rectangle across the laptop panel. Every
         click shows a status banner. Everything works the same as always.
@@ -232,7 +232,7 @@ const motionFrames = [
   {
     title: "Step 2. HDMI in, TV wakes up, virtual screen grows",
     body: (
-      <p className="text-zinc-300 text-base leading-relaxed">
+      <p className="text-zinc-700 text-base leading-relaxed">
         Windows refreshes the virtual screen: SM_CXVIRTUALSCREEN jumps from
         2560 to 6400 (laptop + 4K TV), SM_XVIRTUALSCREEN stays 0 because the
         TV is to the right of the laptop, not the left.
@@ -243,7 +243,7 @@ const motionFrames = [
   {
     title: "Step 3. Next automation step fires",
     body: (
-      <p className="text-zinc-300 text-base leading-relaxed">
+      <p className="text-zinc-700 text-base leading-relaxed">
         CreateWindowExW uses those updated metrics without any extra code
         path. The new overlay HWND covers both displays at once. The TV
         becomes a second surface of the same click-through status banner.
@@ -254,7 +254,7 @@ const motionFrames = [
   {
     title: "Step 4. You decide what that means",
     body: (
-      <p className="text-zinc-300 text-base leading-relaxed">
+      <p className="text-zinc-700 text-base leading-relaxed">
         Feature: an ambient readout on the TV showing what the AI agent is
         touching. Bug: the banner flashes over your movie. Terminator ships
         both affordances and one env var to switch between them.
@@ -362,7 +362,7 @@ export default function Page() {
   const jsonLdFaq = faqPageSchema(faqs);
 
   return (
-    <div className="bg-zinc-950 text-zinc-100 min-h-screen">
+    <div className="bg-white text-zinc-800 min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }}
@@ -391,22 +391,22 @@ export default function Page() {
               <span className="inline-block bg-teal-900/30 text-teal-300 text-xs font-medium px-3 py-1 rounded-full border border-teal-800/60">
                 Guide
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 Virtual screen
               </span>
-              <span className="inline-block bg-zinc-900 text-zinc-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-800">
+              <span className="inline-block bg-zinc-50 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full border border-zinc-200">
                 action_overlay.rs
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-100 mb-6 leading-[1.05]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-800 mb-6 leading-[1.05]">
               Can I use a TV for a{" "}
               <GradientText variant="teal">computer monitor</GradientText>?
               Yes, and plugging it in quietly resizes the overlay window every
               app on your PC is drawing.
             </h1>
 
-            <p className="text-lg text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+            <p className="text-lg text-zinc-600 mb-6 max-w-3xl leading-relaxed">
               The cable advice is fine. HDMI 2.1, 4:4:4 chroma, game mode,
               refresh rate, input lag. All written. The part that lives one
               layer below, that nobody on the first page of Google touches,
@@ -443,7 +443,7 @@ export default function Page() {
               </ShimmerButton>
               <a
                 href="#anchor-fact"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-800 text-zinc-300 hover:bg-zinc-900 transition-colors text-sm font-medium"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-zinc-200 text-zinc-700 hover:bg-zinc-50 transition-colors text-sm font-medium"
               >
                 Jump to the overlay code
               </a>
@@ -469,25 +469,25 @@ export default function Page() {
 
         {/* Metric row: the concrete virtual-screen numbers */}
         <section className="max-w-4xl mx-auto px-6 pt-4">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             Virtual screen, before and after the TV
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             Windows exposes four metrics that together describe the bounding
             rectangle of every monitor the OS can see.{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               SM_XVIRTUALSCREEN
             </code>
             ,{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               SM_YVIRTUALSCREEN
             </code>
             ,{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               SM_CXVIRTUALSCREEN
             </code>
             ,{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               SM_CYVIRTUALSCREEN
             </code>
             . Plug a 4K TV to the right of a 2560x1600 laptop, and the
@@ -508,23 +508,23 @@ export default function Page() {
           id="anchor-fact"
           className="max-w-4xl mx-auto px-6 py-14 scroll-mt-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-zinc-800 mb-4">
             The anchor fact:{" "}
             <GradientText variant="teal">four GetSystemMetrics calls</GradientText>
             , one overlay, every display
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl leading-relaxed">
+          <p className="text-zinc-600 mb-6 max-w-3xl leading-relaxed">
             Inside{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               create_overlay_window()
             </code>{" "}
             in{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               crates/terminator/src/platforms/windows/action_overlay.rs
             </code>
             , lines 287 through 291 read the virtual screen directly from
             Windows and pass those values to{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               CreateWindowExW
             </code>
             . No branching on monitor count, no special TV handling. The OS
@@ -538,11 +538,11 @@ export default function Page() {
             filename="crates/terminator/src/platforms/windows/action_overlay.rs"
           />
 
-          <p className="text-zinc-400 mt-4 leading-relaxed">
+          <p className="text-zinc-600 mt-4 leading-relaxed">
             That is the entire reason the banner stretches onto the TV. It
             is not a multi-monitor mode. It is four Windows system metrics
             feeding a single{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               WS_EX_TRANSPARENT
             </code>{" "}
             window. Everything else in the overlay system, the cooldowns,
@@ -553,10 +553,10 @@ export default function Page() {
 
         {/* MotionSequence: step-by-step narrative */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             Watch the overlay follow the TV in
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             Four-frame walkthrough of what happens between &ldquo;you plug in
             the TV&rdquo; and &ldquo;Terminator&apos;s status banner is
             painting across two displays.&rdquo;
@@ -591,10 +591,10 @@ export default function Page() {
 
         {/* Bento grid: what the overlay system actually provides */}
         <section className="max-w-4xl mx-auto px-6 py-10">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             Six concrete things the overlay gives you on a TV
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             All of this is in one file: crates/terminator/src/platforms/
             windows/action_overlay.rs. Grep for any of these names in a
             fresh clone of the repo and the implementation is right there.
@@ -613,14 +613,14 @@ export default function Page() {
 
         {/* Run example with + without env var */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             Two commands: overlay on, overlay off
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             Same automation script. First invocation paints the status
             banner across laptop + TV. Second invocation runs silently
             because{" "}
-            <code className="font-mono text-xs bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-teal-300">
+            <code className="font-mono text-xs bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-200 text-teal-300">
               TERMINATOR_ACTION_OVERLAY=0
             </code>{" "}
             flips{" "}
@@ -647,10 +647,10 @@ export default function Page() {
 
         {/* Terminal */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             What it prints when you actually run it
           </h2>
-          <p className="text-zinc-400 mb-6 max-w-3xl">
+          <p className="text-zinc-600 mb-6 max-w-3xl">
             Two monitors listed, cx=6400 from GetSystemMetrics, one
             CreateWindowExW call sized to that. This is the entire
             round-trip on a laptop plus 4K TV setup.
@@ -663,10 +663,10 @@ export default function Page() {
 
         {/* Step timeline: practical setup */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             How to set this up in practice
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             Five steps from a cold laptop to a TV showing automation
             feedback in real time. None of them require recompiling
             Terminator.
@@ -687,10 +687,10 @@ export default function Page() {
 
         {/* Checklist: when to disable the overlay */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-4">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-4">
             When to set TERMINATOR_ACTION_OVERLAY=0
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             Green checks are cases to turn the overlay off. Empty circles
             are cases to leave it on. Pick by the intent for the TV, not by
             reflex.
@@ -704,10 +704,10 @@ export default function Page() {
         {/* GlowCard: the ambient dashboard use case */}
         <section className="max-w-4xl mx-auto px-6 py-8">
           <GlowCard>
-            <h3 className="text-xl sm:text-2xl font-semibold text-zinc-100 mb-3">
+            <h3 className="text-xl sm:text-2xl font-semibold text-zinc-800 mb-3">
               The unintended good thing: TV as an ambient automation readout
             </h3>
-            <p className="text-zinc-300 leading-relaxed mb-3">
+            <p className="text-zinc-700 leading-relaxed mb-3">
               The cable-advice articles treat a TV-as-monitor as a
               compromise: bigger pixels, more distance, probably OK for
               casual use. That framing misses the shape of how people
@@ -715,7 +715,7 @@ export default function Page() {
               a little further away, easier to glance at than to focus on.
               That is exactly the ergonomics of a status display.
             </p>
-            <p className="text-zinc-300 leading-relaxed mb-3">
+            <p className="text-zinc-700 leading-relaxed mb-3">
               Terminator&apos;s action overlay hits that ergonomics on
               accident. Because the banner is already as big as the virtual
               screen, the TV portion of it becomes a giant readout of what
@@ -724,7 +724,7 @@ export default function Page() {
               field.&rdquo; Legible from the couch, invisible to the
               automation itself (the cursor never leaves the laptop).
             </p>
-            <p className="text-zinc-300 leading-relaxed">
+            <p className="text-zinc-700 leading-relaxed">
               Terminator is a developer framework for desktop automation,
               not a consumer app. It gives existing AI coding assistants
               the ability to control your whole OS (not just write code),
@@ -736,10 +736,10 @@ export default function Page() {
 
         {/* Marquee: related env vars and flags */}
         <section className="max-w-4xl mx-auto px-6 py-8">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-100 mb-2">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-800 mb-2">
             Related flags and constants in the overlay path
           </h2>
-          <p className="text-zinc-400 mb-4 max-w-3xl">
+          <p className="text-zinc-600 mb-4 max-w-3xl">
             One env var, two cooldown constants, one recording-mode flag,
             one RAII guard. Every name here resolves to a real line in the
             open-source repo.
@@ -761,7 +761,7 @@ export default function Page() {
             ].map((name) => (
               <span
                 key={name}
-                className="inline-flex items-center px-5 py-2 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-300 text-sm font-mono whitespace-nowrap"
+                className="inline-flex items-center px-5 py-2 rounded-full border border-zinc-200 bg-zinc-50 text-zinc-700 text-sm font-mono whitespace-nowrap"
               >
                 {name}
               </span>

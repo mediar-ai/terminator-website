@@ -366,18 +366,18 @@ export default function Page() {
             <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-teal-900/30 text-teal-300 border border-teal-500/30">
               Guide
             </span>
-            <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-zinc-800/60 text-zinc-300">
+            <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-zinc-100/60 text-zinc-700">
               element.rs:714
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-zinc-100 leading-tight tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-zinc-800 leading-tight tracking-tight">
             A <GradientText>TV to use as a computer monitor</GradientText> changes
             more than your screen size. It changes the coordinate space your
             scripts see.
           </h1>
 
-          <p className="mt-6 text-lg text-zinc-400 leading-relaxed max-w-3xl">
+          <p className="mt-6 text-lg text-zinc-600 leading-relaxed max-w-3xl">
             Every guide in the top 5 results stops at HDMI cables, input lag,
             and OLED burn-in. None of them tell you that the moment your TV
             becomes display 2, an off-by-one pixel on its left edge is enough
@@ -433,10 +433,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           What hardware blogs cover, and what they leave out
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           The top 5 search results for &quot;tv to use as computer monitor&quot;
           (RTINGS, HP, Best Buy, TCL, Lenovo) all walk through the same
           checklist: pick a panel with low input lag, confirm chroma 4:4:4 over
@@ -444,7 +444,7 @@ export default function Page() {
           a 65-inch screen so individual pixels stop being visible. That advice
           is correct and you should follow it.
         </p>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           What is missing is the software half: the moment Windows or macOS
           enumerates your TV as a second display, the system gives it a
           rectangle in a virtual coordinate space. Every window manager, every
@@ -472,10 +472,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-12">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           The exact code that decides which screen owns the click
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           This is the body of the function that runs every time Terminator
           touches a UI element on a multi-monitor setup. Read it once and you
           will understand why a TV is not a passive display surface, it is an
@@ -490,24 +490,24 @@ export default function Page() {
 
       <section
         id="anchor-fact"
-        className="bg-zinc-950/40 border-y border-zinc-800/60 mt-16"
+        className="bg-white/40 border-y border-zinc-200/60 mt-16"
       >
         <div className="max-w-4xl mx-auto px-6 py-12">
           <span className="px-3 py-1 text-xs font-mono uppercase tracking-widest rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30">
             Anchor fact
           </span>
-          <h2 className="mt-4 text-2xl md:text-3xl font-semibold text-zinc-100">
+          <h2 className="mt-4 text-2xl md:text-3xl font-semibold text-zinc-800">
             The strict less-than on the right edge, and the silent fallback when
             nothing matches
           </h2>
-          <p className="mt-4 text-zinc-400 leading-relaxed">
+          <p className="mt-4 text-zinc-600 leading-relaxed">
             Two facts about this function that are not in any TV-as-monitor
             guide on the web. First, the range check uses{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               {"<"}
             </code>
             , not{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               {"<="}
             </code>
             , on the right and bottom edges. A pixel that lands exactly on the
@@ -531,9 +531,9 @@ export default function Page() {
             filename="crates/terminator/src/lib.rs (lines 310-316)"
           />
 
-          <p className="mt-6 text-zinc-400 leading-relaxed">
+          <p className="mt-6 text-zinc-600 leading-relaxed">
             The companion helper{" "}
-            <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+            <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
               Monitor::contains_point(x, y)
             </code>{" "}
             ships the same rule as a public method, so you can predict where
@@ -545,10 +545,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           Six things this 95-line function actually guarantees
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           Read in isolation it looks like a one-pass loop. Read in context of a
           desktop with a TV plugged in, it makes a series of opinionated
           choices about ambiguity. Here is what each one means in practice.
@@ -557,10 +557,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           By the numbers, just for this one decision
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           The full routing logic is small. Small enough to read in one sitting,
           small enough to model in your head while debugging a misrouted click.
         </p>
@@ -596,7 +596,7 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           The same routing in a flow you can trace by eye
         </h2>
         <FlowDiagram
@@ -606,18 +606,18 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-12">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           Watch the routing happen on a real desktop
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           Terminator ships{" "}
-          <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+          <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
             examples/monitor_example.py
           </code>
           , a 38-line script that walks every Window the OS reports and asks
           which monitor it is on. Run it once with the TV unplugged and once
           plugged in. The same window comes back with a different{" "}
-          <code className="bg-zinc-900 border border-zinc-800 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
+          <code className="bg-zinc-50 border border-zinc-200 text-teal-300 font-mono px-1.5 py-0.5 rounded text-sm">
             monitor.id
           </code>{" "}
           and origin. No code change.
@@ -631,10 +631,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           Hardware blogs vs software-aware setup
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           The two stories complement each other. The hardware story is what to
           buy. The software story is what to expect once it is plugged in and
           your scripts start firing.
@@ -647,10 +647,10 @@ export default function Page() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
-        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-100">
+        <h2 className="text-2xl md:text-3xl font-semibold text-zinc-800">
           From box-fresh TV to a coordinate space your scripts can trust
         </h2>
-        <p className="mt-4 text-zinc-400 leading-relaxed">
+        <p className="mt-4 text-zinc-600 leading-relaxed">
           Five steps. The first two are exactly what RTINGS or HP would tell
           you. The last three are what they leave out.
         </p>
@@ -659,10 +659,10 @@ export default function Page() {
 
       <section className="max-w-4xl mx-auto px-6 mt-16">
         <GlowCard>
-          <h2 className="text-xl md:text-2xl font-semibold text-zinc-100">
+          <h2 className="text-xl md:text-2xl font-semibold text-zinc-800">
             Why a desktop automation framework cares about your TV
           </h2>
-          <p className="mt-4 text-zinc-400 leading-relaxed">
+          <p className="mt-4 text-zinc-600 leading-relaxed">
             Terminator is not a consumer app. It is the framework your AI
             coding assistant uses to control your whole OS, the way Playwright
             controls a browser. Every UI element it touches goes through the
