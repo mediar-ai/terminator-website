@@ -25,6 +25,38 @@ const config: Config = {
           DEFAULT: "#71717A",
           foreground: "#A1A1AA",
         },
+        // Remap the default Tailwind `teal`/`cyan` palettes to Terminator
+        // orange so library components (@m13v/seo-components) that hardcode
+        // `bg-teal-500`, `text-teal-600`, etc render in the brand color
+        // without patching every component. Kept side-by-side with the
+        // --seo-accent CSS vars used by library components that support
+        // arbitrary-value overrides.
+        teal: {
+          50:  "#FFF4ED",
+          100: "#FFE4D1",
+          200: "#FFC3A3",
+          300: "#FF9F73",
+          400: "#FF7A42",
+          500: "#FF5722",
+          600: "#FF3E00",
+          700: "#CC3200",
+          800: "#992500",
+          900: "#661900",
+          950: "#330C00",
+        },
+        cyan: {
+          50:  "#FFF4ED",
+          100: "#FFE4D1",
+          200: "#FFC3A3",
+          300: "#FF9F73",
+          400: "#FF7A42",
+          500: "#FF5722",
+          600: "#FF3E00",
+          700: "#CC3200",
+          800: "#992500",
+          900: "#661900",
+          950: "#330C00",
+        },
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-out forwards",
