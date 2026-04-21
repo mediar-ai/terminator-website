@@ -39,11 +39,11 @@ export function WaitlistModal({ isOpen, onClose, platform }: WaitlistModalProps)
 
       if (data.success) {
         setStatus("success");
-        posthog?.capture("waitlist_joined", { platform, email });
+        posthog?.capture("newsletter_subscribed", { source: "waitlist", platform, email });
       } else {
         setStatus("error");
         setErrorMessage(data.error || "Something went wrong");
-        posthog?.capture("waitlist_error", { platform, error: data.error });
+        posthog?.capture("form_error", { source: "waitlist", platform, error: data.error });
       }
     } catch {
       setStatus("error");
