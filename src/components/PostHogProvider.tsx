@@ -20,6 +20,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
           maskTextSelector: "[data-ph-mask]",
         },
       });
+      (window as unknown as { posthog: typeof posthog }).posthog = posthog;
     }
   }, []);
 
