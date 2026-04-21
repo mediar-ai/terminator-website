@@ -8,7 +8,7 @@ import { posthog } from "@/components/PostHogProvider";
  * Track when user copies the install command
  */
 export function trackInstallCopied(source: "hero" | "quickstart_step1" | "quickstart_step2" | "quickstart_step3") {
-  posthog?.capture("install_command_copied", { source });
+  posthog?.capture("cta_click", { source: `install_copy_${source}`, cta_name: "install_command_copied" });
 }
 
 /**
@@ -25,21 +25,21 @@ export function trackCtaClicked(
   ctaName: string,
   location: "hero" | "nav" | "cta_section" | "footer" | "platform_cards"
 ) {
-  posthog?.capture("cta_clicked", { cta_name: ctaName, location });
+  posthog?.capture("cta_click", { cta_name: ctaName, source: location });
 }
 
 /**
  * Track when waitlist modal is opened
  */
 export function trackWaitlistOpened(platform: "macos" | "linux") {
-  posthog?.capture("waitlist_opened", { platform });
+  posthog?.capture("modal_opened", { modal: "waitlist", platform });
 }
 
 /**
  * Track when waitlist modal is closed without submitting
  */
 export function trackWaitlistClosed(platform: "macos" | "linux", hadEmail: boolean) {
-  posthog?.capture("waitlist_closed", { platform, had_email: hadEmail });
+  posthog?.capture("modal_closed", { modal: "waitlist", platform, had_email: hadEmail });
 }
 
 // ============================================================================
@@ -53,14 +53,14 @@ export function trackExternalLinkClicked(
   url: string,
   linkType: "github" | "discord" | "npm" | "pypi" | "mediar" | "docs" | "other"
 ) {
-  posthog?.capture("external_link_clicked", { url, link_type: linkType });
+  posthog?.capture("cta_click", { source: `external_link_${linkType}`, url, link_type: linkType });
 }
 
 /**
  * Track internal navigation clicks
  */
 export function trackNavClicked(target: string, location: "nav" | "footer" | "inline") {
-  posthog?.capture("nav_clicked", { target, location });
+  posthog?.capture("cta_click", { source: `nav_${location}`, target });
 }
 
 /**
@@ -92,14 +92,14 @@ export function trackComparisonViewed() {
  * Track platform card interactions
  */
 export function trackPlatformCardClicked(platform: "windows" | "macos" | "linux", action: "view" | "waitlist") {
-  posthog?.capture("platform_card_clicked", { platform, action });
+  posthog?.capture("cta_click", { source: "platform_card", platform, action });
 }
 
 /**
  * Track hero badge click/interaction
  */
 export function trackHeroBadgeClicked() {
-  posthog?.capture("hero_badge_clicked");
+  posthog?.capture("cta_click", { source: "hero_badge" });
 }
 
 /**
@@ -120,7 +120,7 @@ export function trackTimeOnPage(seconds: number) {
  * Track logo/brand click
  */
 export function trackLogoClicked() {
-  posthog?.capture("logo_clicked");
+  posthog?.capture("cta_click", { source: "logo" });
 }
 
 // ============================================================================
