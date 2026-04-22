@@ -450,7 +450,7 @@ export default function Page() {
   const faqLd = faqPageSchema(faqs);
 
   return (
-    <main className="bg-white text-zinc-900">
+    <article className="bg-white text-zinc-900 min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
@@ -465,7 +465,7 @@ export default function Page() {
       />
 
       {/* Hero */}
-      <BackgroundGrid pattern="dots" glow>
+      <BackgroundGrid pattern="dots" glow className="mx-0 rounded-none border-0">
         <section className="max-w-4xl mx-auto px-6 pt-16 pb-10">
           <Breadcrumbs items={breadcrumbItems} className="mb-8 !mx-0 !px-0" />
           <div className="mb-5">
@@ -811,6 +811,6 @@ export default function Page() {
         site="Terminator"
         description="20 minutes with the team. See selectors and the hybrid bridge live."
       />
-    </main>
+    </article>
   );
 }
