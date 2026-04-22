@@ -47,3 +47,6 @@ loops_key.txt
 loops_trans.txt
 posthog_host.txt
 env_temp.txt
+
+# Playwright test recordings
+video-*.webm
