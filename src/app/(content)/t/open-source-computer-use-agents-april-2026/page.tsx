@@ -8,7 +8,6 @@ import {
   AnimatedBeam,
   BackgroundGrid,
   GradientText,
-  ShimmerButton,
   NumberTicker,
   Marquee,
   AnimatedCodeBlock,
@@ -18,6 +17,7 @@ import {
   SequenceDiagram,
   MetricsRow,
   BookCallCTA,
+  InlineCta,
   RelatedPostsGrid,
   articleSchema,
   breadcrumbListSchema,
@@ -26,6 +26,7 @@ import {
   type RelatedPost,
   type BentoCard,
 } from "@seo/components";
+import { InstallCommand } from "@/components/InstallCommand";
 
 const PAGE_URL =
   "https://t8r.tech/t/open-source-computer-use-agents-april-2026";
@@ -486,13 +487,21 @@ export default function Page() {
             normalized 0-999 click into a real desktop pixel, living in the
             same MCP process as 32 selector-based tools.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <ShimmerButton href="https://github.com/mediar-ai/terminator">
-              See the source on GitHub
-            </ShimmerButton>
+          <div className="mt-8">
+            <InstallCommand section="article-hero" />
+          </div>
+          <div className="mt-5 flex flex-wrap items-center gap-5 text-sm font-mono uppercase tracking-widest">
+            <a
+              href="https://github.com/mediar-ai/terminator"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-500 hover:text-zinc-900 transition-colors"
+            >
+              Source on GitHub &rarr;
+            </a>
             <a
               href="#the-bridge"
-              className="text-sm font-mono uppercase tracking-widest text-orange-600 hover:text-orange-700 transition-colors"
+              className="text-orange-600 hover:text-orange-700 transition-colors"
             >
               Jump to the bridge code &rarr;
             </a>
@@ -677,6 +686,28 @@ export default function Page() {
         />
       </section>
 
+      {/* Mid-article install nudge */}
+      <section className="max-w-4xl mx-auto px-6 pt-2 pb-4">
+        <div className="rounded-2xl border border-orange-200 bg-orange-50/50 p-6">
+          <p className="text-xs font-mono uppercase tracking-widest text-orange-700 mb-2">
+            Try it in your editor
+          </p>
+          <h3 className="text-xl font-semibold text-zinc-900 mb-2">
+            Run the bridge against your own desktop in under a minute
+          </h3>
+          <p className="text-sm text-zinc-600 mb-4 leading-relaxed">
+            One command wires Terminator into Claude Code as an MCP server.
+            The same binary exposes the 32 selector tools and the Gemini
+            Computer Use loop. Swap{" "}
+            <code className="text-orange-600">claude</code> for{" "}
+            <code className="text-orange-600">cursor</code> or edit the
+            Windsurf <code className="text-orange-600">mcp.json</code> to use
+            elsewhere.
+          </p>
+          <InstallCommand section="article-mid" />
+        </div>
+      </section>
+
       {/* Key translator */}
       <section className="max-w-4xl mx-auto px-6 py-10">
         <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
@@ -763,6 +794,19 @@ export default function Page() {
         />
       </section>
 
+      {/* Inline tracked get-started CTA */}
+      <section className="max-w-4xl mx-auto px-6">
+        <InlineCta
+          heading="Ship the hybrid bridge with your next agent"
+          body="Open source, MIT licensed, Rust core with Python and TypeScript bindings. One npx command registers the MCP server against Claude Code, Cursor, VS Code, or Windsurf. The convert_normalized_to_screen function and the 32 selector tools live in the same binary."
+          linkText="Install Terminator"
+          href="https://github.com/mediar-ai/terminator"
+          trackAs="get_started"
+          site="terminator"
+          section="article-inline-get-started"
+        />
+      </section>
+
       {/* What this unlocks */}
       <section className="max-w-4xl mx-auto px-6 py-10">
         <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
@@ -787,8 +831,8 @@ export default function Page() {
           appearance="footer"
           destination="https://cal.com/team/mediar/terminator"
           site="Terminator"
-          heading="Want the hybrid bridge wired into your own agent?"
-          description="Book 20 minutes with the team and we will walk through how Terminator plugs into Claude Code, Cursor, or a custom harness."
+          heading="Building an agent that needs to click real buttons?"
+          description="20 minutes with the maintainers. Bring the app you are trying to automate and the framework you have been fighting (PyAutoGUI, AutoHotkey, UIA, screenshot loops). We will sketch a selector-first plan with a vision fallback for the gnarly surfaces."
         />
       </section>
 
