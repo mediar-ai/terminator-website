@@ -434,3 +434,383 @@ const faqs = [
     a: "To https://app.mediar.ai/api/vision/computer-use by default, overridable with the GEMINI_COMPUTER_USE_BACKEND_URL environment variable. The payload is a JSON body with three fields: image (base64 PNG), goal (the user task), previous_actions (history with their screenshots and success flags). The backend proxies to Gemini. Source: terminator-computer-use/src/lib.rs line 140, call_computer_use_backend, with a 300-second timeout.",
   },
 ];
+
+export default function Page() {
+  const articleLd = articleSchema({
+    headline: TITLE,
+    description: DESCRIPTION,
+    url: PAGE_URL,
+    datePublished: PUBLISHED,
+    dateModified: PUBLISHED,
+    author: "Matthew Diakonov",
+    publisherName: "Terminator",
+    publisherUrl: "https://t8r.tech",
+  });
+  const breadcrumbLd = breadcrumbListSchema(breadcrumbSchemaItems);
+  const faqLd = faqPageSchema(faqs);
+
+  return (
+    <main className="bg-white text-zinc-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+
+      {/* Hero */}
+      <BackgroundGrid pattern="dots" glow>
+        <section className="max-w-4xl mx-auto px-6 pt-16 pb-10">
+          <Breadcrumbs items={breadcrumbItems} className="mb-8 !mx-0 !px-0" />
+          <div className="mb-5">
+            <span className="inline-block text-xs font-mono uppercase tracking-widest bg-orange-50 text-orange-700 border border-orange-200 rounded-full px-3 py-1">
+              Guide &middot; April 2026
+            </span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-900 leading-tight">
+            Open source computer use agents in{" "}
+            <GradientText animate>April 2026</GradientText>, and the math most
+            survey posts skip
+          </h1>
+          <p className="mt-6 text-lg text-gray-600 leading-relaxed max-w-3xl">
+            Every list of open source computer use agents sorts the field into
+            vision, accessibility, or hybrid and moves on. The interesting code
+            lives in the hyphen. Terminator is the project that publishes it:
+            four arithmetic transforms in Rust that turn a vision model&apos;s
+            normalized 0-999 click into a real desktop pixel, living in the
+            same MCP process as 32 selector-based tools.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <ShimmerButton href="https://github.com/mediar-ai/terminator">
+              See the source on GitHub
+            </ShimmerButton>
+            <a
+              href="#the-bridge"
+              className="text-sm font-mono uppercase tracking-widest text-orange-600 hover:text-orange-700 transition-colors"
+            >
+              Jump to the bridge code &rarr;
+            </a>
+          </div>
+        </section>
+      </BackgroundGrid>
+
+      <section className="max-w-4xl mx-auto">
+        <ArticleMeta
+          author="Matthew Diakonov"
+          authorRole="Co-founder, Mediar"
+          datePublished={PUBLISHED}
+          readingTime="11 min read"
+        />
+        <div className="h-4" />
+        <ProofBand
+          rating={4.8}
+          ratingCount="1.3k Rust crate installs / month"
+          highlights={[
+            "Source: terminator-computer-use/src/lib.rs",
+            "MIT license, runs locally",
+            "Ships the hybrid bridge in public",
+          ]}
+        />
+      </section>
+
+      {/* Concept intro video */}
+      <section className="max-w-4xl mx-auto px-6">
+        <RemotionClip
+          title="One click, four transforms"
+          subtitle="Inside Terminator's Gemini Computer Use bridge"
+          captions={[
+            "Model returns (x=612, y=284) in 0-999 norm space",
+            "Leave norm space: multiply by screenshot_w, divide by 1000",
+            "Undo the resize: divide by resize_scale",
+            "Physical to logical: divide by dpi_scale",
+            "Add the window offset: click a real pixel",
+          ]}
+          accent="orange"
+          accentHex="#FF3E00"
+          accentHexDark="#CC3200"
+        />
+      </section>
+
+      {/* The SERP vs the source */}
+      <section className="max-w-4xl mx-auto px-6 py-12">
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
+          The list posts all say the same three words
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed">
+          Search &ldquo;open source computer use agents April 2026&rdquo; and
+          the first page repeats itself. UI-TARS, Browser Use, Microsoft UFO,
+          Agent S, Agent Zero, Open Interpreter, LaVague, Fazm. Each post
+          labels every entry vision, accessibility, or hybrid. None of them
+          open the source on a hybrid agent and show what hybrid actually
+          means in code. That is the gap this page fills, using the one
+          project in that list whose hybrid bridge ships in public: Terminator.
+        </p>
+        <p className="mt-4 text-lg text-gray-600 leading-relaxed">
+          The bridge is nine lines of arithmetic. Written out with comments it
+          is about thirty. But getting any of those lines wrong puts every
+          click half an inch to the left of the button, and none of the other
+          posts show you how the line goes.
+        </p>
+      </section>
+
+      <section className="max-w-5xl mx-auto px-6">
+        <div className="rounded-2xl border border-zinc-200 bg-zinc-50 py-6">
+          <p className="text-xs font-mono uppercase tracking-widest text-zinc-500 text-center mb-3">
+            The field, April 2026
+          </p>
+          <Marquee speed={38}>
+            {marqueeItems.map((name) => (
+              <span
+                key={name}
+                className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-900 shadow-sm"
+              >
+                {name}
+              </span>
+            ))}
+          </Marquee>
+        </div>
+      </section>
+
+      {/* Metrics */}
+      <section className="max-w-4xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {spaceMetrics.map((m) => (
+            <div
+              key={m.label}
+              className="rounded-2xl border border-zinc-200 bg-white p-5"
+            >
+              <div className="text-3xl font-bold text-zinc-900">
+                <NumberTicker value={m.value} />
+              </div>
+              <div className="mt-1 text-sm text-gray-600 leading-snug">
+                {m.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Architectures */}
+      <section className="max-w-4xl mx-auto px-6 py-6">
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
+          The two architectures, end to end
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed">
+          A pure-vision agent sees a PNG, picks a pixel, and hands the pixel
+          back. A pure-selector agent reads the accessibility tree, matches a
+          node by role and name, and invokes it through the OS. Every survey
+          post acknowledges both. What they rarely acknowledge is that a
+          hybrid agent has to do both at the same time in the same process,
+          and that means the boundary between &ldquo;what the model returned&rdquo;
+          and &ldquo;what the OS accepts&rdquo; is real code someone has to write.
+        </p>
+        <ComparisonTable
+          heading="Vision-native vs selector-native, in practice"
+          productName="Selector path (Terminator MCP)"
+          competitorName="Vision path (screenshot loop)"
+          rows={architectureRows}
+          caveat="Both paths ship in the same Terminator binary. You can call click_element and gemini_computer_use against the same desktop in the same session."
+        />
+      </section>
+
+      {/* The hybrid flow as a beam */}
+      <section className="max-w-4xl mx-auto px-6 py-6">
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
+          What a hybrid call actually moves through
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed">
+          A single Gemini Computer Use round-trip passes through three inputs
+          on the way in and three transforms on the way out. In Terminator
+          both ends meet inside the <code className="text-orange-600">terminator-computer-use</code> crate.
+        </p>
+        <AnimatedBeam
+          title="terminator-computer-use: one round-trip"
+          from={hybridDiagramFrom}
+          hub={hybridDiagramHub}
+          to={hybridDiagramTo}
+          accentColor="#FF3E00"
+        />
+      </section>
+
+      {/* Anchor fact: the code */}
+      <section id="the-bridge" className="max-w-4xl mx-auto px-6 py-10">
+        <span className="inline-block text-xs font-mono uppercase tracking-widest bg-orange-50 text-orange-700 border border-orange-200 rounded-full px-3 py-1 mb-4">
+          Anchor fact
+        </span>
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
+          The nine lines almost nobody publishes
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed">
+          Here is the function at{" "}
+          <code className="text-orange-600">
+            crates/terminator-computer-use/src/lib.rs:336
+          </code>
+          . It is the whole reason hybrid computer use is possible on a
+          Windows laptop with a HiDPI display.
+        </p>
+        <AnimatedCodeBlock
+          code={convertCoordSource}
+          language="rust"
+          filename="crates/terminator-computer-use/src/lib.rs"
+          typingSpeed={6}
+        />
+        <p className="mt-4 text-base text-gray-600 leading-relaxed">
+          You can verify this by cloning the repo and running{" "}
+          <code className="text-orange-600">cargo test -p terminator-computer-use</code>;
+          the tests at the bottom of the same file cover the no-scaling case,
+          the window-offset case, and the f1 through f24 range, so the bridge
+          is not just shipped, it is checked in CI.
+        </p>
+      </section>
+
+      {/* StepTimeline breaking down the transforms */}
+      <section className="max-w-4xl mx-auto px-6 py-6">
+        <StepTimeline
+          title="The four transforms, one at a time"
+          steps={transformSteps}
+        />
+      </section>
+
+      {/* Key translator */}
+      <section className="max-w-4xl mx-auto px-6 py-10">
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
+          The key translator is the smaller bridge, and it fails loudly
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed">
+          A vision model does not know or care about Windows UI Automation key
+          syntax. It emits what it learned: control+a, Meta+Shift+T.
+          Terminator ships a deterministic translator that refuses to guess.
+          Unknown keys return a typed error, not a best-effort attempt. This
+          matters because a silent miss on a keyboard shortcut is
+          indistinguishable from a slow app on a noisy CI run.
+        </p>
+        <AnimatedCodeBlock
+          code={translateKeysSource}
+          language="rust"
+          filename="crates/terminator-computer-use/src/lib.rs (trimmed)"
+          typingSpeed={5}
+        />
+      </section>
+
+      {/* Dispatch tool - both paths in one match */}
+      <section className="max-w-4xl mx-auto px-6 py-6">
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
+          The two paths live next to each other in one match block
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed">
+          In Terminator&apos;s MCP server, <code className="text-orange-600">gemini_computer_use</code> is
+          not a separate binary or a plugin. It is one arm of the same{" "}
+          <code className="text-orange-600">dispatch_tool</code> match block
+          that exposes <code className="text-orange-600">click_element</code>,{" "}
+          <code className="text-orange-600">type_into_element</code>, and the
+          other 29 selector-based tools. A model driving an agent session can
+          choose, per step, whether to spend a screenshot round-trip or a
+          selector lookup.
+        </p>
+        <AnimatedCodeBlock
+          code={dispatchSource}
+          language="rust"
+          filename="crates/terminator-mcp-agent/src/server.rs"
+          typingSpeed={5}
+        />
+      </section>
+
+      {/* Sequence diagram of a hybrid call */}
+      <section className="max-w-4xl mx-auto px-6 py-10">
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
+          What actually happens per vision step
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed">
+          Read this like a latency budget. Every request arrow is a wait you
+          are paying for. The selector path collapses the three left-most
+          arrows into zero, which is why it wins for normal apps.
+        </p>
+        <SequenceDiagram
+          title="gemini_computer_use, one step"
+          actors={hybridSequenceActors}
+          messages={hybridSequenceMessages}
+        />
+      </section>
+
+      {/* Agents in the field */}
+      <section className="max-w-5xl mx-auto px-6 py-10">
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4 text-center">
+          The cast, April 2026
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed text-center max-w-2xl mx-auto mb-2">
+          Six open source projects that credibly call themselves computer use
+          agents today. Each picks a different place on the architecture
+          spectrum.
+        </p>
+        <BentoGrid cards={agentCards} />
+      </section>
+
+      {/* Quick metrics recap */}
+      <section className="max-w-4xl mx-auto px-6 py-6">
+        <MetricsRow
+          metrics={[
+            { value: 300, label: "Backend timeout (seconds) per call", suffix: "s" },
+            { value: 1024, label: "Image long edge cap before upload", suffix: "px" },
+            { value: 24, label: "Function keys handled (f1-f24)" },
+            { value: 1, label: "Binary ships both paths" },
+          ]}
+        />
+      </section>
+
+      {/* What this unlocks */}
+      <section className="max-w-4xl mx-auto px-6 py-10">
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
+          What the public bridge actually unlocks
+        </h2>
+        <p className="text-lg text-gray-600 leading-relaxed">
+          When the coordinate conversion and the key translator are real code
+          you can read, three things get easier. You can run the same agent
+          harness on a 100% display and a 175% display without re-tuning
+          anything, because <code className="text-orange-600">dpi_scale</code> is just a
+          parameter. You can swap the model backend by changing one env var (
+          <code className="text-orange-600">GEMINI_COMPUTER_USE_BACKEND_URL</code>) and the
+          math continues to work. And you can write deterministic tests for
+          the bridge (the file has them) so a regression in the resize path
+          does not silently move every click.
+        </p>
+      </section>
+
+      {/* Book-a-call footer */}
+      <section className="max-w-4xl mx-auto px-6 py-10">
+        <BookCallCTA
+          appearance="footer"
+          destination="https://cal.com/team/mediar/terminator"
+          site="Terminator"
+          heading="Want the hybrid bridge wired into your own agent?"
+          description="Book 20 minutes with the team and we will walk through how Terminator plugs into Claude Code, Cursor, or a custom harness."
+        />
+      </section>
+
+      {/* FAQs */}
+      <FaqSection items={faqs} />
+
+      {/* Related */}
+      <section className="max-w-6xl mx-auto px-6 py-8">
+        <RelatedPostsGrid
+          title="Related reading"
+          subtitle="More on the parts this page skipped over."
+          posts={relatedPosts}
+        />
+      </section>
+
+      {/* Sticky CTA */}
+      <BookCallCTA
+        appearance="sticky"
+        destination="https://cal.com/team/mediar/terminator"
+        site="Terminator"
+        description="20 minutes with the team. See selectors and the hybrid bridge live."
+      />
+    </main>
+  );
+}
