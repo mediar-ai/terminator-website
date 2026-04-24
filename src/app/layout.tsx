@@ -7,7 +7,7 @@ import { GuideChat } from "@/components/guide-chat";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://t8r.tech"),
-  title: "Terminator — Playwright for your entire desktop",
+  title: "Terminator: Playwright for your entire desktop",
   description:
     "Open-source desktop automation framework. Drives Windows apps through native accessibility APIs, not OCR or pixel matching. Playwright-style SDK plus an MCP server for Claude, Cursor, and VS Code. A saner alternative to PyAutoGUI, AutoHotkey, and UIAutomation.",
   keywords: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Terminator — Playwright for your entire desktop",
+    title: "Terminator: Playwright for your entire desktop",
     description:
       "Open-source desktop automation that drives any Windows app through native accessibility APIs. Playwright-style SDK, Rust core, MCP server for Claude, Cursor, and VS Code.",
     url: "https://t8r.tech",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terminator — Playwright for your entire desktop",
+    title: "Terminator: Playwright for your entire desktop",
     description:
       "Open-source desktop automation framework. Accessibility APIs, not OCR. Playwright-style SDK plus an MCP server for Claude, Cursor, and VS Code.",
   },
