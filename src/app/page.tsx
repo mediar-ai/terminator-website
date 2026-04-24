@@ -922,7 +922,7 @@ await desktop.openApplication('notepad');`}
             {[
               {
                 q: "How is this different from PyAutoGUI or AutoHotkey?",
-                a: "PyAutoGUI and AutoHotkey send synthetic keystrokes and click coordinates — they don't know what a button is. Terminator queries the accessibility tree, so selectors like role:Button && name:Save match structurally. Scripts stop breaking the first time layout shifts by two pixels or the user's DPI changes.",
+                a: "PyAutoGUI and AutoHotkey send synthetic keystrokes and click coordinates; they don't know what a button is. Terminator queries the accessibility tree, so selectors like role:Button && name:Save match structurally. Scripts stop breaking the first time layout shifts by two pixels or the user's DPI changes.",
               },
               {
                 q: "Is it just a wrapper around Windows UIAutomation?",
@@ -930,7 +930,7 @@ await desktop.openApplication('notepad');`}
               },
               {
                 q: "Does it use screenshots, OCR, or pixel matching?",
-                a: "Not by default. Element lookups walk the accessibility tree and are deterministic. Vision (Gemini) is only the fallback when an element isn't exposed to accessibility — think custom-drawn canvases or games. Most line-of-business apps never need it.",
+                a: "Not by default. Element lookups walk the accessibility tree and are deterministic. Vision (Gemini) is only the fallback when an element isn't exposed to accessibility (think custom-drawn canvases or games). Most line-of-business apps never need it.",
               },
               {
                 q: "Which AI coding assistants can drive it via MCP?",
@@ -938,15 +938,15 @@ await desktop.openApplication('notepad');`}
               },
               {
                 q: "Should I use this instead of Playwright for browser work?",
-                a: "No. If you're only automating Chrome or Firefox, Playwright has a richer DevTools-level API and should stay your default. Terminator shines when you need to hop between apps in a single run — browser to Excel to SAP to a native dialog — or when the target isn't a browser at all.",
+                a: "No. If you're only automating Chrome or Firefox, Playwright has a richer DevTools-level API and should stay your default. Terminator shines when you need to hop between apps in a single run (browser to Excel to SAP to a native dialog), or when the target isn't a browser at all.",
               },
               {
                 q: "Is macOS and Linux support ready?",
-                a: "Windows is the stable, primary target. macOS (AXUIElement) is in active development — the waitlist above is the real sign-up, not a joke. Linux (AT-SPI) is further out. If you need cross-platform today, start with Windows.",
+                a: "Windows is the stable, primary target. macOS (AXUIElement) is in active development; the waitlist above is the real sign-up, not a joke. Linux (AT-SPI) is further out. If you need cross-platform today, start with Windows.",
               },
               {
                 q: "Is it really MIT-licensed and open source?",
-                a: "Yes. Source at github.com/mediar-ai/terminator. Published on crates.io (terminator-rs), npm (@mediar-ai/terminator), and PyPI (terminator). No hosted platform, no bot orchestration, no RBAC — it's a framework, not an RPA vendor.",
+                a: "Yes. Source at github.com/mediar-ai/terminator. Published on crates.io (terminator-rs), npm (@mediar-ai/terminator), and PyPI (terminator). No hosted platform, no bot orchestration, no RBAC. It's a framework, not an RPA vendor.",
               },
             ].map((item, i) => (
               <motion.details
@@ -981,7 +981,7 @@ await desktop.openApplication('notepad');`}
                     name: "How is Terminator different from PyAutoGUI or AutoHotkey?",
                     acceptedAnswer: {
                       "@type": "Answer",
-                      text: "PyAutoGUI and AutoHotkey send synthetic keystrokes and click coordinates — they don't know what a button is. Terminator queries the accessibility tree, so selectors like role:Button && name:Save match structurally. Scripts stop breaking the first time layout shifts by two pixels or the user's DPI changes.",
+                      text: "PyAutoGUI and AutoHotkey send synthetic keystrokes and click coordinates; they don't know what a button is. Terminator queries the accessibility tree, so selectors like role:Button && name:Save match structurally. Scripts stop breaking the first time layout shifts by two pixels or the user's DPI changes.",
                     },
                   },
                   {
@@ -997,7 +997,7 @@ await desktop.openApplication('notepad');`}
                     name: "Does Terminator use screenshots, OCR, or pixel matching?",
                     acceptedAnswer: {
                       "@type": "Answer",
-                      text: "Not by default. Element lookups walk the accessibility tree and are deterministic. Vision (Gemini) is only the fallback when an element isn't exposed to accessibility — think custom-drawn canvases or games. Most line-of-business apps never need it.",
+                      text: "Not by default. Element lookups walk the accessibility tree and are deterministic. Vision (Gemini) is only the fallback when an element isn't exposed to accessibility (think custom-drawn canvases or games). Most line-of-business apps never need it.",
                     },
                   },
                   {
@@ -1013,7 +1013,7 @@ await desktop.openApplication('notepad');`}
                     name: "Should I use Terminator instead of Playwright for browser work?",
                     acceptedAnswer: {
                       "@type": "Answer",
-                      text: "No. If you're only automating Chrome or Firefox, Playwright has a richer DevTools-level API and should stay your default. Terminator shines when you need to hop between apps in a single run — browser to Excel to SAP to a native dialog — or when the target isn't a browser at all.",
+                      text: "No. If you're only automating Chrome or Firefox, Playwright has a richer DevTools-level API and should stay your default. Terminator shines when you need to hop between apps in a single run (browser to Excel to SAP to a native dialog), or when the target isn't a browser at all.",
                     },
                   },
                   {
