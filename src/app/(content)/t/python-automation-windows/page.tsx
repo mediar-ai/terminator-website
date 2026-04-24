@@ -508,6 +508,8 @@ export default function Page() {
         <CodeComparison
           leftCode={pywinautoVsTerminator.left}
           rightCode={pywinautoVsTerminator.right}
+          leftLines={pywinautoVsTerminator.left.split("\n").length}
+          rightLines={pywinautoVsTerminator.right.split("\n").length}
           leftLabel="pywinauto (traditional)"
           rightLabel="terminator-py"
           title="Two scripts, same goal, two orders of magnitude"
@@ -518,14 +520,9 @@ export default function Page() {
         <BeforeAfter
           title="What a Python run looks like, before vs after"
           before={{
-            content: (
-              <p className="text-zinc-700 leading-relaxed">
-                You open the app. You walk descendants(). You print each
-                control. Then you write a second script that loops over the
-                dump and picks controls by substring. The agent layer is a
-                text parser you wrote yourself.
-              </p>
-            ),
+            label: "Before: pywinauto",
+            content:
+              "You open the app. You walk descendants(). You print each control. Then you write a second script that loops over the dump and picks controls by substring. The agent layer is a text parser you wrote yourself.",
             highlights: [
               "One COM round trip per property per element",
               "A 245-element dialog takes ~6.5 seconds to walk",
@@ -534,17 +531,9 @@ export default function Page() {
             ],
           }}
           after={{
-            content: (
-              <p className="text-zinc-700 leading-relaxed">
-                You call{" "}
-                <code className="font-mono text-sm">
-                  desktop.get_window_tree(pid)
-                </code>
-                . You get a UINode. You print it and you have JSON. Claude
-                picks a selector. You call click. The agent layer is a
-                library call.
-              </p>
-            ),
+            label: "After: terminator-py",
+            content:
+              "You call desktop.get_window_tree(pid). You get a UINode. You print it and you have JSON. Claude picks a selector. You call click. The agent layer is a library call.",
             highlights: [
               "One find_first_build_cache call for the whole subtree",
               "~200 ms on the same 245-element shape",
