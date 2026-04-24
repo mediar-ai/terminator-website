@@ -398,10 +398,10 @@ export default function Page() {
                 content:
                   "A table with a single checkmark in a Free column. No mention of seat caps, unattended-run paywalls, vendor-hosted vision backends, or telemetry that cannot be turned off.",
                 highlights: [
-                  { text: "MIT column: yes or no" },
-                  { text: "Windows column: yes or no" },
-                  { text: "Pricing: 'contact sales' or '$0'" },
-                  { text: "No per-feature cost analysis" },
+                  "MIT column: yes or no",
+                  "Windows column: yes or no",
+                  "Pricing: 'contact sales' or '$0'",
+                  "No per-feature cost analysis",
                 ],
               }}
               after={{
@@ -409,10 +409,10 @@ export default function Page() {
                 content:
                   "The actual boolean flags, env vars, and code paths that decide whether turning on a feature stays free. Visible in the source, readable by the agent, and toggleable at runtime.",
                 highlights: [
-                  { text: "include_ocr: local CPU, no network" },
-                  { text: "include_omniparser: remote by default, self-hostable" },
-                  { text: "include_gemini_vision: bring-your-own-key, off by default" },
-                  { text: "POSTHOG_DISABLED, SENTRY_DISABLED, OMNIPARSER_BACKEND_URL" },
+                  "include_ocr: local CPU, no network",
+                  "include_omniparser: remote by default, self-hostable",
+                  "include_gemini_vision: bring-your-own-key, off by default",
+                  "POSTHOG_DISABLED, SENTRY_DISABLED, OMNIPARSER_BACKEND_URL",
                 ],
               }}
             />
