@@ -6,18 +6,23 @@ import { SiteSidebar } from "@/components/site-sidebar";
 import { GuideChat } from "@/components/guide-chat";
 
 export const metadata: Metadata = {
-  title: "Terminator - AI-Native Desktop Automation",
+  metadataBase: new URL("https://t8r.tech"),
+  title: "Terminator — Playwright for your entire desktop",
   description:
-    "Give AI hands to control any Windows application. Open-source desktop automation with >95% reliability. Like Playwright, but for your entire desktop.",
+    "Open-source desktop automation framework. Drives Windows apps through native accessibility APIs, not OCR or pixel matching. Playwright-style SDK plus an MCP server for Claude, Cursor, and VS Code. A saner alternative to PyAutoGUI, AutoHotkey, and UIAutomation.",
   keywords: [
-    "desktop automation",
-    "AI automation",
-    "Windows automation",
-    "RPA",
-    "MCP",
-    "Model Context Protocol",
-    "computer use",
-    "UI automation",
+    "desktop automation framework",
+    "Playwright for desktop",
+    "PyAutoGUI alternative",
+    "AutoHotkey alternative",
+    "UIAutomation framework",
+    "Windows accessibility API automation",
+    "MCP server desktop control",
+    "computer use agent",
+    "Claude desktop automation",
+    "Cursor MCP desktop",
+    "UI automation SDK",
+    "Rust desktop automation",
   ],
   authors: [{ name: "Mediar AI" }],
   icons: {
@@ -25,16 +30,18 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Terminator - AI-Native Desktop Automation",
-    description: "Give AI hands to control any Windows application.",
-    url: "https://terminator.dev",
+    title: "Terminator — Playwright for your entire desktop",
+    description:
+      "Open-source desktop automation that drives any Windows app through native accessibility APIs. Playwright-style SDK, Rust core, MCP server for Claude, Cursor, and VS Code.",
+    url: "https://t8r.tech",
     siteName: "Terminator",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terminator - AI-Native Desktop Automation",
-    description: "Give AI hands to control any Windows application.",
+    title: "Terminator — Playwright for your entire desktop",
+    description:
+      "Open-source desktop automation framework. Accessibility APIs, not OCR. Playwright-style SDK plus an MCP server for Claude, Cursor, and VS Code.",
   },
 };
 
