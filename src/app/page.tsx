@@ -328,19 +328,16 @@ export default function Home() {
             variants={fadeInUp}
             className="text-5xl md:text-7xl font-mono font-bold tracking-tight mb-6"
           >
-            Give AI{" "}
-            <span className="gradient-text">hands</span>
+            <span className="gradient-text">Playwright</span>,
             <br />
-            to control your desktop
+            for every app on your desktop
           </motion.h1>
 
           <motion.p
             variants={fadeInUp}
             className="text-xl text-zinc-600 max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Open-source desktop automation that works with any Windows application.
-            Like Playwright, but for your entire desktop. {">"}95% reliability through
-            accessibility APIs, not brittle vision models.
+            Open-source automation that drives native Windows apps through accessibility APIs, not OCR or pixel matching. Playwright-style SDK, Rust core, and an MCP server that gives Claude, Cursor, and VS Code real OS-level hands. Built for developers already burned by PyAutoGUI, AutoHotkey, and UIAutomation.
           </motion.p>
 
           <motion.div
@@ -897,6 +894,151 @@ await desktop.openApplication('notepad');`}
         </div>
       </section>
 
+      {/* FAQ */}
+      <section id="faq" className="py-20 px-6 border-t border-zinc-200">
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-12"
+          >
+            <h2 className="font-mono text-3xl md:text-4xl font-bold mb-4">
+              Honest FAQ
+            </h2>
+            <p className="text-zinc-600 max-w-2xl mx-auto">
+              Straight answers, including when Terminator is the wrong tool.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="space-y-4"
+          >
+            {[
+              {
+                q: "How is this different from PyAutoGUI or AutoHotkey?",
+                a: "PyAutoGUI and AutoHotkey send synthetic keystrokes and click coordinates — they don't know what a button is. Terminator queries the accessibility tree, so selectors like role:Button && name:Save match structurally. Scripts stop breaking the first time layout shifts by two pixels or the user's DPI changes.",
+              },
+              {
+                q: "Is it just a wrapper around Windows UIAutomation?",
+                a: "The Rust core uses UIA on Windows and AX on macOS under the hood, but the public API is Playwright-shaped: locators, chaining, retries, a unified selector syntax. You don't hand-walk the UIA tree, and you get the same SDK from TypeScript, Python, or Rust.",
+              },
+              {
+                q: "Does it use screenshots, OCR, or pixel matching?",
+                a: "Not by default. Element lookups walk the accessibility tree and are deterministic. Vision (Gemini) is only the fallback when an element isn't exposed to accessibility — think custom-drawn canvases or games. Most line-of-business apps never need it.",
+              },
+              {
+                q: "Which AI coding assistants can drive it via MCP?",
+                a: "Anything that speaks Model Context Protocol: Claude Code, Cursor, VS Code's MCP support, Windsurf. One-liner install: claude mcp add terminator \"npx -y terminator-mcp-agent@latest\". The MCP server ships 35+ tools (click, type, read tree, capture screenshot, run workflow).",
+              },
+              {
+                q: "Should I use this instead of Playwright for browser work?",
+                a: "No. If you're only automating Chrome or Firefox, Playwright has a richer DevTools-level API and should stay your default. Terminator shines when you need to hop between apps in a single run — browser to Excel to SAP to a native dialog — or when the target isn't a browser at all.",
+              },
+              {
+                q: "Is macOS and Linux support ready?",
+                a: "Windows is the stable, primary target. macOS (AXUIElement) is in active development — the waitlist above is the real sign-up, not a joke. Linux (AT-SPI) is further out. If you need cross-platform today, start with Windows.",
+              },
+              {
+                q: "Is it really MIT-licensed and open source?",
+                a: "Yes. Source at github.com/mediar-ai/terminator. Published on crates.io (terminator-rs), npm (@mediar-ai/terminator), and PyPI (terminator). No hosted platform, no bot orchestration, no RBAC — it's a framework, not an RPA vendor.",
+              },
+            ].map((item, i) => (
+              <motion.details
+                key={i}
+                variants={fadeInUp}
+                className="group border border-zinc-200 rounded-lg overflow-hidden hover:border-accent/50 transition-colors"
+              >
+                <summary className="cursor-pointer list-none p-5 flex items-start justify-between gap-4 hover:bg-zinc-50 transition-colors">
+                  <span className="font-mono font-semibold text-zinc-900">
+                    {item.q}
+                  </span>
+                  <span className="font-mono text-accent text-xl leading-none mt-0.5 group-open:rotate-45 transition-transform">
+                    +
+                  </span>
+                </summary>
+                <div className="px-5 pb-5 text-zinc-600 leading-relaxed border-t border-zinc-100 pt-4">
+                  {item.a}
+                </div>
+              </motion.details>
+            ))}
+          </motion.div>
+
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: [
+                  {
+                    "@type": "Question",
+                    name: "How is Terminator different from PyAutoGUI or AutoHotkey?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "PyAutoGUI and AutoHotkey send synthetic keystrokes and click coordinates — they don't know what a button is. Terminator queries the accessibility tree, so selectors like role:Button && name:Save match structurally. Scripts stop breaking the first time layout shifts by two pixels or the user's DPI changes.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "Is Terminator just a wrapper around Windows UIAutomation?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "The Rust core uses UIA on Windows and AX on macOS under the hood, but the public API is Playwright-shaped: locators, chaining, retries, a unified selector syntax. You don't hand-walk the UIA tree, and you get the same SDK from TypeScript, Python, or Rust.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "Does Terminator use screenshots, OCR, or pixel matching?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "Not by default. Element lookups walk the accessibility tree and are deterministic. Vision (Gemini) is only the fallback when an element isn't exposed to accessibility — think custom-drawn canvases or games. Most line-of-business apps never need it.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "Which AI coding assistants can drive Terminator via MCP?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "Anything that speaks Model Context Protocol: Claude Code, Cursor, VS Code's MCP support, Windsurf. The MCP server ships 35+ tools (click, type, read tree, capture screenshot, run workflow).",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "Should I use Terminator instead of Playwright for browser work?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "No. If you're only automating Chrome or Firefox, Playwright has a richer DevTools-level API and should stay your default. Terminator shines when you need to hop between apps in a single run — browser to Excel to SAP to a native dialog — or when the target isn't a browser at all.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "Is macOS and Linux support ready?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "Windows is the stable, primary target. macOS (AXUIElement) is in active development. Linux (AT-SPI) is further out. If you need cross-platform today, start with Windows.",
+                    },
+                  },
+                  {
+                    "@type": "Question",
+                    name: "Is Terminator really MIT-licensed and open source?",
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: "Yes. Source at github.com/mediar-ai/terminator. Published on crates.io (terminator-rs), npm (@mediar-ai/terminator), and PyPI (terminator). It's a framework, not a hosted RPA platform.",
+                    },
+                  },
+                ],
+              }),
+            }}
+          />
+        </div>
+      </section>
+
       {/* CTA */}
       <section ref={ctaRef} className="py-20 px-6 border-t border-zinc-200">
         <motion.div
@@ -907,10 +1049,10 @@ await desktop.openApplication('notepad');`}
           className="max-w-3xl mx-auto text-center"
         >
           <h2 className="font-mono text-3xl md:text-4xl font-bold mb-6">
-            Ready to automate?
+            Ship your first automation today
           </h2>
           <p className="text-zinc-600 mb-8 text-lg">
-            Join thousands of developers using Terminator to give AI hands.
+            One-liner MCP install. Full TypeScript, Python, and Rust bindings. MIT licensed. Star the repo to follow the project, or book a call if you&apos;re building something serious.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
@@ -938,6 +1080,7 @@ await desktop.openApplication('notepad');`}
             >
               Join Discord
             </a>
+            <BookCallButton section="cta_section" className="px-8 py-4 text-base rounded-lg" />
           </div>
         </motion.div>
       </section>
