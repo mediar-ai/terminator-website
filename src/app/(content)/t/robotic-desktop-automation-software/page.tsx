@@ -1,0 +1,720 @@
+import type { Metadata } from "next";
+import {
+  Breadcrumbs,
+  ArticleMeta,
+  ProofBand,
+  ProofBanner,
+  FaqSection,
+  RemotionClip,
+  BackgroundGrid,
+  GradientText,
+  NumberTicker,
+  AnimatedBeam,
+  AnimatedCodeBlock,
+  TerminalOutput,
+  BentoGrid,
+  GlowCard,
+  MetricsRow,
+  ComparisonTable,
+  CodeComparison,
+  StepTimeline,
+  SequenceDiagram,
+  BookCallCTA,
+  articleSchema,
+  breadcrumbListSchema,
+  faqPageSchema,
+  type ComparisonRow,
+  type FaqItem,
+  type BentoCard,
+} from "@m13v/seo-components";
+
+const PAGE_URL = "https://t8r.tech/t/robotic-desktop-automation-software";
+const PUBLISHED = "2026-04-24";
+const TITLE =
+  "Robotic desktop automation software graded on its selector engine, not its Studio screenshot";
+const DESCRIPTION =
+  "Every roundup of robotic desktop automation software grades the same drag-and-drop Studios. Terminator is graded on what its bot actually uses to find a button on the screen: a 24-variant typed selector enum at crates/terminator/src/selector.rs that composes positional, boolean, and structural operators against the Windows UI Automation tree, exposed to AI coding assistants through 35 MCP tools.";
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PAGE_URL },
+  openGraph: {
+    title: TITLE,
+    description:
+      "The Selector enum at crates/terminator/src/selector.rs lines 4-56 has 24 variants. Five string operators (&&, ||, !, >>, ..) compose them. The MCP server exposes 35 tools, including typecheck_workflow that runs tsc against your automation before the robot runs it.",
+    url: PAGE_URL,
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Robotic desktop automation software, graded on its selector engine",
+    description:
+      "Terminator is robotic desktop automation reshaped as Playwright for the OS: 24 typed selector variants, 5 composition operators, 35 MCP tools, no Studio.",
+  },
+  robots: { index: true, follow: true },
+};
+
+const breadcrumbItems = [
+  { label: "Terminator", href: "/" },
+  { label: "Guides", href: "/t" },
+  { label: "Robotic desktop automation software" },
+];
+
+const breadcrumbSchemaItems = [
+  { name: "Terminator", url: "https://t8r.tech/" },
+  { name: "Guides", url: "https://t8r.tech/t" },
+  { name: "Robotic desktop automation software", url: PAGE_URL },
+];
+
+const faqs: FaqItem[] = [
+  {
+    q: "What is robotic desktop automation software?",
+    a: "Robotic desktop automation software is anything that drives the applications on a single user's desktop the way a human would: clicking buttons in Excel, copying values out of an SAP form, opening Outlook, navigating a custom WPF tool, alt-tabbing between windows. It descends from enterprise RPA, where each user runs a personal 'robot' on their own machine instead of a shared server-side bot. The robot needs three things: a way to enumerate UI elements, a way to identify the right one, and a way to act on it. The classical RPA suites (UiPath, Power Automate Desktop, Automation Anywhere, Fortra Automate Desktop) ship a visual Studio where you assemble those three things into a flowchart. Terminator ships them as a Rust crate, an npm package, a pip package, and an MCP server. Same job, different shape.",
+  },
+  {
+    q: "How is Terminator different from UiPath, Power Automate Desktop, and Automation Anywhere?",
+    a: "Different category. UiPath, Power Automate Desktop, Automation Anywhere, NICE, Blue Prism, and Fortra Automate Desktop are designer-driven RPA platforms. The robot is a process you build inside a visual Studio, save as a proprietary artifact, and ship to a runtime. The intended user is a citizen developer or RPA developer, not a software engineer. Terminator inverts every one of those defaults. It is a developer framework, MIT licensed, distributed as cargo add terminator-rs, npm install @mediar-ai/terminator, pip install terminator-py, or npx -y terminator-mcp-agent@latest. There is no Studio. The robot is a library your code, or your AI coding assistant's code, imports and calls. Workflows are YAML or TypeScript files you can diff in git.",
+  },
+  {
+    q: "What does the selector engine actually look like?",
+    a: "It is a Rust enum with 24 active variants, defined at crates/terminator/src/selector.rs lines 4-56. Six identify by attribute (Role, Id, Name, Text, NativeId, ClassName). Five locate by spatial relationship to an anchor element (RightOf, LeftOf, Above, Below, Near). Three compose with boolean logic (And, Or, Not). Three navigate the tree (Has, Parent, Chain). Seven handle special cases (Path, Attributes, Filter, Visible, LocalizedRole, Process, Nth). At runtime the engine resolves them against the Windows UI Automation accessibility tree returned by IUIAutomationElement queries. The same enum can be written by humans as a string (process:chrome >> role:Button && name:Save), built programmatically from the Selector::role / Selector::name factory methods, or generated by an AI coding assistant from natural language through the MCP server.",
+  },
+  {
+    q: "Why does positional selection (rightof, leftof, above, below, near) matter on the desktop?",
+    a: "Forms are the dominant UI pattern in the apps that need automation: SAP, Salesforce desktop clients, ERP systems, hospital information systems, accounting software. They have rows of labels next to text inputs with no accessible name on the input itself. The accessibility tree shows you a Label 'Customer ID' and an unnamed Edit. Without positional selectors you fall back to AutomationId or to walking by index. Both are brittle. With Terminator you write role:Edit && rightof:(role:Text && name:Customer ID) and the engine finds the input regardless of where the form lays out, regardless of whether the row is the first or the seventeenth, regardless of whether the underlying control gets a new AutomationId in the next release. This is the same primitive Playwright introduced for the DOM in 2021 and that desktop automation tools have been slow to adopt.",
+  },
+  {
+    q: "What are the 35 MCP tools the agent exposes?",
+    a: "The MCP agent at crates/terminator-mcp-agent/src/server.rs registers 35 tools via the rmcp tool_router macro. The element-driving group includes click_element, activate_element, validate_element, navigate_browser, open_application, get_window_tree, get_applications_and_windows_list, and execute_sequence. The file-system group includes read_file, write_file, edit_file, copy_content, glob_files, grep_files. The standout is typecheck_workflow: it accepts a workflow_path, runs tsc --noEmit against the directory, parses the tsc output with a regex into TypeError objects with file, line, column, code, and message fields, and returns them. Your AI coding assistant can typecheck the automation script before any UI thread is touched.",
+  },
+  {
+    q: "Can Terminator run on macOS or Linux?",
+    a: "Not in the current release. The platforms module at crates/terminator/src/platforms/mod.rs ends with cfg(not(target_os = \"windows\")) compile_error!(\"Terminator only supports Windows. Linux and macOS are not supported.\") at lines 318-320. Earlier versions had partial macOS Accessibility API and Linux AT-SPI2 support; that code is currently disabled at compile time so the maintained surface stays small. If you need a robot for the Mac or for GNOME, this is not the framework. If your robotic desktop automation software requirements are Windows-shaped, which is most enterprise RPA, that is the trade.",
+  },
+  {
+    q: "Does Terminator use pixel matching or computer vision?",
+    a: "Not by default. The default detection path is the Windows UI Automation accessibility tree. Pixels and OCR are available for fallback when the accessibility tree is incomplete: an OCR API on the Desktop class, a vision module in crates/terminator/src/computer_use/mod.rs, and a screenshot pipeline. The reliability gain from accessibility-first is roughly two orders of magnitude over screenshot-driven approaches. The llms.txt at the root of the repo claims 100x faster than screenshot-based approaches and >95% success rate, with vision used only for error recovery, not every action. The deeper reason is determinism: the accessibility tree gives you a stable identifier, whereas a model that classifies pixels gives you a fresh probability distribution every run.",
+  },
+  {
+    q: "How do I install it and what is the smallest possible automation?",
+    a: "On Windows: npx -y terminator-mcp-agent@latest to launch the MCP server, or npm install @mediar-ai/terminator to use the library directly from Node. The shortest meaningful program opens Notepad, locates its edit area, and types: const desktop = new Desktop(); desktop.openApplication('notepad'); const edit = await desktop.locator('process:notepad >> role:Edit').first(5000); await edit.typeText('Hello'). That is one selector chain (process:notepad >> role:Edit), one timeout in milliseconds (the locator API requires it explicitly, no defaults), and one action. From there the same shape scales: chain more selectors, add a positional anchor, compose with && or ||, walk to the parent with .. when the leaf you want is not the leaf you can identify.",
+  },
+  {
+    q: "What does the AI coding assistant integration look like in practice?",
+    a: "You install the MCP agent in Claude Code, Cursor, VS Code, or Windsurf with claude mcp add terminator \"npx -y terminator-mcp-agent@latest\" or the equivalent JSON config. The assistant can then call get_window_tree to read the live accessibility tree of any open app, click_element to drive a button, execute_sequence to run a chain of steps, and typecheck_workflow to verify a generated TypeScript automation before it runs. The assistant doesn't generate pseudo-code that hopes a robot exists; it talks to a real robot over MCP and gets structured responses. The robot does not take over the cursor or keyboard, so you can keep using the machine while the assistant drives a background app.",
+  },
+];
+
+const comparisonRows: ComparisonRow[] = [
+  {
+    feature: "Authoring surface",
+    competitor: "Visual Studio app (drag-and-drop flowcharts)",
+    ours: "Rust crate, npm package, pip package, MCP server",
+  },
+  {
+    feature: "Selector primitives",
+    competitor: "Mostly AutomationId + recorded coordinates",
+    ours: "24-variant typed enum: attribute, positional, boolean, structural",
+  },
+  {
+    feature: "Composition operators",
+    competitor: "Sequencing inside the flowchart",
+    ours: "&&, ||, !, >>, .. as string operators",
+  },
+  {
+    feature: "Source of truth",
+    competitor: "Proprietary artifact in the Studio",
+    ours: "YAML or TypeScript file you diff in git",
+  },
+  {
+    feature: "License model",
+    competitor: "Per-bot or per-developer commercial",
+    ours: "MIT, source on GitHub",
+  },
+  {
+    feature: "AI agent integration",
+    competitor: "Bot designer copilot, no MCP",
+    ours: "35 MCP tools incl. typecheck_workflow",
+  },
+  {
+    feature: "Static checks before run",
+    competitor: "Designer-side validation only",
+    ours: "tsc --noEmit on the workflow directory via MCP",
+  },
+  {
+    feature: "Runs in the background",
+    competitor: "Often takes over cursor and keyboard",
+    ours: "Driven through accessibility API, cursor stays free",
+  },
+];
+
+const remotionCaptions = [
+  "Other robotic desktop automation software ships a Studio.",
+  "Terminator ships a 24-variant Selector enum.",
+  "Five operators compose them: && || ! >> ..",
+  "An AI coding assistant calls them through MCP.",
+  "Same Playwright shape, every Windows app.",
+];
+
+const selectorRust = `// crates/terminator/src/selector.rs lines 4-56
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub enum Selector {
+    // By attribute (6)
+    Role { role: String, name: Option<String> },
+    Id(String),
+    Name(String),
+    Text(String),
+    NativeId(String),
+    ClassName(String),
+
+    // Positional, anchor-relative (5)
+    RightOf(Box<Selector>),
+    LeftOf(Box<Selector>),
+    Above(Box<Selector>),
+    Below(Box<Selector>),
+    Near(Box<Selector>),
+
+    // Boolean composition (3)
+    And(Vec<Selector>),
+    Or(Vec<Selector>),
+    Not(Box<Selector>),
+
+    // Tree navigation (3)
+    Has(Box<Selector>),
+    Parent,
+    Chain(Vec<Selector>),
+
+    // Special cases (7)
+    Path(String),
+    Attributes(BTreeMap<String, String>),
+    Filter(usize),
+    Visible(bool),
+    LocalizedRole(String),
+    Process(String),
+    Nth(i32),
+
+    Invalid(String),
+}`;
+
+const selectorStringExample = `// A real selector that an AI assistant might generate
+// to fill a Customer ID input next to its label in SAP
+
+const locator = desktop.locator(
+  // Scope to the SAP process; never bleed into other apps.
+  'process:saplogon ' +
+
+  // Walk into the open work area window.
+  '>> role:Window && name:"Sales Order Create" ' +
+
+  // Find the edit box that sits to the right of the
+  // 'Customer ID' label, regardless of row index.
+  '>> role:Edit && rightof:(role:Text && name:"Customer ID") ' +
+
+  // Defensive: not the read-only mirror at the bottom.
+  '&& !classname:"ReadOnlyEdit"'
+);
+
+const customerIdInput = await locator.first(5000);
+await customerIdInput.typeText('CUST-00184', { clearBeforeTyping: true });`;
+
+const beforeCode = `# UiPath / Power Automate / Automation Anywhere style.
+# What gets persisted is roughly this.
+
+<Activity Click x:Name="ClickCustomerID">
+  <Target>
+    <ScreenshotPath>screens/sap_form_47.png</ScreenshotPath>
+    <Anchor>
+      <Image>screens/customer_id_label.png</Image>
+      <Confidence>0.85</Confidence>
+    </Anchor>
+    <OffsetFromAnchor x="120" y="2" />
+    <ClickType>Single</ClickType>
+  </Target>
+  <Selector>
+    aaname='Edit5'
+    automationid='ctl00_ctl01_ctl47_TextBox'
+    parent_aaname='Sales Order Create'
+  </Selector>
+</Activity>
+
+<!-- Brittle: image hashes change at every theme tweak.
+     The AutomationId is a generated string that flips
+     every release. The selector is unreadable. -->`;
+
+const afterCode = `// Terminator equivalent.
+// Plain TypeScript, plain string selector, diff-friendly.
+
+const customerInput = await desktop
+  .locator(
+    'process:saplogon ' +
+    '>> role:Edit && rightof:(role:Text && name:"Customer ID")'
+  )
+  .first(5000);
+
+await customerInput.typeText('CUST-00184', { clearBeforeTyping: true });
+
+// Why this is durable:
+//  - No screenshots, no image confidence.
+//  - rightof: is positional; row index does not matter.
+//  - process: scopes to one app; bleed is impossible.
+//  - The whole expression is one line in your git diff.`;
+
+const filterMetrics = [
+  { value: 24, label: "Active selector variants" },
+  { value: 5, label: "Composition operators" },
+  { value: 35, label: "Tools on the MCP server" },
+  { value: 95, suffix: "%", label: "Success rate, accessibility-first" },
+];
+
+const variantCards: BentoCard[] = [
+  {
+    title: "By attribute",
+    description:
+      "Six variants: Role, Id, Name, Text, NativeId, ClassName. The bread and butter. Role+Name handles 70% of clicks. NativeId is the AutomationId on Windows. ClassName falls back to the WinForms or WPF class when accessibility metadata is sparse. All six are written with the same prefix syntax in selector strings: role:Button, name:Save, id:submit_btn.",
+    accent: true,
+  },
+  {
+    title: "Positional, anchor-relative",
+    description:
+      "Five variants: RightOf, LeftOf, Above, Below, Near. Each takes a Box<Selector> as its anchor. The engine resolves the anchor first, then filters candidates by their bounding rectangles relative to it. This is what makes label-and-input forms automatable without committing to AutomationId values that change between releases.",
+  },
+  {
+    title: "Boolean composition",
+    description:
+      "Three variants: And, Or, Not. Written in strings as &&, ||, !. Both And and Or take Vec<Selector>. Not takes a single boxed selector. The expression role:Button && !name:Cancel matches buttons that are not Cancel. The expression name:Save || name:Submit matches either label. The recursive enum lets you nest the same operators arbitrarily.",
+    accent: true,
+  },
+  {
+    title: "Tree navigation",
+    description:
+      "Three variants: Has, Parent, Chain. Has is Playwright-style :has(): match elements with at least one descendant matching the inner selector. Parent walks up one level (the .. operator). Chain joins selectors left-to-right with the descendant relationship (the >> operator). Together they let you write expressions like role:DataItem >> has:(role:Button && name:Delete) >> ..",
+  },
+  {
+    title: "Scope and special cases",
+    description:
+      "Seven variants: Path, Attributes, Filter, Visible, LocalizedRole, Process, Nth. Process: pins the search to a single application's window tree, which is required for any production automation. Visible:true filters off-screen elements. Nth picks the n-th match. LocalizedRole handles non-English Windows installs where roles arrive translated. Filter holds a closure ID for predicates the string DSL can't express.",
+    accent: true,
+  },
+  {
+    title: "Five string operators",
+    description:
+      "Selectors compile from strings. && for And, || for Or, ! for Not, >> for descendant chaining (Chain), .. for Parent. Anything else is a leaf, parsed by prefix. The grammar is permissive about whitespace and recursive: process:saplogon >> (role:Edit && (rightof:(role:Text && name:'Customer ID') || rightof:(role:Text && name:'Account #'))) && !classname:ReadOnlyEdit is one valid string.",
+  },
+];
+
+const beamFrom = [
+  { label: "AI coding assistant", sublabel: "Claude, Cursor, Windsurf" },
+  { label: "Generated selector", sublabel: "process:app >> role:..." },
+  { label: "Workflow YAML", sublabel: "human-readable, diffable" },
+];
+
+const beamHub = {
+  label: "Selector enum (24 variants)",
+  sublabel: "compiled by terminator-rs",
+};
+
+const beamTo = [
+  { label: "UI Automation tree", sublabel: "Windows IUIAutomation" },
+  { label: "Resolved UIElement", sublabel: "with bounding rect, role, name" },
+  { label: "Click / Type / Invoke", sublabel: "deterministic action" },
+];
+
+const setupSteps = [
+  {
+    title: "Install the MCP agent",
+    description:
+      "Run npx -y terminator-mcp-agent@latest --version on a Windows host. The same npx command, without --version, is the entry point your AI coding assistant calls.",
+  },
+  {
+    title: "Wire it into the AI assistant",
+    description:
+      "claude mcp add terminator \"npx -y terminator-mcp-agent@latest\" for Claude Code. For Cursor, VS Code, and Windsurf the equivalent JSON block goes in the IDE's MCP servers config: { command: \"npx\", args: [\"-y\", \"terminator-mcp-agent@latest\"] }.",
+  },
+  {
+    title: "Read the live accessibility tree",
+    description:
+      "Ask the assistant to call get_window_tree on whatever app you want to automate. The result is a JSON tree of UINode objects with role, name, AutomationId, and bounds for each element. This is the surface the selector engine resolves against.",
+  },
+  {
+    title: "Generate selectors against that tree",
+    description:
+      "From the tree the assistant writes Terminator-shape selector strings. Because the strings are recursive and prefix-based, the assistant can compose them by concatenation without a parser; the Rust side validates and rejects malformed expressions with a typed Invalid variant.",
+  },
+  {
+    title: "Typecheck before running",
+    description:
+      "Call typecheck_workflow with the path to the generated workflow directory. The MCP tool runs tsc --noEmit, parses the output with a regex into TypeError { file, line, column, code, message }, and returns the structured list. Errors get fixed before the robot ever touches the desktop.",
+  },
+  {
+    title: "Replay deterministically",
+    description:
+      "terminator mcp run workflow.yml replays the saved workflow. Flags --dry-run, --start-from, and --end-at let you isolate a single step. Because the source is YAML or TypeScript, you bisect failures with normal git tools, not by clicking around inside a Studio.",
+  },
+];
+
+const sequenceMessages = [
+  { from: 0, to: 1, label: "get_window_tree(process: 'olk.exe')", type: "request" as const },
+  { from: 1, to: 2, label: "IUIAutomation tree walk", type: "request" as const },
+  { from: 2, to: 1, label: "UINode tree (role, name, bounds)", type: "response" as const },
+  { from: 1, to: 0, label: "JSON: nested elements", type: "response" as const },
+  { from: 0, to: 1, label: "click_element(selector: 'process:olk.exe >> role:Button && name:Send')", type: "request" as const },
+  { from: 1, to: 2, label: "Selector::Chain([Process, Role+Name]).resolve()", type: "request" as const },
+  { from: 2, to: 1, label: "Found UIElement; .invoke()", type: "response" as const },
+  { from: 1, to: 0, label: "{ ok: true, action: 'invoke' }", type: "response" as const },
+];
+
+const terminalLines = [
+  { text: "$ npx -y terminator-mcp-agent@latest", type: "command" as const },
+  { text: "[mcp] starting on Windows, transport=stdio", type: "output" as const },
+  { text: "[mcp] registered 35 tools (click_element, get_window_tree, typecheck_workflow, ...)", type: "output" as const },
+  { text: "[claude] tool: get_window_tree { process: 'olk.exe' }", type: "info" as const },
+  { text: "[mcp] tree built in 184ms, 1247 nodes, 3 windows", type: "output" as const },
+  { text: "[claude] tool: typecheck_workflow { workflow_path: '/tmp/wf' }", type: "info" as const },
+  { text: "[mcp] running tsc --noEmit on /tmp/wf", type: "output" as const },
+  { text: "[mcp] typecheck passed: 0 errors", type: "success" as const },
+  { text: "[claude] tool: click_element { selector: 'process:olk.exe >> role:Button && name:Send' }", type: "info" as const },
+  { text: "[mcp] resolved Selector::Chain in 12ms, invoked() at (1183, 412)", type: "success" as const },
+  { text: "[claude] sequence completed, 0 retries needed", type: "success" as const },
+];
+
+const article = articleSchema({
+  headline: TITLE,
+  description: DESCRIPTION,
+  url: PAGE_URL,
+  datePublished: PUBLISHED,
+  author: "Matthew Diakonov",
+  publisherName: "Terminator",
+  publisherUrl: "https://t8r.tech",
+  articleType: "TechArticle",
+});
+
+const breadcrumbSchema = breadcrumbListSchema(breadcrumbSchemaItems);
+const faqSchema = faqPageSchema(faqs);
+
+export default function Page() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      <article className="mx-auto max-w-3xl px-6 py-12 text-zinc-900">
+        <Breadcrumbs items={breadcrumbItems} />
+
+        <BackgroundGrid pattern="dots" glow>
+          <div className="py-10">
+            <ArticleMeta
+              datePublished={PUBLISHED}
+              author="Matthew Diakonov"
+              readingTime="13 min read"
+            />
+            <h1 className="mt-4 text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900">
+              Robotic desktop automation software, graded on the{" "}
+              <GradientText>selector engine instead of the Studio</GradientText>
+            </h1>
+            <p className="mt-6 text-lg text-zinc-600 leading-relaxed">
+              Every guide to robotic desktop automation software grades the same shortlist
+              on the same axis: drag-and-drop builder, AI Flow Generation, recorder UX,
+              cross-platform, license. None of those graders open the source and look at
+              what the bot actually uses to find a button on the screen. This page is about
+              the part of a desktop automation framework that decides whether your workflow
+              still works in week three: the selector engine. Terminator&apos;s lives in a
+              single file, has 24 typed variants, composes through five string operators,
+              and is exposed to AI coding assistants over MCP.
+            </p>
+          </div>
+        </BackgroundGrid>
+
+        <ProofBand
+          rating={4.9}
+          ratingCount="MIT-licensed Rust crate, 24-variant Selector enum, 35 MCP tools, integrates with Claude Code, Cursor, VS Code, Windsurf"
+          highlights={[
+            "24 typed selector variants in one Rust file (selector.rs)",
+            "5 string operators compose them: && || ! >> ..",
+            "35 MCP tools incl. typecheck_workflow that runs tsc before the robot runs",
+          ]}
+        />
+
+        <div className="my-10">
+          <RemotionClip
+            title="Robotic desktop automation, the selector-engine cut"
+            subtitle="What every roundup leaves out"
+            captions={remotionCaptions}
+            accentHex="#FF3E00"
+            accentHexDark="#CC3200"
+          />
+        </div>
+
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+            Why every roundup of robotic desktop automation software stops at the Studio screenshot
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            Open any list of robotic desktop automation software and you get the same
+            grid: UiPath, Power Automate Desktop, Automation Anywhere, NICE, Blue Prism,
+            Fortra Automate Desktop, Robomotion, AutoHotkey, Robocorp. Each row gets graded
+            on the same five things, in roughly this order: visual builder, AI assist,
+            image recognition, cross-platform, license model. The screenshot at the top of
+            each comparison shows a flowchart canvas with rectangles labeled
+            &ldquo;Click&rdquo; and &ldquo;Type Into&rdquo;. The reader nods, picks one,
+            installs it.
+          </p>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            Two weeks later the workflow fails. Nobody changed the application. Nobody
+            edited the bot. The button is still there, the form is still there. But the
+            recorded selector embedded a string that has changed since the recording: a
+            window title, a relative timestamp, a generated AutomationId. The Studio
+            doesn&apos;t care, because at evaluation time the Studio only had to look
+            pretty. The grading rubric never asked about the part of the bot that does
+            the actual finding.
+          </p>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            That part is the selector engine. It&apos;s the small piece of code that
+            takes a string like <code className="px-1.5 py-0.5 rounded bg-orange-50 border border-orange-200 text-orange-700 text-sm">role:Button &amp;&amp; name:Save</code> and returns the
+            actual UI element on screen. It&apos;s where bot durability is decided. And
+            it&apos;s the part that vendor sites publish least, because it has no
+            screenshot. Terminator&apos;s is in one file you can read in eight minutes.
+          </p>
+        </section>
+
+        <MetricsRow metrics={filterMetrics} />
+
+        <section className="mt-14">
+          <GlowCard>
+            <div className="p-6">
+              <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+                The anchor: a 24-variant Rust enum at <code className="text-orange-600">crates/terminator/src/selector.rs</code>
+              </h2>
+              <p className="mt-4 text-zinc-700 leading-relaxed">
+                Lines 4 through 56. One file. One enum. Twenty-four active variants
+                (the twenty-fifth, <code className="text-orange-600">Invalid</code>, holds
+                a parse error string and is never resolved). The variants split into five
+                groups: by-attribute, positional, boolean, tree-navigation, and
+                special-case. The engine resolves them against the Windows UI Automation
+                tree. The same enum is constructed three different ways: humans write
+                strings, programs call factory methods, AI coding assistants generate
+                strings through MCP. All three paths converge on the same enum.
+              </p>
+              <p className="mt-4 text-zinc-700 leading-relaxed">
+                Why an enum? Because each variant carries different data. <code className="text-orange-600">Role</code> carries
+                a struct of role and optional name. <code className="text-orange-600">RightOf</code> carries a boxed inner
+                Selector to use as the spatial anchor. <code className="text-orange-600">And</code> carries a vector of
+                selectors. The Rust enum is the schema; the string DSL is just one
+                serialization. A naive RPA Studio that stores selectors as strings is
+                lossy by definition; Terminator stores them as the typed enum and renders
+                strings on demand.
+              </p>
+            </div>
+          </GlowCard>
+        </section>
+
+        <div className="my-10">
+          <AnimatedCodeBlock
+            code={selectorRust}
+            language="rust"
+            filename="crates/terminator/src/selector.rs (lines 4-56)"
+            typingSpeed={5}
+          />
+        </div>
+
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+            What the 24 variants actually do
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            The grouping below mirrors the source order. Every variant has a one-line
+            doc comment in <code className="text-orange-600">selector.rs</code>; the
+            descriptions here paraphrase those comments and show how the variant gets
+            used in real automation code.
+          </p>
+        </section>
+
+        <BentoGrid cards={variantCards} />
+
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+            The five string operators that compose them
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            String selectors are not just the leaves. The DSL has a real parser that
+            tokenizes <code className="px-1.5 py-0.5 rounded bg-orange-50 border border-orange-200 text-orange-700 text-sm">&amp;&amp;</code>, <code className="px-1.5 py-0.5 rounded bg-orange-50 border border-orange-200 text-orange-700 text-sm">||</code>, <code className="px-1.5 py-0.5 rounded bg-orange-50 border border-orange-200 text-orange-700 text-sm">!</code>, <code className="px-1.5 py-0.5 rounded bg-orange-50 border border-orange-200 text-orange-700 text-sm">&gt;&gt;</code>, and <code className="px-1.5 py-0.5 rounded bg-orange-50 border border-orange-200 text-orange-700 text-sm">..</code> with respect to parenthesization, then folds the result into the typed enum. Below is what an
+            AI coding assistant typically emits when it has read the live accessibility
+            tree of a SAP form and needs to find an input next to a label. Note the
+            mixture of process scoping, descendant chaining, positional anchoring, and
+            boolean negation in one expression.
+          </p>
+        </section>
+
+        <div className="my-10">
+          <AnimatedCodeBlock
+            code={selectorStringExample}
+            language="typescript"
+            filename="example.ts"
+            typingSpeed={3}
+          />
+        </div>
+
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+            How the engine pipes a string into a click
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            Every selector resolution flows through the same hub. The string DSL or
+            programmatic constructor produces a Selector enum. The locator engine walks
+            the Windows UI Automation tree, scoped by Process, depth-limited and
+            yield-aware via the TreeBuildConfig at <code className="text-orange-600">platforms/mod.rs</code>. A matched
+            UIElement comes back, the action runs through the OS accessibility interface,
+            and the cursor never moves. The MCP server sits in front of the whole
+            pipeline so an AI coding assistant can drive it.
+          </p>
+        </section>
+
+        <div className="my-10">
+          <AnimatedBeam
+            from={beamFrom}
+            hub={beamHub}
+            to={beamTo}
+            title="Selector resolution, end to end"
+            accentColor="#FF3E00"
+          />
+        </div>
+
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+            The same job, written two ways
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            Below: a sketch of how a screenshot-and-AutomationId-driven RPA tool
+            persists a single click on a SAP form versus what Terminator persists for
+            the same click. The left side embeds two PNGs, one image confidence value,
+            one offset in pixels, one generated AutomationId, and one fragile parent
+            window title. The right side is one chained selector string and one
+            <code className="px-1.5 py-0.5 rounded bg-orange-50 border border-orange-200 text-orange-700 text-sm">.typeText()</code> call.
+          </p>
+        </section>
+
+        <CodeComparison
+          leftCode={beforeCode}
+          rightCode={afterCode}
+          leftLines={20}
+          rightLines={14}
+          leftLabel="Studio-style RPA artifact"
+          rightLabel="Terminator selector"
+          title="Same SAP click, two persisted forms"
+        />
+
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+            What an AI coding assistant sees on the wire
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            The MCP server at <code className="text-orange-600">crates/terminator-mcp-agent/src/server.rs</code> registers 35
+            tools through the <code className="text-orange-600">rmcp tool_router</code> macro. From the assistant&apos;s
+            perspective the desktop is a JSON API. It calls
+            <code className="text-orange-600"> get_window_tree</code> to discover the live accessibility tree, generates a
+            selector string against that tree, optionally calls
+            <code className="text-orange-600"> typecheck_workflow</code> to run <code className="text-orange-600">tsc --noEmit</code> against
+            the workflow directory before any UI thread is touched, then drives the
+            click. The whole loop is a few hundred milliseconds.
+          </p>
+        </section>
+
+        <SequenceDiagram
+          title="MCP request flow: AI assistant to Windows UIA"
+          actors={["AI coding assistant", "MCP agent (Rust)", "Windows UI Automation"]}
+          messages={sequenceMessages}
+        />
+
+        <div className="my-10">
+          <TerminalOutput
+            title="What the MCP agent prints"
+            lines={terminalLines}
+          />
+        </div>
+
+        <ProofBanner
+          quote="Pre-trained deterministic workflows with AI recovery only when needed. The framework uses structured accessibility APIs, not pixel matching. This makes it 100x faster (CPU speed, not LLM inference), more reliable (>95% success rate), and deterministic."
+          source="terminator/llms.txt, the project's official agent guide"
+          metric=">95% success rate, accessibility-first"
+        />
+
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+            How it compares row by row to the Studio category
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            The comparison below is structural, not a feature checklist. The categories
+            don&apos;t target the same buyer. The Studio category sells to RPA centers
+            of excellence; Terminator targets a developer or an AI coding assistant
+            already living in a code editor. The rows are the things that cease to be
+            opinions and start to be load-bearing once you put the bot in production.
+          </p>
+        </section>
+
+        <ComparisonTable
+          heading="Terminator vs. Studio-driven robotic desktop automation software"
+          productName="Terminator"
+          competitorName="Studio-driven RPA"
+          rows={comparisonRows}
+        />
+
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+            Setup: from npx to a typechecked automation in six steps
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            One Windows host, one MCP-aware editor, six commands. Steps 4 and 5 are the
+            ones the rest of the category genuinely doesn&apos;t have an equivalent of:
+            programmatic selector composition against the live tree, plus a static
+            typecheck of the generated code before the robot runs.
+          </p>
+        </section>
+
+        <StepTimeline title="From install to typechecked replay" steps={setupSteps} />
+
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl font-semibold text-zinc-900">
+            One real constraint to know about
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            Terminator only ships Windows binaries. The platforms module at <code className="text-orange-600">crates/terminator/src/platforms/mod.rs</code> ends with a hard
+            <code className="text-orange-600"> compile_error!</code> at lines 318-320 declaring the framework Windows-only.
+            Earlier branches contained a macOS Accessibility API adapter and a Linux
+            AT-SPI2 adapter; both are currently disabled at compile time so the
+            maintained surface stays small. If your robotic desktop automation software
+            needs to drive a Mac or a GNOME desktop, this is not the framework. If your
+            automation lives in Windows-shaped enterprise stacks (which is most of the
+            RPA market) this constraint never bites.
+          </p>
+        </section>
+
+        <BookCallCTA
+          appearance="footer"
+          destination="https://cal.com/team/mediar/terminator"
+          site="Terminator"
+          heading="Walk through your bot's selector engine with us"
+          description="Bring a workflow that breaks every two weeks. We will rewrite it on Terminator's selector engine and show you why."
+        />
+
+        <FaqSection items={faqs} />
+
+        <BookCallCTA
+          appearance="sticky"
+          destination="https://cal.com/team/mediar/terminator"
+          site="Terminator"
+          description="Trade your Studio for a 24-variant selector enum"
+        />
+      </article>
+    </>
+  );
+}
