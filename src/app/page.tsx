@@ -335,9 +335,20 @@ export default function Home() {
 
           <motion.p
             variants={fadeInUp}
-            className="text-xl text-zinc-600 max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-xl text-zinc-600 max-w-2xl mx-auto mb-6 leading-relaxed"
           >
-            Open-source automation that drives native Windows apps through accessibility APIs, not OCR or pixel matching. Playwright-style SDK, Rust core, and an MCP server that gives Claude, Cursor, and VS Code real OS-level hands. Built for developers already burned by PyAutoGUI, AutoHotkey, and UIAutomation.
+            Open-source desktop automation that drives native Windows apps through accessibility APIs, not OCR or pixel matching. Playwright-shaped SDK plus an MCP server that gives Claude, Cursor, and VS Code real OS-level hands.
+          </motion.p>
+
+          <motion.p
+            variants={fadeInUp}
+            className="text-sm font-mono text-zinc-500 max-w-2xl mx-auto mb-10"
+          >
+            For developers already burned by{" "}
+            <span className="text-zinc-700">PyAutoGUI</span>,{" "}
+            <span className="text-zinc-700">AutoHotkey</span>,{" "}
+            <span className="text-zinc-700">UIAutomation</span>, and{" "}
+            <span className="text-zinc-700">screenshot agents</span>.
           </motion.p>
 
           <motion.div
@@ -465,6 +476,163 @@ export default function Home() {
                 </button>
               </div>
             </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Before / After — visceral proof for ICP burned by PyAutoGUI / AutoHotkey */}
+      <section className="py-20 px-6 border-t border-zinc-200 bg-gradient-to-b from-zinc-50 to-transparent">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-12"
+          >
+            <span className="inline-block text-xs font-mono text-accent uppercase tracking-wider mb-3">
+              The PyAutoGUI tax
+            </span>
+            <h2 className="font-mono text-3xl md:text-4xl font-bold mb-4">
+              From brittle pixels to structural selectors
+            </h2>
+            <p className="text-zinc-600 max-w-2xl mx-auto">
+              Same automation, two worlds apart. Hardcoded coordinates and image
+              matches break the moment your DPI, theme, or layout shifts. Terminator
+              queries the accessibility tree, so the script just keeps working.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="grid lg:grid-cols-2 gap-8"
+          >
+            <motion.div variants={fadeInUp}>
+              <div className="flex items-center gap-2 mb-3">
+                <X className="w-4 h-4 text-red-500/80" />
+                <h3 className="font-mono text-sm font-semibold text-zinc-700 uppercase tracking-wider">
+                  PyAutoGUI / AutoHotkey
+                </h3>
+                <span className="ml-auto text-xs font-mono text-red-500/80">brittle</span>
+              </div>
+              <CodeBlock
+                section="proof_before"
+                language="python"
+                code={`import pyautogui, time
+
+# pray the user's DPI hasn't changed
+pyautogui.click(x=842, y=317)
+time.sleep(1.5)
+pyautogui.click(x=842, y=317)  # double-click hack
+
+# image match the Save button — fails on dark mode,
+# theme changes, locale, antialiasing, scaling...
+loc = pyautogui.locateOnScreen(
+    'save_btn.png', confidence=0.85
+)
+if loc is None:
+    raise Exception("Save button not found 🤞")
+pyautogui.click(loc)
+
+pyautogui.typewrite("invoice.pdf", interval=0.05)
+pyautogui.press('enter')`}
+              />
+              <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+                <li className="flex items-start gap-2">
+                  <X className="w-4 h-4 text-red-500/70 mt-0.5 flex-shrink-0" />
+                  Coordinates break on every DPI / resolution change
+                </li>
+                <li className="flex items-start gap-2">
+                  <X className="w-4 h-4 text-red-500/70 mt-0.5 flex-shrink-0" />
+                  PNG image matching fails on themes, locale, antialiasing
+                </li>
+                <li className="flex items-start gap-2">
+                  <X className="w-4 h-4 text-red-500/70 mt-0.5 flex-shrink-0" />
+                  Sleep-then-pray sync, no real waits, no element semantics
+                </li>
+              </ul>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <div className="flex items-center gap-2 mb-3">
+                <Check className="w-4 h-4 text-accent" />
+                <h3 className="font-mono text-sm font-semibold text-zinc-700 uppercase tracking-wider">
+                  Terminator
+                </h3>
+                <span className="ml-auto text-xs font-mono text-accent">structural</span>
+              </div>
+              <CodeBlock
+                section="proof_after"
+                language="typescript"
+                code={`import { Desktop } from '@mediar-ai/terminator';
+
+const desktop = new Desktop();
+await desktop.openApplication('notepad');
+
+// find by role + name, not pixels
+await desktop
+  .locator('role:Button && name:Save')
+  .click();
+
+// real input, real focus, real waits
+await desktop
+  .locator('role:Edit && name:File name')
+  .typeText('invoice.pdf');
+
+await desktop
+  .locator('role:Button && name:Save')
+  .click();
+// done. survives DPI, theme, and layout changes.`}
+              />
+              <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                  Selectors target real UI elements, not pixels
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                  Survives DPI, theme, locale, and most layout changes
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                  Auto-waits, type-safe, fluent Playwright-style API
+                </li>
+              </ul>
+            </motion.div>
+          </motion.div>
+
+          {/* What you can build with it */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="mt-16"
+          >
+            <h3 className="font-mono text-sm font-semibold text-zinc-500 uppercase tracking-wider text-center mb-6">
+              What developers ship with Terminator
+            </h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {[
+                { tag: "AI agents", body: "Give Claude / Cursor / Windsurf real OS-level hands beyond the browser." },
+                { tag: "QA & testing", body: "Replace flaky PyAutoGUI / Selenium-for-desktop scripts on legacy WinForms, WPF, and Electron." },
+                { tag: "Back-office RPA", body: "Drive Excel, SAP, Outlook, and line-of-business apps without a hosted RPA platform." },
+                { tag: "Computer-use loops", body: "Mix accessibility-tree actions with vision fallback only when you actually need it." },
+              ].map((item) => (
+                <div
+                  key={item.tag}
+                  className="p-4 border border-zinc-200 rounded-lg bg-white hover:border-accent/40 transition-colors"
+                >
+                  <div className="font-mono text-xs text-accent uppercase tracking-wider mb-2">
+                    {item.tag}
+                  </div>
+                  <p className="text-sm text-zinc-600 leading-relaxed">{item.body}</p>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
