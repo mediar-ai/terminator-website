@@ -607,9 +607,12 @@ export default function Page() {
           <CodeComparison
             leftCode={docSkillSnippet}
             rightCode={desktopSkillSnippet}
+            leftLines={docSkillSnippet.split("\n").length}
+            rightLines={desktopSkillSnippet.split("\n").length}
             leftLabel="Document skill"
             rightLabel="Desktop-control skill"
             title="The same skill format, different I/O surface"
+            reductionSuffix="lines"
           />
         </section>
 
