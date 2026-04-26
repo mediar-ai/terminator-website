@@ -839,7 +839,7 @@ export default function Page() {
         />
 
         <FaqSection
-          title="Questions developers ask before they ship a skill"
+          heading="Questions developers ask before they ship a skill"
           items={faqs}
         />
 
