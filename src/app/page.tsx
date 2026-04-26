@@ -8,6 +8,7 @@ import {
   Check,
   X,
   Copy,
+  Star,
 } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { WaitlistModal } from "@/components/WaitlistModal";
@@ -311,18 +312,29 @@ export default function Home() {
           variants={stagger}
           className="relative max-w-4xl mx-auto text-center"
         >
-          <motion.div
+          <motion.a
             variants={fadeInUp}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-200 bg-zinc-50 mb-8"
+            href="https://github.com/mediar-ai/terminator"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              trackExternalLinkClicked("https://github.com/mediar-ai/terminator", "github");
+              trackCtaClicked("hero_pill_stars", "hero");
+            }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-200 bg-zinc-50 mb-8 hover:border-accent/60 hover:bg-white transition-colors"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
             </span>
             <span className="text-xs font-mono text-zinc-600">
-              MIT Licensed • Windows-native
+              <Star className="inline w-3 h-3 mb-0.5 text-accent" /> 1,400+ on GitHub
+              <span className="mx-1.5 text-zinc-300">•</span>
+              MIT licensed
+              <span className="mx-1.5 text-zinc-300">•</span>
+              Windows-native
             </span>
-          </motion.div>
+          </motion.a>
 
           <motion.h1
             variants={fadeInUp}
@@ -400,6 +412,104 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.div>
+      </section>
+
+      {/* Social Proof Strip — live stats + assistant compatibility */}
+      <section className="py-10 px-6 border-t border-zinc-200 bg-zinc-50/50">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4"
+          >
+            <motion.a
+              variants={fadeInUp}
+              href="https://github.com/mediar-ai/terminator"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackExternalLinkClicked("https://github.com/mediar-ai/terminator", "github");
+                trackCtaClicked("stats_github_stars", "hero");
+              }}
+              className="group text-center md:text-left md:px-4 md:border-r md:border-zinc-200"
+            >
+              <div className="font-mono text-3xl md:text-4xl font-bold text-zinc-900 group-hover:text-accent transition-colors">
+                1,400<span className="text-accent">+</span>
+              </div>
+              <div className="text-xs font-mono text-zinc-500 mt-1 uppercase tracking-wider">
+                GitHub stars
+              </div>
+            </motion.a>
+
+            <motion.a
+              variants={fadeInUp}
+              href="https://www.npmjs.com/package/terminator-mcp-agent"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackExternalLinkClicked("https://www.npmjs.com/package/terminator-mcp-agent", "npm");
+                trackCtaClicked("stats_npm_installs", "hero");
+              }}
+              className="group text-center md:text-left md:px-4 md:border-r md:border-zinc-200"
+            >
+              <div className="font-mono text-3xl md:text-4xl font-bold text-zinc-900 group-hover:text-accent transition-colors">
+                430<span className="text-accent">/wk</span>
+              </div>
+              <div className="text-xs font-mono text-zinc-500 mt-1 uppercase tracking-wider">
+                MCP installs
+              </div>
+            </motion.a>
+
+            <motion.div
+              variants={fadeInUp}
+              className="text-center md:text-left md:px-4 md:border-r md:border-zinc-200"
+            >
+              <div className="font-mono text-3xl md:text-4xl font-bold text-zinc-900">
+                35<span className="text-accent">+</span>
+              </div>
+              <div className="text-xs font-mono text-zinc-500 mt-1 uppercase tracking-wider">
+                MCP tools shipped
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={fadeInUp}
+              className="text-center md:text-left md:px-4"
+            >
+              <div className="font-mono text-3xl md:text-4xl font-bold text-zinc-900">
+                3<span className="text-accent">×</span>
+              </div>
+              <div className="text-xs font-mono text-zinc-500 mt-1 uppercase tracking-wider">
+                SDKs: TS · Python · Rust
+              </div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="mt-8 pt-6 border-t border-zinc-200 flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono text-zinc-500"
+          >
+            <span className="uppercase tracking-wider">
+              Drives real apps for AI agents in
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-zinc-700">
+              <span>Claude Code</span>
+              <span className="text-zinc-300">·</span>
+              <span>Cursor</span>
+              <span className="text-zinc-300">·</span>
+              <span>VS Code</span>
+              <span className="text-zinc-300">·</span>
+              <span>Windsurf</span>
+              <span className="text-zinc-300">·</span>
+              <span>any MCP client</span>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Platform Support */}
