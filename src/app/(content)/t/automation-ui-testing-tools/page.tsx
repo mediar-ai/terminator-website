@@ -375,7 +375,7 @@ export default function Page() {
         <ArticleMeta
           datePublished={PUBLISHED}
           readingTime="9 min read"
-          authorRole="Maintainer, Terminator"
+          authorRole="Written with AI"
         />
 
         <div className="mt-6">

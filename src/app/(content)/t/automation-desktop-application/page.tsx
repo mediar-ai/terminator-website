@@ -306,7 +306,7 @@ export default function Page() {
 
         <ArticleMeta
           author="Matthew Diakonov"
-          authorRole="Founder, Mediar"
+          authorRole="Written with AI"
           datePublished={PUBLISHED}
           readingTime="12 min read"
         />

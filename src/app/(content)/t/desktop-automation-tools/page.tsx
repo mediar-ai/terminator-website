@@ -365,6 +365,7 @@ export default function Page() {
             <ArticleMeta
               datePublished={PUBLISHED}
               author="Matthew Diakonov"
+            authorRole="Written with AI"
               readingTime="13 min read"
             />
             <h1 className="mt-4 text-4xl md:text-5xl font-semibold tracking-tight text-zinc-900">

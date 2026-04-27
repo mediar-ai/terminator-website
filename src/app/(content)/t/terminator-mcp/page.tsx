@@ -541,7 +541,7 @@ export default function TerminatorMcpPage() {
         <section className="max-w-4xl mx-auto px-6">
           <ArticleMeta
             author="Matthew Diakonov"
-            authorRole="Creator of Terminator"
+            authorRole="Written with AI"
             datePublished={PUBLISHED}
             readingTime="10 min read"
           />

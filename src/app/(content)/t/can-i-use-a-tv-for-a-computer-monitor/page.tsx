@@ -350,8 +350,8 @@ export default function Page() {
     url: PAGE_URL,
     datePublished: PUBLISHED,
     dateModified: PUBLISHED,
-    author: "Terminator",
-    authorUrl: "https://t8r.tech",
+    author: "Matthew Diakonov",
+    authorUrl: "https://m13v.com",
     publisherName: "Terminator",
     publisherUrl: "https://t8r.tech",
     publisherLogo: "https://t8r.tech/favicon.svg",
@@ -419,8 +419,8 @@ export default function Page() {
             </p>
 
             <ArticleMeta
-              author="Terminator"
-              authorRole="desktop automation framework"
+              author="Matthew Diakonov"
+              authorRole="Written with AI"
               datePublished={PUBLISHED}
               readingTime="8 min read"
             />

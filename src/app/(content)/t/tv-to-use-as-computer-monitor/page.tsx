@@ -334,7 +334,7 @@ const articleStructured = articleSchema({
   description: DESCRIPTION,
   datePublished: PUBLISHED,
   author: "Matthew Diakonov",
-  authorUrl: "https://t8r.tech",
+  authorUrl: "https://m13v.com",
   publisherName: "Terminator",
   publisherUrl: "https://t8r.tech",
 });
@@ -404,7 +404,7 @@ export default function Page() {
       <div className="max-w-4xl mx-auto mt-6">
         <ArticleMeta
           author="Matthew Diakonov"
-          authorRole="Maintainer, Terminator"
+          authorRole="Written with AI"
           datePublished={PUBLISHED}
           readingTime="9 min read"
         />

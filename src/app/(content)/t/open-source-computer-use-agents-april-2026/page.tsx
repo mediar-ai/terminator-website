@@ -512,7 +512,7 @@ export default function Page() {
       <section className="max-w-4xl mx-auto">
         <ArticleMeta
           author="Matthew Diakonov"
-          authorRole="Co-founder, Mediar"
+          authorRole="Written with AI"
           datePublished={PUBLISHED}
           readingTime="11 min read"
         />

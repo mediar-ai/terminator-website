@@ -360,7 +360,7 @@ const jsonLdArticle = articleSchema({
   description: DESCRIPTION,
   url: PAGE_URL,
   datePublished: PUBLISHED,
-  author: "Terminator",
+  author: "Matthew Diakonov",
   publisherName: "Terminator",
   publisherUrl: "https://t8r.tech",
 });
@@ -454,7 +454,8 @@ export default function TvToUseAsAComputerMonitorPage() {
 
         <ArticleMeta
           datePublished={PUBLISHED}
-          author="Terminator"
+          author="Matthew Diakonov"
+            authorRole="Written with AI"
           readingTime="9 min read"
           className="mt-8"
         />

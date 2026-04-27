@@ -111,7 +111,7 @@ const article = articleSchema({
   url: PAGE_URL,
   datePublished: PUBLISHED,
   author: "Matthew Diakonov",
-  authorUrl: "https://t8r.tech",
+  authorUrl: "https://m13v.com",
   publisherName: "Terminator",
   publisherUrl: "https://t8r.tech",
   articleType: "TechArticle",
@@ -342,7 +342,7 @@ export default function Page() {
 
       <ArticleMeta
         author="Matthew Diakonov"
-        authorRole="Maintainer, Terminator"
+        authorRole="Written with AI"
         datePublished={PUBLISHED}
         readingTime="8 min read"
         className="mb-6"

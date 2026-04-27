@@ -399,7 +399,7 @@ const jsonLdArticle = articleSchema({
   description: DESCRIPTION,
   url: PAGE_URL,
   datePublished: PUBLISHED,
-  author: "Terminator",
+  author: "Matthew Diakonov",
   publisherName: "Terminator",
   publisherUrl: "https://t8r.tech",
 });
@@ -468,8 +468,8 @@ export default function ClaudeDesktopAutomationPage() {
             </p>
 
             <ArticleMeta
-              author="Terminator"
-              authorRole="desktop automation framework"
+              author="Matthew Diakonov"
+              authorRole="Written with AI"
               datePublished={PUBLISHED}
               readingTime="13 min read"
             />
