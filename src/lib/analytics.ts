@@ -7,7 +7,7 @@ import { posthog } from "@/components/PostHogProvider";
 /**
  * Track when user copies the install command
  */
-export function trackInstallCopied(source: "hero" | "quickstart_step1" | "quickstart_step2" | "quickstart_step3") {
+export function trackInstallCopied(source: string) {
   posthog?.capture("cta_click", { source: `install_copy_${source}`, cta_name: "install_command_copied" });
 }
 
