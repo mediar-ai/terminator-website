@@ -165,77 +165,77 @@ await saveBtn.click();`;
 const comparisonRows: ComparisonRow[] = [
   {
     feature: "Element identity scheme",
-    product: "BLAKE3 hash of automation_id + role + name + classname",
+    ours: "BLAKE3 hash of automation_id + role + name + classname",
     competitor: "Coordinate, DOM path, or screenshot match",
   },
   {
     feature: "ID stability across app restarts",
-    product: "Same hash, asserted by id_stability_tests.rs",
+    ours: "Same hash, asserted by id_stability_tests.rs",
     competitor: "Often regenerated; brittle on process recycle",
   },
   {
     feature: "Reaction to a 1-pixel layout shift",
-    product: "Unchanged (no spatial dependency)",
+    ours: "Unchanged (no spatial dependency)",
     competitor: "Image match misses; coordinates miss",
   },
   {
     feature: "Authoring surface",
-    product: "TypeScript / Rust / Python SDK + MCP server",
+    ours: "TypeScript / Rust / Python SDK + MCP server",
     competitor: "Proprietary recorder or low-code IDE",
   },
   {
     feature: "How a test gets fixed when it breaks",
-    product: "AI agent reads the typecheck error, edits the workflow file",
+    ours: "AI agent reads the typecheck error, edits the workflow file",
     competitor: "QA engineer opens the IDE, re-records",
   },
   {
     feature: "License",
-    product: "MIT, source on GitHub (mediar-ai/terminator)",
+    ours: "MIT, source on GitHub (mediar-ai/terminator)",
     competitor: "Mostly proprietary, often per-seat",
   },
 ];
 
 const faqs: FaqItem[] = [
   {
-    question:
+    q:
       "Why do most desktop test suites need re-recording after every release?",
-    answer:
+    a:
       "Because the test tool's identity scheme is bound to something the app changes routinely: pixel coordinates, screenshots of buttons, or fragile DOM-style paths through the accessibility tree. A single layout tweak invalidates one of those, and the test fails to find its target. Terminator decouples identity from layout entirely. The element's ID is a BLAKE3 hash over four properties exposed by the OS accessibility API: automation_id, role, name, classname. None of those four change when a designer moves a button 18 pixels to the right.",
   },
   {
-    question:
+    q:
       "Where is the actual hash function defined?",
-    answer:
+    a:
       "In crates/terminator/src/platforms/windows/utils.rs, function generate_element_id, lines 21 to 88. It concatenates the four properties into a single string, runs blake3::hash over the bytes, and takes the first 8 bytes interpreted as a little-endian u64. If all four properties are missing (which is rare for any element a real test would target), it falls back to bounding-rectangle coordinates, then to the Arc pointer as a last resort.",
   },
   {
-    question:
+    q:
       "How is the stability claim actually verified?",
-    answer:
+    a:
       "There is a test in crates/terminator/src/tests/id_stability_tests.rs called test_element_id_stability_across_restarts. It launches Notepad as a new OS process, locates the document element, hashes it, kills the process, launches a fresh Notepad, finds the document element again, hashes it, and asserts the two hashes are equal. If a refactor ever changes the identity scheme in a way that breaks cross-restart stability, that test fails in CI before the change ships.",
   },
   {
-    question:
+    q:
       "Does this work cross-platform or just on Windows?",
-    answer:
+    a:
       "Windows is the primary target with full feature support, including the hashing scheme described here. macOS support exists at the core Rust level via the Accessibility API (with permissions). Linux uses AT-SPI2. The Node.js, Python, and MCP packages currently ship Windows binaries only, so if your test target is a macOS-only app, build against the Rust crate directly rather than the npm/pip packages.",
   },
   {
-    question:
+    q:
       "What does an AI coding assistant do with this?",
-    answer:
+    a:
       "Terminator ships an MCP server (terminator-mcp-agent) that exposes the desktop automation primitives plus a typecheck_workflow tool. An assistant like Claude Code or Cursor can author a test as a TypeScript workflow file, ask the MCP server to typecheck it, and only then run it. When something breaks, the failure comes back as a structured object with file, line, code, and message, not a stack trace, which is easier for the assistant to repair without escalating to a human.",
   },
   {
-    question:
+    q:
       "When does the hash actually change?",
-    answer:
+    a:
       "It changes when one of the four input properties changes: automation_id is renamed in the app's source, the control type is altered (rare), the accessible name is rewritten (for example, a button label change from \"Save\" to \"Save file\"), or the underlying Win32 classname is replaced. None of those happen from layout, theme, font, or window-size changes. They only happen when a developer intentionally edits a property the accessibility API reads, which is exactly when a test SHOULD be re-examined.",
   },
   {
-    question:
+    q:
       "Is there a free or open-source version?",
-    answer:
+    a:
       "Yes. The whole framework is MIT-licensed at github.com/mediar-ai/terminator. The Rust crate (terminator-rs), the Node.js package (@mediar-ai/terminator), the Python package (terminator-py), the MCP agent (terminator-mcp-agent), and the workflow SDK (@mediar-ai/workflow) are all installable from public registries. There is no per-seat license, no proprietary recorder, and no separate enterprise build.",
   },
 ];
@@ -247,6 +247,8 @@ const articleJsonLd = articleSchema({
   datePublished: PUBLISHED,
   author: "Matthew Diakonov",
   authorUrl: "https://m13v.com",
+  publisherName: "Terminator",
+  publisherUrl: "https://t8r.tech",
 });
 
 const breadcrumbsJsonLd = breadcrumbListSchema(breadcrumbSchemaItems);
@@ -738,8 +740,8 @@ export default function Page() {
       {/* FAQ */}
       <div className="mx-auto max-w-3xl px-5 sm:px-6 py-6">
         <FaqSection
-          title="Questions readers actually ask"
-          faqs={faqs}
+          heading="Questions readers actually ask"
+          items={faqs}
         />
       </div>
 
