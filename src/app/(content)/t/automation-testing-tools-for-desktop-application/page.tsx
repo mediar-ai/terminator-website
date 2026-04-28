@@ -232,7 +232,8 @@ export default function Page() {
               author: "Matthew Diakonov",
               authorUrl: "https://m13v.com",
               url: PAGE_URL,
-              publisher: "Terminator",
+              publisherName: "Terminator",
+              publisherUrl: "https://t8r.tech",
             })
           ),
         }}
