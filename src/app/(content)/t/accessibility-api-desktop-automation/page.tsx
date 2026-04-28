@@ -424,6 +424,48 @@ export default function Page() {
                 UISelectionItemPattern
               </span>
             </div>
+            <div className="mt-8 rounded-lg border border-zinc-200 bg-zinc-50 overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-200 bg-white">
+                <span className="text-xs font-mono text-zinc-500">
+                  install the MCP server
+                </span>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-orange-700">
+                  one line
+                </span>
+              </div>
+              <pre className="px-4 py-3 text-sm font-mono text-zinc-800 overflow-x-auto">
+                <code>{`claude mcp add terminator "npx -y terminator-mcp-agent@latest"`}</code>
+              </pre>
+              <div className="flex items-center justify-between px-4 py-2 border-t border-zinc-200 bg-white text-xs font-mono">
+                <span className="text-zinc-500">or pull the SDK directly</span>
+                <code className="text-zinc-700">
+                  npm i @mediar-ai/terminator
+                </code>
+              </div>
+            </div>
+            <div className="mt-5 flex flex-wrap items-center gap-3 text-sm">
+              <a
+                href="https://github.com/mediar-ai/terminator"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-zinc-900 text-white hover:bg-zinc-800 transition-colors font-mono text-xs"
+              >
+                <span aria-hidden>★</span>
+                <span>github.com/mediar-ai/terminator</span>
+              </a>
+              <a
+                href="https://github.com/mediar-ai/terminator/blob/main/crates/terminator/src/platforms/windows/element.rs#L838-L859"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100 transition-colors font-mono text-xs"
+              >
+                <span>view invoke() source, element.rs:838</span>
+                <span aria-hidden>↗</span>
+              </a>
+              <span className="text-xs font-mono text-zinc-500">
+                MIT, Rust core, NAPI + PyO3 bindings
+              </span>
+            </div>
           </div>
         </BackgroundGrid>
 
@@ -481,7 +523,21 @@ export default function Page() {
             SelectionItemPattern. Each pattern is a COM interface with methods
             like Invoke, Toggle, Expand, Collapse, SetValue, Select. You call
             those methods directly and the target app handles the action on
-            its own UI thread.
+            its own UI thread. (For the read side of UIA, see{" "}
+            <a
+              href="/t/what-is-ui-automation"
+              className="text-orange-700 underline decoration-orange-300 underline-offset-2 hover:decoration-orange-700"
+            >
+              what UI Automation is from the agent&apos;s perspective
+            </a>{" "}
+            and{" "}
+            <a
+              href="/t/microsoft-ui-automation"
+              className="text-orange-700 underline decoration-orange-300 underline-offset-2 hover:decoration-orange-700"
+            >
+              why Microsoft UI Automation has no spatial selectors
+            </a>
+            .)
           </p>
           <p className="mt-4 text-zinc-700 leading-relaxed">
             This is how automation at CPU speed is possible. Not by injecting
@@ -539,9 +595,16 @@ export default function Page() {
           </h2>
           <p className="mt-4 text-zinc-700 leading-relaxed">
             Here is the full implementation of invoke(). Every single line is
-            in this block. Open the file on GitHub at mediar-ai/terminator,
-            crates/terminator/src/platforms/windows/element.rs, and jump to
-            line 838.
+            in this block. Open the file on GitHub at{" "}
+            <a
+              href="https://github.com/mediar-ai/terminator/blob/main/crates/terminator/src/platforms/windows/element.rs#L838-L859"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-700 underline decoration-orange-300 underline-offset-2 hover:decoration-orange-700"
+            >
+              mediar-ai/terminator, crates/terminator/src/platforms/windows/element.rs:838
+            </a>
+            . Same nine lines, MIT-licensed, no surprises.
           </p>
           <div className="mt-6">
             <AnimatedCodeBlock
@@ -568,11 +631,19 @@ export default function Page() {
             What click actually does on Windows
           </h2>
           <p className="mt-4 text-zinc-700 leading-relaxed">
-            For contrast, here is the other code path. This is
-            send_mouse_click in input.rs. It is shared between
-            desktop.click_at_coordinates and element.click(). If you have
-            ever wondered why automated clicks sometimes land on the wrong
-            element, this is the function to stare at.
+            For contrast, here is the other code path. This is{" "}
+            <a
+              href="https://github.com/mediar-ai/terminator/blob/main/crates/terminator/src/platforms/windows/input.rs#L38"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-700 underline decoration-orange-300 underline-offset-2 hover:decoration-orange-700"
+            >
+              send_mouse_click in input.rs
+            </a>
+            . It is shared between desktop.click_at_coordinates and
+            element.click(). If you have ever wondered why automated clicks
+            sometimes land on the wrong element, this is the function to stare
+            at.
           </p>
           <div className="mt-6">
             <AnimatedCodeBlock
