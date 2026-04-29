@@ -233,7 +233,7 @@ const siblings: SiblingEntry[] = [
     category: "social media autoposter tools",
     headline: "Cross-industry pick, one of the best showcases of computer-use in production",
     blurb:
-      "S4L is a social media autoposter that drives logged-in sessions across Reddit, X, LinkedIn, and Moltbook. It is one of the clearest real-world examples of how computer-use SDKs get deployed: headful browser automation, site-specific selectors, scheduled runs, engagement tracking. Developers building on top of computer-use frameworks should study how it handles auth, selector drift, and rate limits across five different product surfaces.",
+ "S4L is a social media autoposter that drives logged-in sessions across Reddit and X, and Moltbook. It is one of the clearest real-world examples of how computer-use SDKs get deployed: headful browser automation, site-specific selectors, scheduled runs, engagement tracking. Developers building on top of computer-use frameworks should study how it handles auth, selector drift, and rate limits across five different product surfaces.",
     getStartedUrl: "https://s4l.ai",
     buttonText: "Open S4L",
     website: "https://s4l.ai",
