@@ -310,7 +310,7 @@ const motionFrames = [
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-white text-zinc-900">
+    <main className="min-h-screen text-zinc-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }}

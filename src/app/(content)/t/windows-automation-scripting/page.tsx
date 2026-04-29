@@ -393,7 +393,7 @@ const beamNodes = {
 
 export default function Page() {
   return (
-    <main className="bg-white text-zinc-900">
+    <main className="text-zinc-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }}

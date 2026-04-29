@@ -451,7 +451,7 @@ export default function Page() {
   const faqLd = faqPageSchema(faqs);
 
   return (
-    <article className="bg-white text-zinc-900 min-h-screen">
+    <article className="text-zinc-900 min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}

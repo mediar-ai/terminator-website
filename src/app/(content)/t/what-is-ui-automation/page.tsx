@@ -398,7 +398,7 @@ export default function Page() {
         }}
       />
 
-      <article className="bg-white text-zinc-900">
+      <article className="text-zinc-900">
         <BackgroundGrid pattern="dots" glow>
           <div className="max-w-4xl mx-auto px-6 pt-12 pb-8">
             <Breadcrumbs items={breadcrumbItems} />

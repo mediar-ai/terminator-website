@@ -256,7 +256,7 @@ const faqJsonLd = faqPageSchema(faqs);
 
 export default function Page() {
   return (
-    <article className="bg-white text-zinc-900">
+    <article className="text-zinc-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}

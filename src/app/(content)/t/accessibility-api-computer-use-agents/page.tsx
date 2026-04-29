@@ -469,7 +469,7 @@ export default function Page() {
         }}
       />
 
-      <article className="bg-white text-zinc-900">
+      <article className="text-zinc-900">
         <div className="max-w-4xl mx-auto px-6 pt-12 pb-6">
           <Breadcrumbs items={breadcrumbItems} />
           <h1 className="mt-6 text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">

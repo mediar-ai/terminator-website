@@ -304,7 +304,7 @@ const evalSteps = [
 
 export default function WindowsAutomationToolPage() {
   return (
-    <article className="min-h-screen bg-white text-zinc-900 py-12">
+    <article className="min-h-screen text-zinc-900 py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }}

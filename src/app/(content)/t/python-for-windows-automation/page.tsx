@@ -390,7 +390,7 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <article className="bg-white text-zinc-900">
+      <article className="text-zinc-900">
         <BackgroundGrid pattern="dots" glow>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-10 pb-16">
             <Breadcrumbs items={breadcrumbItems} />
