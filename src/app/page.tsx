@@ -11,8 +11,12 @@ import {
   Star,
 } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { InstallEmailGate } from "@seo/components";
 import { WaitlistModal } from "@/components/WaitlistModal";
 import { BookCallButton } from "@/components/book-call-button";
+
+const TERMINATOR_STORAGE_KEY = "terminator_install_email_captured";
+const TERMINATOR_HERO_CMD = 'claude mcp add terminator "npx -y terminator-mcp-agent@latest"';
 import {
   trackInstallCopied,
   trackCodeCopied,
@@ -641,20 +645,30 @@ export default function Home() {
 
           {/* Quick install */}
           <motion.div variants={fadeInUp} className="max-w-2xl mx-auto">
-            <div className="terminal-box px-4 py-3 flex items-center justify-between gap-4">
-              <code className="font-mono text-sm text-zinc-700 overflow-x-auto">
-                <span className="text-accent">$</span> claude mcp add terminator &quot;npx -y terminator-mcp-agent@latest&quot;
-              </code>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText('claude mcp add terminator "npx -y terminator-mcp-agent@latest"');
-                  trackInstallCopied("hero");
-                }}
-                className="text-zinc-500 hover:text-zinc-900 transition-colors flex-shrink-0"
-              >
-                <Copy className="w-4 h-4" />
-              </button>
-            </div>
+            <InstallEmailGate
+              command={TERMINATOR_HERO_CMD}
+              site="terminator"
+              section="hero"
+              storageKey={TERMINATOR_STORAGE_KEY}
+              githubUrl="https://github.com/mediar-ai/terminator"
+              modalTitle="Get the install command"
+              modalDescription="Drop your email and we'll show you the one-line MCP install plus the occasional release note. No spam."
+              commandTitle="Run this in your terminal"
+              commandDescription="Adds Terminator to Claude Code. Restart, then ask Claude to drive any Windows or macOS app."
+              renderTrigger={({ onClick }) => (
+                <button
+                  type="button"
+                  onClick={() => { onClick(); trackInstallCopied("hero"); }}
+                  aria-label="Get install command"
+                  className="terminal-box px-4 py-3 flex items-center justify-between gap-4 w-full text-left hover:border-accent transition-colors"
+                >
+                  <code className="font-mono text-sm text-zinc-700 overflow-x-auto">
+                    <span className="text-accent">$</span> {TERMINATOR_HERO_CMD}
+                  </code>
+                  <Copy className="w-4 h-4 text-zinc-500 flex-shrink-0" />
+                </button>
+              )}
+            />
           </motion.div>
         </motion.div>
       </section>
