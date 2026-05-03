@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         destination: "/t/automation-testing-for-desktop-application",
         permanent: true,
       },
+      {
+        source: "/alternative/accessibility-tree-vs-pyautogui-desktop-automation",
+        destination: "/t/accessibility-tree-vs-pyautogui-desktop-automation",
+        permanent: true,
+      },
     ];
   },
 };
