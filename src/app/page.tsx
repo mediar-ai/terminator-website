@@ -392,6 +392,88 @@ function InstallPicker() {
   );
 }
 
+type DemoLineKind = "user" | "assistant" | "tool" | "result" | "system";
+
+const DEMO_LINES: { kind: DemoLineKind; text: string }[] = [
+  { kind: "system", text: "$ claude" },
+  { kind: "user", text: "you ▸ open notepad and write \"hello, world\"" },
+  { kind: "assistant", text: "claude ▸ on it. using the terminator MCP server." },
+  { kind: "tool", text: "→ terminator.open_application(\"notepad\")" },
+  { kind: "tool", text: "→ terminator.locator(\"role:Edit\").type_text(\"hello, world\")" },
+  { kind: "result", text: "✓ notepad now contains \"hello, world\"  (1 tool call · 312ms · accessibility tree)" },
+  { kind: "user", text: "you ▸ now save it as note.txt to the desktop" },
+  { kind: "assistant", text: "claude ▸ saving via the file menu." },
+  { kind: "tool", text: "→ terminator.locator(\"role:MenuItem && name:File\").click()" },
+  { kind: "tool", text: "→ terminator.locator(\"role:MenuItem && name:Save As\").click()" },
+  { kind: "tool", text: "→ terminator.locator(\"role:Edit && name:File name\").type_text(\"note.txt\")" },
+  { kind: "tool", text: "→ terminator.locator(\"role:Button && name:Save\").click()" },
+  { kind: "result", text: "✓ note.txt saved.  zero pixel matches. zero hardcoded coordinates." },
+];
+
+function LiveDemo() {
+  const lineColor = (kind: DemoLineKind) => {
+    switch (kind) {
+      case "user":
+        return "text-zinc-900 font-semibold";
+      case "assistant":
+        return "text-zinc-700";
+      case "tool":
+        return "text-accent";
+      case "result":
+        return "text-emerald-600";
+      case "system":
+      default:
+        return "text-zinc-400";
+    }
+  };
+
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={{
+        visible: { transition: { staggerChildren: 0.18, delayChildren: 0.15 } },
+      }}
+      className="terminal-box overflow-hidden"
+    >
+      <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-200 bg-zinc-50/60">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-red-500/80" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+          <div className="w-3 h-3 rounded-full bg-green-500/80" />
+        </div>
+        <span className="text-xs text-zinc-500 font-mono">claude code · terminator MCP</span>
+        <span className="text-xs text-zinc-400 font-mono">live</span>
+      </div>
+      <div className="p-5 md:p-6 font-mono text-[13px] md:text-sm leading-relaxed space-y-1.5">
+        {DEMO_LINES.map((line, i) => (
+          <motion.div
+            key={i}
+            variants={{
+              hidden: { opacity: 0, y: 4 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.25 } },
+            }}
+            className={`whitespace-pre-wrap break-words ${lineColor(line.kind)}`}
+          >
+            {line.text}
+          </motion.div>
+        ))}
+        <motion.div
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { duration: 0.3 } },
+          }}
+          className="pt-3 mt-3 border-t border-zinc-100 flex items-center gap-2 text-xs text-zinc-500"
+        >
+          <span className="inline-block w-2 h-3.5 bg-accent animate-pulse" />
+          <span>waiting for next prompt</span>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
 // Custom hook for section visibility tracking
 function useSectionTracking(sectionId: string) {
   const ref = useRef<HTMLElement>(null);
@@ -468,6 +550,7 @@ export default function Home() {
 
   // Section refs for tracking
   const heroRef = useSectionTracking("hero");
+  const liveDemoRef = useSectionTracking("live_demo");
   const platformRef = useSectionTracking("platform_support");
   const actionsRef = useSectionTracking("actions");
   const featuresRef = useSectionTracking("features");
@@ -522,16 +605,23 @@ export default function Home() {
           </button>
           <div className="flex items-center gap-6">
             <a
+              href="#demo"
+              onClick={() => trackNavClicked("demo", "nav")}
+              className="text-sm text-zinc-600 hover:text-black transition-colors animated-underline"
+            >
+              Demo
+            </a>
+            <a
               href="#features"
               onClick={() => trackNavClicked("features", "nav")}
-              className="text-sm text-zinc-600 hover:text-black transition-colors animated-underline"
+              className="hidden md:inline text-sm text-zinc-600 hover:text-black transition-colors animated-underline"
             >
               Features
             </a>
             <a
               href="#docs"
               onClick={() => trackNavClicked("docs", "nav")}
-              className="text-sm text-zinc-600 hover:text-black transition-colors animated-underline"
+              className="hidden md:inline text-sm text-zinc-600 hover:text-black transition-colors animated-underline"
             >
               Docs
             </a>
@@ -767,6 +857,70 @@ export default function Home() {
               <span className="text-zinc-300">·</span>
               <span>any MCP client</span>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Live Demo — animated transcript proving the "Claude with OS-level hands" pitch */}
+      <section
+        ref={liveDemoRef}
+        id="demo"
+        className="py-20 px-6 border-t border-zinc-200 bg-gradient-to-b from-white to-zinc-50/40"
+      >
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-10"
+          >
+            <span className="inline-block text-xs font-mono text-accent uppercase tracking-wider mb-3">
+              How it actually runs
+            </span>
+            <h2 className="font-mono text-3xl md:text-4xl font-bold mb-4">
+              Claude, but with hands on your desktop
+            </h2>
+            <p className="text-zinc-600 max-w-2xl mx-auto">
+              An honest transcript: one prompt, real MCP tool calls, structural selectors. No screenshots, no OCR loop, no pixel matching. The same flow runs from Cursor, VS Code, Windsurf, or any MCP client.
+            </p>
+          </motion.div>
+
+          <LiveDemo />
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <a
+              href="#quickstart"
+              onClick={() => {
+                trackCtaClicked("demo_install", "cta_section");
+                trackNavClicked("quickstart", "inline");
+              }}
+              className="group inline-flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-accent-hover text-black font-mono font-semibold rounded-lg transition-all"
+            >
+              Run this on your machine
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a
+              href="https://github.com/mediar-ai/terminator/tree/main/examples"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                trackExternalLinkClicked(
+                  "https://github.com/mediar-ai/terminator/tree/main/examples",
+                  "github"
+                )
+              }
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-zinc-300 hover:border-zinc-400 rounded-lg font-mono text-sm transition-colors"
+            >
+              <Github className="w-4 h-4" />
+              More example workflows
+            </a>
           </motion.div>
         </div>
       </section>
