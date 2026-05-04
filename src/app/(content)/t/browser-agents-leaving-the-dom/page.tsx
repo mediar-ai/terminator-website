@@ -15,6 +15,7 @@ import {
   articleSchema,
   breadcrumbListSchema,
   faqPageSchema,
+  howToSchema,
   type ComparisonRow,
   type BentoCard,
   type FaqItem,
@@ -375,6 +376,11 @@ export default function BrowserAgentsLeavingTheDomPage() {
 
   const breadcrumbJsonLd = breadcrumbListSchema(breadcrumbSchemaItems);
   const faqJsonLd = faqPageSchema(faqs);
+  const howToJsonLd = howToSchema(
+    "Survive the DOM-to-OS boundary in a browser agent workflow",
+    "Five steps showing how a single MCP tool grammar drives a browser action, picks up the OS file save dialog, and continues into a native app without changing tools.",
+    timelineSteps.map((s) => ({ name: s.title, text: s.description })),
+  );
 
   return (
     <article className="min-h-screen">
@@ -390,6 +396,10 @@ export default function BrowserAgentsLeavingTheDomPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
 
       <div className="max-w-4xl mx-auto px-6 pt-10">
         <Breadcrumbs items={breadcrumbItems} />
@@ -404,6 +414,50 @@ export default function BrowserAgentsLeavingTheDomPage() {
         </h1>
         <p className="mt-5 text-lg text-zinc-600 leading-relaxed">
           Every browser agent has the same failure mode. The workflow starts in the page, hits a download, a save dialog, an &ldquo;Open With&rdquo; handoff, or a desktop authenticator, and the tool surface ends. The fix is not to keep the agent in the DOM. The fix is one selector grammar that spans the page and the OS at the same time.
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">
+            Manifest V3 bridge
+          </span>
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">
+            ws://127.0.0.1:17373
+          </span>
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">
+            UIAutomation
+          </span>
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">
+            click_element
+          </span>
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">
+            execute_browser_script
+          </span>
+          <span className="text-xs font-mono px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">
+            Windows-first
+          </span>
+        </div>
+
+        <div className="mt-7 flex flex-col sm:flex-row sm:items-center gap-3">
+          <code className="flex-1 font-mono text-sm bg-zinc-900 text-zinc-100 px-4 py-3 rounded-lg overflow-x-auto whitespace-nowrap">
+            <span className="text-zinc-500 select-none">$ </span>
+            claude mcp add terminator &quot;npx -y terminator-mcp-agent@latest&quot;
+          </code>
+          <a
+            href="https://github.com/mediar-ai/terminator"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-zinc-300 text-sm font-medium text-zinc-900 hover:bg-zinc-50 transition-colors whitespace-nowrap"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.18c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.93 10.93 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z" />
+            </svg>
+            Star on GitHub
+          </a>
+        </div>
+        <p className="mt-2 text-xs text-zinc-500">
+          One MCP install line, then the same{" "}
+          <code className="font-mono bg-zinc-100 px-1 py-0.5 rounded">role:Button name:Save</code>{" "}
+          selector works inside the page and inside the OS Save dialog.
         </p>
       </header>
 
