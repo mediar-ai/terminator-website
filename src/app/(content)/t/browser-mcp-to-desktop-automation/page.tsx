@@ -106,7 +106,7 @@ const dispatchActors = [
 ];
 
 const dispatchMessages = [
-  { from: 0, to: 1, label: "navigate_browser(\"orders.internal\")", type: "request" as const },
+  { from: 0, to: 1, label: "navigate_browser(internal URL)", type: "request" as const },
   { from: 1, to: 2, label: "ws eval", type: "request" as const },
   { from: 2, to: 1, label: "page ready", type: "response" as const },
   { from: 0, to: 1, label: "execute_browser_script (scrape rows)", type: "request" as const },
@@ -145,7 +145,7 @@ const mixedYaml = `# crates/terminator-mcp-agent/examples/mixed.yml
 steps:
   # Browser surface (would also work in Playwright MCP)
   - tool_name: navigate_browser
-    arguments: { url: "https://orders.internal/q4" }
+    arguments: { url: "<your internal orders URL>" }
 
   - id: rows
     tool_name: execute_browser_script
@@ -230,6 +230,8 @@ export default function Page() {
     datePublished: PUBLISHED,
     author: "Matthew Diakonov",
     authorUrl: "https://m13v.com",
+    publisherName: "Terminator",
+    publisherUrl: "https://t8r.tech",
   });
   const breadcrumbJsonLd = breadcrumbListSchema(breadcrumbSchemaItems);
   const faqJsonLd = faqPageSchema(faqs);
@@ -424,7 +426,7 @@ export default function Page() {
           description="Show us where your browser MCP gives up and we'll walk through where Terminator picks up. 30 minutes, no slides."
         />
 
-        <FaqSection title="Browser MCP to desktop FAQ" items={faqs} />
+        <FaqSection heading="Browser MCP to desktop FAQ" items={faqs} />
 
         <RelatedPostsGrid
           title="Related guides"
