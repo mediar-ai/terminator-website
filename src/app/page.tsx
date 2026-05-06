@@ -147,250 +147,11 @@ function ComparisonRow({
   );
 }
 
-type StackId =
-  | "claude"
-  | "cursor"
-  | "vscode"
-  | "typescript"
-  | "python"
-  | "rust";
-
-type InstallTab = {
-  id: StackId;
-  label: string;
-  description: string;
-  command: string;
-  language: string;
-  followup?: string;
-  followupLanguage?: string;
-};
-
-const INSTALL_TABS: InstallTab[] = [
-  {
-    id: "claude",
-    label: "Claude Code",
-    description:
-      "One-liner MCP install. Claude Code can drive any Windows app on your desktop, not just the browser.",
-    command: 'claude mcp add terminator "npx -y terminator-mcp-agent@latest"',
-    language: "bash",
-  },
-  {
-    id: "cursor",
-    label: "Cursor",
-    description:
-      "Drop into ~/.cursor/mcp.json so Cursor agents get OS-level hands across Windows apps.",
-    command: `{
-  "mcpServers": {
-    "terminator-mcp-agent": {
-      "command": "npx",
-      "args": ["-y", "terminator-mcp-agent@latest"]
-    }
-  }
-}`,
-    language: "json",
-  },
-  {
-    id: "vscode",
-    label: "VS Code",
-    description:
-      "Same MCP config works for VS Code, VS Code Insiders, Windsurf, and any client that speaks MCP.",
-    command: `{
-  "mcpServers": {
-    "terminator-mcp-agent": {
-      "command": "npx",
-      "args": ["-y", "terminator-mcp-agent@latest"]
-    }
-  }
-}`,
-    language: "json",
-  },
-  {
-    id: "typescript",
-    label: "TypeScript",
-    description:
-      "Full Desktop class with 60+ methods. Type-safe, async/await, fluent Playwright-style API.",
-    command: "npm install @mediar-ai/terminator",
-    language: "bash",
-    followup: `import { Desktop } from '@mediar-ai/terminator';
-
-const desktop = new Desktop();
-await desktop.openApplication('notepad');
-await desktop
-  .locator('role:Edit')
-  .typeText('Hello from Terminator!');`,
-    followupLanguage: "typescript",
-  },
-  {
-    id: "python",
-    label: "Python",
-    description:
-      "Same Playwright-shaped selectors, Pythonic. Drop-in for QA scripts, RPA jobs, and Jupyter notebooks.",
-    command: "pip install terminator",
-    language: "bash",
-    followup: `import terminator
-
-desktop = terminator.Desktop()
-desktop.open_application('notepad')
-desktop.locator('role:Edit').type_text('Hello from Terminator!')`,
-    followupLanguage: "python",
-  },
-  {
-    id: "rust",
-    label: "Rust",
-    description:
-      "The native crate every other binding is built on. Zero-cost selectors, no GIL, no Node.",
-    command: "cargo add terminator-rs",
-    language: "bash",
-    followup: `use terminator::Desktop;
-
-let desktop = Desktop::new()?;
-desktop.open_application("notepad")?;
-desktop.locator("role:Edit").type_text("Hello from Terminator!")?;`,
-    followupLanguage: "rust",
-  },
-];
-
-function InstallPicker() {
-  const [active, setActive] = useState<StackId>("claude");
-  const [copied, setCopied] = useState(false);
-
-  const current = INSTALL_TABS.find((t) => t.id === active) ?? INSTALL_TABS[0];
-
-  const copy = () => {
-    navigator.clipboard.writeText(current.command);
-    setCopied(true);
-    trackInstallCopied(`quickstart_${active}`);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={fadeInUp}
-    >
-      <div
-        role="tablist"
-        aria-label="Install Terminator on your stack"
-        className="flex flex-wrap gap-2 mb-6 border-b border-zinc-200 pb-3"
-      >
-        {INSTALL_TABS.map((t) => (
-          <button
-            key={t.id}
-            role="tab"
-            aria-selected={active === t.id}
-            onClick={() => {
-              setActive(t.id);
-              trackCtaClicked(`quickstart_tab_${t.id}`, "cta_section");
-            }}
-            className={`px-4 py-2 font-mono text-sm rounded-md transition-all ${
-              active === t.id
-                ? "bg-accent text-black font-semibold"
-                : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 border border-transparent"
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
-
-      <p className="text-sm text-zinc-600 mb-5 leading-relaxed">
-        {current.description}
-      </p>
-
-      <div className="terminal-box overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-200">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500/80" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-            <div className="w-3 h-3 rounded-full bg-green-500/80" />
-          </div>
-          <span className="text-xs text-zinc-500 font-mono">
-            {current.language}
-          </span>
-          <button
-            onClick={copy}
-            className="text-zinc-500 hover:text-zinc-900 transition-colors"
-            aria-label="Copy install command"
-          >
-            {copied ? (
-              <Check className="w-4 h-4" />
-            ) : (
-              <Copy className="w-4 h-4" />
-            )}
-          </button>
-        </div>
-        <pre className="p-4 overflow-x-auto text-sm">
-          <code className="font-mono text-zinc-700">{current.command}</code>
-        </pre>
-      </div>
-
-      {current.followup && (
-        <div className="mt-6">
-          <p className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3">
-            Then run your first automation
-          </p>
-          <CodeBlock
-            code={current.followup}
-            language={current.followupLanguage ?? "typescript"}
-            section={`quickstart_${active}_followup`}
-          />
-        </div>
-      )}
-
-      <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-zinc-600">
-        <span className="font-mono uppercase text-xs tracking-wider text-zinc-500">
-          Go deeper:
-        </span>
-        <a
-          href="https://github.com/mediar-ai/terminator#readme"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-4 hover:text-accent"
-          onClick={() =>
-            trackExternalLinkClicked(
-              "https://github.com/mediar-ai/terminator#readme",
-              "github"
-            )
-          }
-        >
-          Full README
-        </a>
-        <span className="text-zinc-300">·</span>
-        <a
-          href="https://github.com/mediar-ai/terminator/tree/main/examples"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-4 hover:text-accent"
-          onClick={() =>
-            trackExternalLinkClicked(
-              "https://github.com/mediar-ai/terminator/tree/main/examples",
-              "github"
-            )
-          }
-        >
-          Examples
-        </a>
-        <span className="text-zinc-300">·</span>
-        <a
-          href="https://discord.gg/dU9EBuw7Uq"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-4 hover:text-accent"
-          onClick={() =>
-            trackExternalLinkClicked(
-              "https://discord.gg/dU9EBuw7Uq",
-              "discord"
-            )
-          }
-        >
-          Discord
-        </a>
-      </div>
-    </motion.div>
-  );
-}
+// InstallPicker removed: install commands are now delivered by email via
+// <InstallEmailGate emailOnly />. The literal `claude mcp add terminator ...`
+// and per-client JSON snippets must NOT render or ship in the page bundle.
+// Stub kept so any orphaned reference fails loudly at build time instead of
+// silently re-exposing the command.
 
 type DemoLineKind = "user" | "assistant" | "tool" | "result" | "system";
 
@@ -733,7 +494,7 @@ export default function Home() {
             <BookCallButton section="hero" />
           </motion.div>
 
-          {/* Quick install */}
+          {/* Quick install (emailOnly: command is delivered by email, never on-page) */}
           <motion.div variants={fadeInUp} className="max-w-2xl mx-auto">
             <InstallEmailGate
               command={TERMINATOR_HERO_CMD}
@@ -742,20 +503,32 @@ export default function Home() {
               storageKey={TERMINATOR_STORAGE_KEY}
               githubUrl="https://github.com/mediar-ai/terminator"
               modalTitle="Get the install command"
-              modalDescription="Drop your email and we'll show you the one-line MCP install plus the occasional release note. No spam."
-              commandTitle="Run this in your terminal"
-              commandDescription="Adds Terminator to Claude Code. Restart, then ask Claude to drive any Windows or macOS app."
+              modalDescription="Drop your email and we'll send the one-line MCP install plus configs for every MCP client. No spam."
+              submitLabel="Email me the install"
+              emailOnly
+              sentTitle="Install command sent"
+              sentDescription={(email) => (
+                <>
+                  Sent to <span className="font-medium text-zinc-900">{email}</span>. Open
+                  your inbox to grab the install for Claude Code, Cursor, Claude Desktop,
+                  VS Code, and Windsurf. If you don&apos;t see it in a minute, check spam
+                  or promotions.
+                </>
+              )}
               renderTrigger={({ onClick }) => (
                 <button
                   type="button"
-                  onClick={() => { onClick(); trackInstallCopied("hero"); }}
+                  onClick={() => {
+                    onClick();
+                    trackInstallCopied("hero");
+                  }}
                   aria-label="Get install command"
-                  className="terminal-box px-4 py-3 flex items-center justify-between gap-4 w-full text-left hover:border-accent transition-colors"
+                  className="terminal-box px-4 py-4 flex items-center justify-between gap-4 w-full text-left hover:border-accent transition-colors"
                 >
-                  <code className="font-mono text-sm text-zinc-700 overflow-x-auto">
-                    <span className="text-accent">$</span> {TERMINATOR_HERO_CMD}
-                  </code>
-                  <Copy className="w-4 h-4 text-zinc-500 flex-shrink-0" />
+                  <span className="font-mono text-sm text-zinc-700">
+                    <span className="text-accent">$</span> Get the Terminator install command
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-zinc-500 flex-shrink-0" />
                 </button>
               )}
             />
@@ -1342,27 +1115,25 @@ await saveBtn.click();`}
                 MCP for Claude
               </h3>
               <CodeBlock
-                section="docs_mcp_config"
-                language="json"
-                code={`{
-  "mcpServers": {
-    "terminator-mcp-agent": {
-      "command": "npx",
-      "args": ["-y", "terminator-mcp-agent@latest"],
-      "env": {
-        "LOG_LEVEL": "info"
-      }
-    }
-  }
-}
+                section="docs_mcp_tools"
+                language="bash"
+                code={`# Once Terminator MCP is installed, Claude can call:
+#   click_element        type_into_element
+#   get_window_tree      capture_screenshot
+#   open_application     run_workflow
+#   wait_for_element     get_element_text
+#   ... and 30 more tools, all over the
+#   accessibility tree, no pixels involved.
 
-// Claude can now use tools like:
-// - click_element
-// - type_into_element
-// - get_window_tree
-// - capture_screenshot
-// ... and 30 more`}
+you ▸ open notepad and write "hello, world"
+claude ▸ open_application("notepad")
+claude ▸ locator("role:Edit").type_text("hello, world")
+✓ done in 312ms (1 call, 0 retries)`}
               />
+              <p className="mt-3 text-xs text-zinc-500">
+                Get the install command and ready-to-paste JSON for Claude Desktop, Cursor,
+                VS Code, and Windsurf via the install gate above.
+              </p>
             </motion.div>
           </motion.div>
 
@@ -1512,34 +1283,111 @@ await saveBtn.click();`}
         </div>
       </section>
 
-      {/* Pick Your Stack — tabbed install picker, replaces the linear 3-step Quick Start */}
+      {/* Install (emailOnly): the install command + per-client JSON snippets are
+          delivered by email; this section only shows the email gate CTA so the
+          command never leaks on page. */}
       <section
         ref={quickstartRef}
         id="quickstart"
         className="py-20 px-6 border-t border-zinc-200 bg-gradient-to-b from-zinc-50 to-transparent"
       >
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="text-center mb-12"
+            className="text-center mb-10"
           >
             <span className="inline-block text-xs font-mono text-accent uppercase tracking-wider mb-3">
               Install
             </span>
             <h2 className="font-mono text-3xl md:text-4xl font-bold mb-4">
-              Pick your stack, copy one line
+              Plug into any MCP client in under a minute
             </h2>
-            <p className="text-zinc-600 max-w-2xl mx-auto">
-              Plug into any AI coding assistant via MCP, or pull the SDK
-              straight into TypeScript, Python, or Rust. Same selectors, same
-              reliability story, six install paths.
+            <p className="text-zinc-600 max-w-xl mx-auto">
+              Drop your email and we&apos;ll send the one-line Claude Code install plus
+              ready-to-paste JSON for Claude Desktop, Cursor, VS Code, and Windsurf. Same
+              entry point everywhere.
             </p>
           </motion.div>
 
-          <InstallPicker />
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="flex justify-center"
+          >
+            <InstallEmailGate
+              command={TERMINATOR_HERO_CMD}
+              site="terminator"
+              section="install"
+              storageKey={TERMINATOR_STORAGE_KEY}
+              githubUrl="https://github.com/mediar-ai/terminator"
+              modalTitle="Get the install command"
+              modalDescription="Drop your email and we'll send the one-line MCP install plus configs for every MCP client. No spam."
+              submitLabel="Email me the install"
+              label="Email me the install"
+              emailOnly
+              sentTitle="Install command sent"
+              sentDescription={(email) => (
+                <>
+                  Sent to <span className="font-medium text-zinc-900">{email}</span>. Open
+                  your inbox to grab the install for Claude Code, Cursor, Claude Desktop,
+                  VS Code, and Windsurf. If you don&apos;t see it in a minute, check spam
+                  or promotions.
+                </>
+              )}
+            />
+          </motion.div>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-zinc-600">
+            <span className="font-mono uppercase text-xs tracking-wider text-zinc-500">
+              Go deeper:
+            </span>
+            <a
+              href="https://github.com/mediar-ai/terminator#readme"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 hover:text-accent"
+              onClick={() =>
+                trackExternalLinkClicked(
+                  "https://github.com/mediar-ai/terminator#readme",
+                  "github",
+                )
+              }
+            >
+              Full README
+            </a>
+            <span className="text-zinc-300">·</span>
+            <a
+              href="https://github.com/mediar-ai/terminator/tree/main/examples"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 hover:text-accent"
+              onClick={() =>
+                trackExternalLinkClicked(
+                  "https://github.com/mediar-ai/terminator/tree/main/examples",
+                  "github",
+                )
+              }
+            >
+              Examples
+            </a>
+            <span className="text-zinc-300">·</span>
+            <a
+              href="https://discord.gg/dU9EBuw7Uq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 hover:text-accent"
+              onClick={() =>
+                trackExternalLinkClicked("https://discord.gg/dU9EBuw7Uq", "discord")
+              }
+            >
+              Discord
+            </a>
+          </div>
         </div>
       </section>
 
