@@ -177,59 +177,59 @@ const sequenceActors = [
 ];
 
 const sequenceMessages = [
-  { from: 0, to: 1, label: "execute_sequence(workflow)", note: "single tool_use, ~5KB JSON" },
-  { from: 1, to: 2, label: "open_application(calc.exe)" },
-  { from: 2, to: 1, label: "process_id, hwnd" },
-  { from: 1, to: 2, label: "type_into_element(selector, '42')" },
-  { from: 2, to: 1, label: "ok | retry | fallback" },
-  { from: 1, to: 2, label: "click_element(selector)" },
-  { from: 2, to: 1, label: "ok" },
-  { from: 1, to: 2, label: "wait_for_element(condition: exists)" },
-  { from: 2, to: 1, label: "tree snapshot" },
-  { from: 1, to: 0, label: "structured JSON result", note: "one model turn closes the loop" },
+  { from: 0, to: 1, label: "execute_sequence(workflow)", type: "request" as const },
+  { from: 1, to: 2, label: "open_application(calc.exe)", type: "request" as const },
+  { from: 2, to: 1, label: "process_id, hwnd", type: "response" as const },
+  { from: 1, to: 2, label: "type_into_element(selector, '42')", type: "request" as const },
+  { from: 2, to: 1, label: "ok | retry | fallback", type: "response" as const },
+  { from: 1, to: 2, label: "click_element(selector)", type: "request" as const },
+  { from: 2, to: 1, label: "ok", type: "response" as const },
+  { from: 1, to: 2, label: "wait_for_element(condition: exists)", type: "request" as const },
+  { from: 2, to: 1, label: "tree snapshot", type: "response" as const },
+  { from: 1, to: 0, label: "structured JSON result", type: "response" as const },
 ];
 
 const metrics = [
-  { value: "35", label: "typed MCP tools in server.rs" },
-  { value: "1", label: "model turn for a multi-step workflow via execute_sequence" },
-  { value: "2576", label: "px screenshot input ceiling on Opus 4.7" },
-  { value: "1:1", label: "pixel-to-coordinate mapping in computer-use" },
+  { value: 35, label: "typed MCP tools in server.rs" },
+  { value: 1, label: "model turn for a multi-step workflow via execute_sequence" },
+  { value: 2576, label: "px screenshot input ceiling on Opus 4.7", suffix: "px" },
+  { value: 100, label: "percent pixel-to-coordinate mapping in computer-use", suffix: "%" },
 ];
 
 const faqs = [
   {
-    question: "How do I use Claude Opus 4.7 for desktop automation?",
-    answer:
+    q: "How do I use Claude Opus 4.7 for desktop automation?",
+    a:
       "Two paths. Anthropic exposes a built-in computer-use tool: Opus 4.7 sees a screenshot (now up to 2576px / 3.75MP, with 1:1 pixel-to-coordinate mapping) and returns click or type actions that your code executes. Or wire Terminator's MCP server with `claude mcp add terminator \"npx -y terminator-mcp-agent@latest\"` so Opus 4.7 calls 35 typed accessibility-tree tools instead of pixel coordinates. The MCP path resolves selectors locally against Windows UI Automation or macOS Accessibility, no screenshot in the loop.",
   },
   {
-    question: "Does Opus 4.7 actually improve over Opus 4.6 for desktop work?",
-    answer:
+    q: "Does Opus 4.7 actually improve over Opus 4.6 for desktop work?",
+    a:
       "For pixel-driven computer use, yes, in two specific ways. The image input ceiling rose from 1568px to 2576px on the long edge (about 3.75MP), so a Full HD or 4K screenshot fits without aggressive downscaling. Coordinates the model emits are 1:1 with the actual pixels you sent, so there is no scale-factor math. Anthropic also reduced default tool-call frequency on 4.7, which means the model leans on reasoning over rapid-fire actions. For agentic flows, run at high or xhigh effort.",
   },
   {
-    question: "What is the xhigh effort level and when should I use it?",
-    answer:
+    q: "What is the xhigh effort level and when should I use it?",
+    a:
       "xhigh is a new effort level Opus 4.7 introduced between high and max. Anthropic's docs recommend it for coding and agentic use cases because the model spends more time reasoning before each action, which compensates for the lower default tool-call rate. For a desktop automation agent that has to navigate unfamiliar applications, xhigh tends to produce fewer wasted clicks at the cost of higher per-turn latency.",
   },
   {
-    question: "Why does Terminator give 35 tools instead of just one click(x,y) tool?",
-    answer:
+    q: "Why does Terminator give 35 tools instead of just one click(x,y) tool?",
+    a:
       "Because clicks are one-tenth of what an automation actually needs. The 35 tools at crates/terminator-mcp-agent/src/server.rs cover get_window_tree, click_element, type_into_element, press_key, validate_element, wait_for_element, scroll_element, select_option, set_value, capture_screenshot, run_command, navigate_browser, execute_browser_script, execute_sequence, and the file primitives read_file / write_file / edit_file / glob_files / grep_files. Each one wraps a real OS or browser primitive. A click(x,y) tool collapses all that into pixel guessing and forces the model back into a screenshot loop.",
   },
   {
-    question: "What is execute_sequence and why is it the right shape for Opus 4.7?",
-    answer:
+    q: "What is execute_sequence and why is it the right shape for Opus 4.7?",
+    a:
       "execute_sequence is one MCP tool that accepts a typed workflow: variables, named selectors, an array of steps, fallback branches, conditional jumps, and an optional output parser. The model emits the whole workflow once. The server runs every step locally with no model in the inner loop. Because Opus 4.7 defaults to fewer tool calls per turn, it is naturally inclined to think harder up front and dispatch a bigger unit of work. execute_sequence is the bigger unit. The shape matches.",
   },
   {
-    question: "Can I mix the screenshot path and the accessibility path?",
-    answer:
+    q: "Can I mix the screenshot path and the accessibility path?",
+    a:
       "Yes, and you usually want to. Terminator exposes capture_screenshot as one of its tools, so Opus 4.7 can fall back to vision when the accessibility tree is missing labels (common in custom-rendered Electron and game UIs). The healthy split is: structural tools for everything the OS knows the name of, screenshot plus Opus 4.7's 1:1 coordinates for the rest. Use validate_element first to decide which path to take.",
   },
   {
-    question: "What platforms does this work on?",
-    answer:
+    q: "What platforms does this work on?",
+    a:
       "Windows is the primary platform with full feature support via the UI Automation COM API. macOS works at the core Rust level via the Accessibility API and requires you to grant accessibility permissions in System Settings. The terminator-mcp-agent npm package ships Windows binaries and macOS works through the Rust crate. Linux uses AT-SPI2 in the core but is not yet packaged as an MCP binary.",
   },
 ];
@@ -257,7 +257,7 @@ const relatedPosts: RelatedPost[] = [
 
 const articleSchemaJson = articleSchema({
   url: PAGE_URL,
-  title: TITLE,
+  headline: TITLE,
   description: DESCRIPTION,
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,
@@ -350,7 +350,8 @@ export default function Page() {
               rightLabel="Path B: Terminator MCP"
               leftCode={computerUseSnippet}
               rightCode={mcpSnippet}
-              language="json"
+              leftLines={computerUseSnippet.split("\n").length}
+              rightLines={mcpSnippet.split("\n").length}
             />
           </div>
           <p className="mt-6 text-zinc-700 leading-relaxed">
