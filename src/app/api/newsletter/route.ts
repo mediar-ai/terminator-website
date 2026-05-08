@@ -232,93 +232,17 @@ function buildWelcomeEmailText(): string {
   return lines.join("\n");
 }
 
-export async function POST(req: NextRequest) {
-  const apiKey = process.env[API_KEY_ENV];
-  if (!apiKey) {
-    return new Response(
-      JSON.stringify({ error: "Server configuration error" }),
-      { status: 500, headers: { "content-type": "application/json" } },
-    );
-  }
-
-  let body: { email?: string };
-  try {
-    body = await req.json();
-  } catch {
-    return new Response(JSON.stringify({ error: "Invalid request body" }), {
-      status: 400,
-      headers: { "content-type": "application/json" },
-    });
-  }
-
-  const email =
-    typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
-  if (!email || !email.includes("@")) {
-    return new Response(
-      JSON.stringify({ error: "A valid email address is required" }),
-      { status: 400, headers: { "content-type": "application/json" } },
-    );
-  }
-
-  // 1. Add contact to Resend audience (idempotent upsert)
-  const audienceId = process.env.RESEND_AUDIENCE_ID || "";
-  if (audienceId) {
-    const contactRes = await fetch(
-      `https://api.resend.com/audiences/${audienceId}/contacts`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, unsubscribed: false }),
-      },
-    );
-    if (!contactRes.ok) {
-      const detail = await contactRes.text().catch(() => "");
-      console.warn(
-        "[newsletter] add contact non-OK:",
-        contactRes.status,
-        detail,
-      );
-      // non-fatal; still send the welcome email
-    }
-  }
-
-  // 2. Send welcome email with BOTH html and text MIME parts
-  const html = buildWelcomeEmailHtml();
-  const text = buildWelcomeEmailText();
-
-  let resendEmailId: string | null = null;
-  const emailRes = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: FROM,
-      to: email,
-      subject: WELCOME_SUBJECT,
-      html,
-      text,
-    }),
-  });
-
-  if (emailRes.ok) {
-    const data = await emailRes.json().catch(() => ({}));
-    resendEmailId = data.id || null;
-  } else {
-    const detail = await emailRes.text().catch(() => "");
-    console.error("[newsletter] Failed to send welcome email:", detail);
-    return new Response(
-      JSON.stringify({ error: "Failed to send install email. Try again." }),
-      { status: 502, headers: { "content-type": "application/json" } },
-    );
-  }
-
-  // 3. Log to terminator_emails (mirrors macos_use_emails schema).
-  if (resendEmailId) {
+export const POST = createNewsletterHandler({
+  audienceId: process.env.RESEND_AUDIENCE_ID || "",
+  fromEmail: FROM,
+  brand: BRAND,
+  site: "terminator",
+  siteUrl: SITE_URL,
+  welcomeSubject: WELCOME_SUBJECT,
+  welcomeHtml: () => buildWelcomeEmailHtml(),
+  welcomeText: () => buildWelcomeEmailText(),
+  onSignup: async (email, resendEmailId) => {
+    if (!resendEmailId) return;
     try {
       const sql = getSql();
       await sql`
@@ -328,32 +252,6 @@ export async function POST(req: NextRequest) {
       `;
     } catch (err) {
       console.error("[newsletter] DB log error:", err);
-      // non-fatal; the email was sent
     }
-  }
-
-  // 4. Server-side PostHog capture (ground truth, not ad-blocked).
-  let host: string | undefined;
-  try {
-    host = req.headers.get("host") || "t8r.tech";
-  } catch {
-    host = "t8r.tech";
-  }
-  void capturePostHogServer({
-    event: "newsletter_subscribed_server",
-    distinctId: email,
-    host,
-    properties: {
-      email,
-      site: "terminator",
-      brand: BRAND,
-      resend_email_id: resendEmailId,
-      component: "terminator/api/newsletter",
-    },
-  });
-
-  return new Response(JSON.stringify({ success: true }), {
-    status: 200,
-    headers: { "content-type": "application/json" },
-  });
-}
+  },
+});
