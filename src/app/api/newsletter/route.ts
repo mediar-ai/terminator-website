@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import { capturePostHogServer } from "@seo/components/server";
 import { getSql } from "@/lib/db";
 
 /*
@@ -327,6 +328,26 @@ export async function POST(req: NextRequest) {
       // non-fatal; the email was sent
     }
   }
+
+  // 4. Server-side PostHog capture (ground truth, not ad-blocked).
+  let host: string | undefined;
+  try {
+    host = req.headers.get("host") || "t8r.tech";
+  } catch {
+    host = "t8r.tech";
+  }
+  void capturePostHogServer({
+    event: "newsletter_subscribed_server",
+    distinctId: email,
+    host,
+    properties: {
+      email,
+      site: "terminator",
+      brand: BRAND,
+      resend_email_id: resendEmailId,
+      component: "terminator/api/newsletter",
+    },
+  });
 
   return new Response(JSON.stringify({ success: true }), {
     status: 200,
