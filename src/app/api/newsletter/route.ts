@@ -1,16 +1,20 @@
-import { NextRequest } from "next/server";
-import { capturePostHogServer } from "@seo/components/server";
+import { createNewsletterHandler } from "@seo/components/server";
 import { getSql } from "@/lib/db";
 
 /*
- * Custom newsletter handler for Terminator's emailOnly InstallEmailGate.
+ * Newsletter handler for Terminator's emailOnly InstallEmailGate.
  *
- * The shared `createNewsletterHandler` only sends an HTML body to Resend; a
- * Gmail "show original" reveals an empty plain-text part. That bug ate the
- * macos-use rollout once. We send HTML + a real plain-text fallback here so
- * the install command renders correctly in every client and search index.
+ * Uses the shared `createNewsletterHandler` factory from
+ * @m13v/seo-components v0.38+, which now supports the `welcomeText` plain-
+ * text MIME part this route needs (without it, Gmail "Show original" used
+ * to reveal an empty text part and the install command rendered as a single
+ * line). The factory also fires the canonical
+ * `newsletter_subscribed_server` PostHog event so the dashboard's
+ * "Email Signups" column reflects ground truth instead of ad-blocker
+ * lossy client events.
  *
- * No em or en dashes in any string (UTF-8 corruption in subjects).
+ * Local helpers below build the HTML and plain-text bodies. No em or en
+ * dashes in any string (UTF-8 corruption in subjects).
  */
 
 const FROM = "Matt from Terminator <matt@t8r.tech>";
@@ -21,7 +25,6 @@ const NPM_URL = "https://www.npmjs.com/package/terminator-mcp-agent";
 const CLAUDE_CODE_CMD =
   'claude mcp add terminator "npx -y terminator-mcp-agent@latest"';
 const WELCOME_SUBJECT = "Your Terminator install command";
-const API_KEY_ENV = "RESEND_API_KEY";
 
 const MCP_JSON = `{
   "mcpServers": {
