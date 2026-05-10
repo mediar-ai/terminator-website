@@ -217,12 +217,15 @@ const relatedPosts: RelatedPost[] = [
 
 const articleJsonLd = articleSchema({
   url: PAGE_URL,
-  title: TITLE,
+  headline: TITLE,
   description: DESCRIPTION,
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,
   author: "Matthew Diakonov",
   authorUrl: "https://m13v.com",
+  publisherName: "Terminator",
+  publisherUrl: "https://t8r.tech",
+  articleType: "TechArticle",
 });
 
 const breadcrumbJsonLd = breadcrumbListSchema(breadcrumbSchemaItems);
