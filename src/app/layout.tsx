@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { HeadingAnchors, NewsletterSignup } from "@seo/components";
+import { HeadingAnchors, NewsletterSignup, FounderChatPanel } from "@seo/components";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { GuideChat } from "@/components/guide-chat";
@@ -63,6 +63,7 @@ export default function RootLayout({
             <GuideChat />
           </div>
           <NewsletterSignup />
+          <FounderChatPanel project="Terminator" />
         </PostHogProvider>
       </body>
     </html>
