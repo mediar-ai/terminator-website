@@ -4,6 +4,7 @@ import { HeadingAnchors, NewsletterSignup, FounderChatPanel } from "@seo/compone
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { GuideChat } from "@/components/guide-chat";
+import { SeoEngagement } from "./seo-engagement";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://t8r.tech"),
@@ -59,6 +60,7 @@ export default function RootLayout({
             <main className="flex-1 min-w-0">
               <HeadingAnchors />
               {children}
+              <SeoEngagement />
             </main>
             <GuideChat />
           </div>
