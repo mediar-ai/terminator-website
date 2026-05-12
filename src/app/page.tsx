@@ -522,16 +522,43 @@ export default function Home() {
                     onClick();
                     trackInstallCopied("hero");
                   }}
-                  aria-label="Get install command"
-                  className="terminal-box px-4 py-4 flex items-center justify-between gap-4 w-full text-left hover:border-accent transition-colors"
+                  aria-label="Email me the MCP install for every client"
+                  className="terminal-box w-full text-left hover:border-accent transition-colors group"
                 >
-                  <span className="font-mono text-sm text-zinc-700">
-                    <span className="text-accent">$</span> Get the Terminator install command
-                  </span>
-                  <ArrowRight className="w-4 h-4 text-zinc-500 flex-shrink-0" />
+                  <div className="px-4 py-3 flex items-center justify-between gap-4 border-b border-zinc-100">
+                    <span className="font-mono text-sm md:text-[15px] text-zinc-900 font-medium">
+                      <span className="text-accent">$</span> Email me the one-line MCP install
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-zinc-500 flex-shrink-0 group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                  <div className="px-4 py-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono text-zinc-500">
+                    <span className="text-zinc-400 uppercase tracking-wider">Includes:</span>
+                    <span className="text-zinc-600">Claude Code</span>
+                    <span className="text-zinc-300">·</span>
+                    <span className="text-zinc-600">Cursor</span>
+                    <span className="text-zinc-300">·</span>
+                    <span className="text-zinc-600">VS Code</span>
+                    <span className="text-zinc-300">·</span>
+                    <span className="text-zinc-600">Windsurf</span>
+                    <span className="text-zinc-300">·</span>
+                    <span className="text-zinc-600">Claude Desktop</span>
+                    <span className="text-zinc-300">·</span>
+                    <span className="text-zinc-600">paste-ready JSON</span>
+                  </div>
                 </button>
               )}
             />
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+              <span>delivered instantly</span>
+              <span className="text-zinc-300">·</span>
+              <span>no spam</span>
+              <span className="text-zinc-300">·</span>
+              <span>unsubscribe anytime</span>
+              <span className="text-zinc-300 hidden sm:inline">·</span>
+              <span className="hidden sm:inline text-zinc-600">
+                430<span className="text-accent">+</span> devs install / week
+              </span>
+            </div>
           </motion.div>
         </motion.div>
       </section>
