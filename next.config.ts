@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         destination: "/t/accessibility-tree-vs-pyautogui-desktop-automation",
         permanent: true,
       },
+      {
+        source: "/t/axuielement-system-wide-accessibility-crate",
+        destination: "/t/axuielement-system-wide-accessibility-crate-rust",
+        permanent: true,
+      },
     ];
   },
 };
