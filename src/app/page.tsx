@@ -468,14 +468,14 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             <a
-              href="#quickstart"
+              href="#demo"
               onClick={() => {
-                trackCtaClicked("get_started", "hero");
-                trackNavClicked("quickstart", "inline");
+                trackCtaClicked("hero_see_demo", "hero");
+                trackNavClicked("demo", "inline");
               }}
               className="group flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-hover text-black font-mono font-semibold rounded-lg transition-all"
             >
-              Get Started
+              See it run
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
@@ -491,7 +491,6 @@ export default function Home() {
               <Github className="w-4 h-4" />
               View on GitHub
             </a>
-            <BookCallButton section="hero" />
           </motion.div>
 
           {/* Quick install (emailOnly: command is delivered by email, never on-page) */}
