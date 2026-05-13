@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
         destination: "/t/axuielement-system-wide-accessibility-crate-rust",
         permanent: true,
       },
+      {
+        source: "/t/accessibility-crate-rust-macos-axuielement",
+        destination: "/t/axuielement-system-wide-accessibility-crate-rust",
+        permanent: true,
+      },
     ];
   },
 };
