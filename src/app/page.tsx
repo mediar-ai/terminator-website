@@ -118,31 +118,35 @@ function FeatureCard({
 function ComparisonRow({
   feature,
   terminator,
-  playwright,
-  others,
+  pyautogui,
+  screenshotAgent,
 }: {
   feature: string;
   terminator: boolean | string;
-  playwright: boolean | string;
-  others: boolean | string;
+  pyautogui: boolean | string;
+  screenshotAgent: boolean | string;
 }) {
-  const renderCell = (value: boolean | string) => {
+  const renderCell = (value: boolean | string, highlight = false) => {
     if (typeof value === "boolean") {
       return value ? (
-        <Check className="w-5 h-5 text-green-500" />
+        <Check className={`w-5 h-5 mx-auto ${highlight ? "text-accent" : "text-green-500"}`} />
       ) : (
-        <X className="w-5 h-5 text-red-500/70" />
+        <X className="w-5 h-5 mx-auto text-red-500/70" />
       );
     }
-    return <span className="text-zinc-600 text-sm">{value}</span>;
+    return (
+      <span className={`text-sm ${highlight ? "text-accent font-mono font-medium" : "text-zinc-600"}`}>
+        {value}
+      </span>
+    );
   };
 
   return (
     <tr className="border-b border-zinc-200 hover:bg-zinc-50">
       <td className="py-4 px-4 text-sm font-medium">{feature}</td>
-      <td className="py-4 px-4 text-center">{renderCell(terminator)}</td>
-      <td className="py-4 px-4 text-center">{renderCell(playwright)}</td>
-      <td className="py-4 px-4 text-center">{renderCell(others)}</td>
+      <td className="py-4 px-4 text-center bg-accent/[0.04]">{renderCell(terminator, true)}</td>
+      <td className="py-4 px-4 text-center">{renderCell(pyautogui)}</td>
+      <td className="py-4 px-4 text-center">{renderCell(screenshotAgent)}</td>
     </tr>
   );
 }
@@ -1218,21 +1222,24 @@ claude ▸ locator("role:Edit").type_text("hello, world")
         </div>
       </section>
 
-      {/* Comparison Table */}
+      {/* Comparison Table — Terminator vs the ACTUAL ICP alternatives */}
       <section ref={comparisonRef} data-section="comparison" className="py-20 px-6 border-t border-zinc-200">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
+            <span className="inline-block text-xs font-mono text-accent uppercase tracking-wider mb-3">
+              The honest comparison
+            </span>
             <h2 className="font-mono text-3xl md:text-4xl font-bold mb-4">
-              Why Terminator?
+              Terminator vs PyAutoGUI, AutoHotkey, and screenshot agents
             </h2>
             <p className="text-zinc-600 max-w-2xl mx-auto">
-              Desktop automation that actually works.
+              If you&apos;re only automating Chrome, use Playwright. This table is for the other 80% of the desktop, where you&apos;re currently picking between brittle pixel scripts, hand-walked UIA trees, and slow vision loops.
             </p>
           </motion.div>
 
@@ -1241,70 +1248,107 @@ claude ▸ locator("role:Edit").type_text("hello, world")
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="terminal-box overflow-hidden"
+            className="terminal-box overflow-x-auto"
           >
-            <table className="w-full">
+            <table className="w-full min-w-[720px]">
               <thead>
                 <tr className="border-b border-zinc-300 bg-zinc-50">
-                  <th className="py-4 px-4 text-left font-mono text-sm text-zinc-600">
-                    Feature
+                  <th className="py-4 px-4 text-left font-mono text-xs uppercase tracking-wider text-zinc-600">
+                    Capability
                   </th>
-                  <th className="py-4 px-4 text-center font-mono text-sm text-accent">
+                  <th className="py-4 px-4 text-center font-mono text-sm text-accent bg-accent/[0.06]">
                     Terminator
+                    <div className="text-[10px] font-normal text-zinc-500 mt-0.5 normal-case tracking-normal">
+                      accessibility tree + MCP
+                    </div>
                   </th>
-                  <th className="py-4 px-4 text-center font-mono text-sm text-zinc-600">
-                    Playwright
+                  <th className="py-4 px-4 text-center font-mono text-sm text-zinc-700">
+                    PyAutoGUI / AutoHotkey
+                    <div className="text-[10px] font-normal text-zinc-500 mt-0.5">
+                      pixels + coordinates
+                    </div>
                   </th>
-                  <th className="py-4 px-4 text-center font-mono text-sm text-zinc-600">
-                    Vision AI
+                  <th className="py-4 px-4 text-center font-mono text-sm text-zinc-700">
+                    Screenshot agents
+                    <div className="text-[10px] font-normal text-zinc-500 mt-0.5">
+                      computer-use, OCR loops
+                    </div>
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <ComparisonRow
-                  feature="Desktop apps"
+                  feature="Element lookup by role + name"
                   terminator={true}
-                  playwright={false}
-                  others={true}
+                  pyautogui={false}
+                  screenshotAgent={false}
                 />
                 <ComparisonRow
-                  feature="Browser automation"
+                  feature="Survives DPI / theme / layout shifts"
                   terminator={true}
-                  playwright={true}
-                  others={true}
+                  pyautogui={false}
+                  screenshotAgent="Sometimes"
                 />
                 <ComparisonRow
-                  feature="Reliability"
-                  terminator=">95%"
-                  playwright=">99%"
-                  others="~70%"
+                  feature="Step latency"
+                  terminator="~50-300ms"
+                  pyautogui="~100ms + sleeps"
+                  screenshotAgent="2-8s / step"
                 />
                 <ComparisonRow
-                  feature="Speed"
-                  terminator="Fast"
-                  playwright="Fast"
-                  others="Slow"
+                  feature="Token cost per action"
+                  terminator="$0"
+                  pyautogui="$0"
+                  screenshotAgent="image tokens / step"
                 />
                 <ComparisonRow
-                  feature="MCP support"
+                  feature="Drop-in MCP for Claude / Cursor / VS Code"
                   terminator={true}
-                  playwright={false}
-                  others="Varies"
+                  pyautogui={false}
+                  screenshotAgent="Varies"
                 />
                 <ComparisonRow
-                  feature="Open source"
+                  feature="TypeScript + Python + Rust SDKs"
                   terminator={true}
-                  playwright={true}
-                  others="Varies"
+                  pyautogui="Python only"
+                  screenshotAgent="Varies"
                 />
                 <ComparisonRow
-                  feature="Session reuse"
+                  feature="Auto-waits (no time.sleep guessing)"
                   terminator={true}
-                  playwright={false}
-                  others={true}
+                  pyautogui={false}
+                  screenshotAgent={false}
+                />
+                <ComparisonRow
+                  feature="Vision fallback when AX is missing"
+                  terminator={true}
+                  pyautogui={false}
+                  screenshotAgent={true}
+                />
+                <ComparisonRow
+                  feature="Cross-platform target (Win + macOS)"
+                  terminator="Windows stable, macOS in dev"
+                  pyautogui={true}
+                  screenshotAgent={true}
+                />
+                <ComparisonRow
+                  feature="MIT license, self-hosted, no vendor"
+                  terminator={true}
+                  pyautogui={true}
+                  screenshotAgent="Varies"
                 />
               </tbody>
             </table>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="mt-6 text-center text-xs font-mono text-zinc-500"
+          >
+            Honest caveat: AX/UIA coverage varies app-to-app. Custom-drawn canvases and games still need vision &mdash; Terminator falls back to Gemini for those, no separate loop required.
           </motion.div>
         </div>
       </section>
