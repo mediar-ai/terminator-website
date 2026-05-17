@@ -35,6 +35,11 @@ const nextConfig: NextConfig = {
         destination: "/t/axuielement-system-wide-accessibility-crate-rust",
         permanent: true,
       },
+      {
+        source: "/t/axuielement-system-wide-rust-accessibility",
+        destination: "/t/axuielement-system-wide-accessibility-crate-rust",
+        permanent: true,
+      },
     ];
   },
 };
