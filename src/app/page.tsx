@@ -698,17 +698,41 @@ export default function Home() {
             variants={fadeInUp}
             className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <a
-              href="#quickstart"
-              onClick={() => {
-                trackCtaClicked("demo_install", "cta_section");
-                trackNavClicked("quickstart", "inline");
-              }}
-              className="group inline-flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-accent-hover text-black font-mono font-semibold rounded-lg transition-all"
-            >
-              Run this on your machine
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
+            <InstallEmailGate
+              command={TERMINATOR_HERO_CMD}
+              site="terminator"
+              section="demo"
+              storageKey={TERMINATOR_STORAGE_KEY}
+              githubUrl="https://github.com/mediar-ai/terminator"
+              modalTitle="Get the install command"
+              modalDescription="Drop your email and we'll send the one-line MCP install plus configs for every MCP client. No spam."
+              submitLabel="Email me the install"
+              emailOnly
+              sentTitle="Install command sent"
+              sentDescription={(email) => (
+                <>
+                  Sent to <span className="font-medium text-zinc-900">{email}</span>. Open
+                  your inbox to grab the install for Claude Code, Cursor, Claude Desktop,
+                  VS Code, and Windsurf. If you don&apos;t see it in a minute, check spam
+                  or promotions.
+                </>
+              )}
+              renderTrigger={({ onClick }) => (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClick();
+                    trackCtaClicked("demo_install_gate_open", "cta_section");
+                    trackInstallCopied("demo");
+                  }}
+                  aria-label="Open install email gate"
+                  className="group inline-flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-accent-hover text-black font-mono font-semibold rounded-lg transition-all"
+                >
+                  Run this on your machine
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              )}
+            />
             <a
               href="https://github.com/mediar-ai/terminator/tree/main/examples"
               target="_blank"
@@ -725,6 +749,15 @@ export default function Home() {
               More example workflows
             </a>
           </motion.div>
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="mt-3 text-center text-[11px] font-mono text-zinc-500 uppercase tracking-wider"
+          >
+            one-line install · works in Claude Code, Cursor, VS Code, Windsurf, Claude Desktop
+          </motion.p>
         </div>
       </section>
 
