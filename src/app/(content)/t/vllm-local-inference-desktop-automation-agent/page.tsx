@@ -313,6 +313,39 @@ const actionCards: BentoCard[] = [
   },
 ];
 
+const vlModelRows: ComparisonRow[] = [
+  {
+    feature: "Qwen2.5-VL-7B-Instruct",
+    competitor:
+      "24GB VRAM in FP16, 12GB in AWQ. Native-resolution image patches up to 1280x28x28 (no fixed 448px crop).",
+    ours: "Best baseline for the shim. Fine-tuned variants of Qwen2.5-VL place at the top of OSWorld / ScreenSpot computer-use benchmarks. Predictable 0-999 coord behaviour with a one-shot example in the system prompt.",
+  },
+  {
+    feature: "Qwen3-VL-8B / Qwen3-VL-32B",
+    competitor:
+      "16-24GB VRAM (8B in FP16) or 4xH100 (32B). Newer, agent-tuned, native GUI grounding head.",
+    ours: "Strongest accuracy on cluttered Windows screenshots. Returns box-style coordinates by default; the shim's system prompt has to pin the 0-999 single-point format or you will get bounding boxes back.",
+  },
+  {
+    feature: "Pixtral-12B",
+    competitor:
+      "24-32GB VRAM in FP16. Mistral's vision model. Preserves small details thanks to native-resolution encoder.",
+    ours: "Good at reading dense UI text (legacy WinForms, accounting LOB apps). Weaker out-of-the-box on the function-calling JSON contract. Plan to spend more system-prompt tokens nailing the response schema.",
+  },
+  {
+    feature: "Llama 3.2 11B / 90B Vision",
+    competitor:
+      "11B fits 24GB in INT8. 90B needs 4xA100. 128k context (overkill for a 3-turn history).",
+    ours: "Conservative click choices, strong at structured data extraction. Coordinate precision lags Qwen3-VL on small targets (< 40px). Best when the goal is read-and-decide rather than pixel-precise dragging.",
+  },
+  {
+    feature: "InternVL3-8B",
+    competitor:
+      "16GB VRAM in FP16. Strong multimodal reasoning, explicit GUI-agent training data in the SFT mix.",
+    ours: "Competitive with Qwen3-VL on icon-only buttons. Slightly higher latency on first turn (heavier vision encoder), so the 1000ms settle-then-screenshot loop runs a touch slower end-to-end.",
+  },
+];
+
 const httpContractRows: ComparisonRow[] = [
   {
     feature: "Request method + content type",
@@ -444,6 +477,14 @@ const faqItems = [
     a: "Yes. Return safety_decision='require_confirmation' instead of a function_call and Terminator will break the loop with final_status='needs_confirmation', write the pending (action, args, text) into pending_confirmation, and return. Your outer harness can inspect the pending args, prompt the human, and resume. This is how you put 'send', 'delete', 'pay', or 'overwrite' behind an approval step without trusting the model.",
   },
   {
+    q: "Which open VL model is the best fit for the shim on a single 24GB GPU?",
+    a: "Qwen2.5-VL-7B-Instruct is the best baseline. It honours JSON schema constraints, returns the 0-999 single-point coordinate format consistently with one example in the system prompt, and fits in FP16 on a single 24GB consumer card (or in AWQ on a 12GB card). Qwen3-VL-8B is the strongest accuracy upgrade if you can spare the extra VRAM, but you must pin the response format in the system prompt because it defaults to bounding boxes. Pixtral-12B is good for dense UI text. Llama 3.2 11B Vision is conservative and good at structured extraction but lags on sub-40px targets. InternVL3-8B is competitive on icon-only buttons. The shim is one string change to swap between them.",
+  },
+  {
+    q: "Does Qwen3-VL return coordinates in a different format than Qwen2.5-VL?",
+    a: "Yes. Qwen3-VL was trained with GUI-grounding heads that emit bounding boxes by default. If you swap it in without changing the system prompt, function_call.args will start arriving as [x1, y1, x2, y2] arrays and Terminator's Rust side will fail to parse them. Pin the format explicitly in the system message ('return a single point as two integers x and y in 0..999, not a bounding box') and add one few-shot example. The shim already does this in the SYSTEM constant above.",
+  },
+  {
     q: "Is this the same as running Ollama instead of vLLM?",
     a: "Same shape, different backend. The Terminator example folder at crates/terminator-mcp-agent/examples/terminator-ai-summarizer uses the ollama-rs crate for a simpler summarize-the-screen loop. For the full computer-use agentic loop, you still need a shim that honours the JSON contract above because Ollama's /api/generate response shape is not the one Terminator's Rust side expects. If you prefer Ollama, replace the AsyncOpenAI client in the shim with an Ollama client and keep everything else.",
   },
@@ -489,12 +530,16 @@ export default function Page() {
             Run vLLM locally with a <GradientText>desktop agent</GradientText>
           </h1>
           <p className="text-lg sm:text-xl text-zinc-600 max-w-3xl mb-8">
-            Most write-ups on this pair either stop at &ldquo;here is how to
-            start vLLM&rdquo; or mock a fake desktop with Playwright. None of
-            them show the specific JSON contract a real desktop automation
-            framework expects to receive. Terminator ships that contract in
-            public Rust, reads one environment variable, and will send every
-            screenshot to a URL of your choosing. That is the whole bridge.
+            People run vLLM behind a desktop agent for three reasons: keep the
+            screenshot stream on the machine (medical, financial, regulated
+            workloads), kill the per-call bill on a long-running computer-use
+            loop, and stay functional on an air-gapped or flaky-network host.
+            Most write-ups on this pair stop at &ldquo;here is how to start
+            vLLM&rdquo; or mock a fake desktop with Playwright. None show the
+            specific JSON contract a real desktop automation framework expects
+            to receive. Terminator ships that contract in public Rust, reads
+            one environment variable, and will send every screenshot to a URL
+            of your choosing. That is the whole bridge.
           </p>
           <div className="mb-10">
             <ArticleMeta
@@ -637,6 +682,28 @@ export default function Page() {
           title="One step of the agentic loop, actors and messages"
           actors={sequenceActors}
           messages={sequenceMessages}
+        />
+      </section>
+
+      <section className="max-w-4xl mx-auto px-6 my-16">
+        <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mb-4">
+          Which VL model should you serve under vLLM?
+        </h2>
+        <p className="text-zinc-600 text-lg mb-6">
+          The shim is model-agnostic. Anything vLLM can serve and that returns
+          valid JSON is a candidate. In practice the choice comes down to four
+          axes: VRAM budget, coordinate precision on small targets, how
+          stubbornly the model holds the 0-999 single-point format, and how
+          readable its output is when it eventually misbehaves. Here is what we
+          have actually observed driving the Terminator loop against each of
+          them on a single 24GB consumer GPU.
+        </p>
+        <ComparisonTable
+          heading="Open VL models that work behind the shim"
+          intro="None of these are baked into Terminator. Swap by changing one string in vllm_computer_use_shim.py."
+          productName="Behaviour driving the Terminator loop"
+          competitorName="Footprint and lineage"
+          rows={vlModelRows}
         />
       </section>
 
