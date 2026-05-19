@@ -22,6 +22,7 @@ const PAGE_URL =
   "https://t8r.tech/alternative/accessibility-tree-vs-pixel-computer-use";
 const BOOKING_URL = "https://cal.com/team/mediar/terminator";
 const PUBLISHED = "2026-05-15";
+const MODIFIED = "2026-05-18";
 const TITLE =
   "Accessibility tree vs pixel for computer use: the framing is wrong";
 const DESCRIPTION =
@@ -245,7 +246,7 @@ const articleSchemaJson = articleSchema({
   headline: TITLE,
   description: DESCRIPTION,
   datePublished: PUBLISHED,
-  dateModified: PUBLISHED,
+  dateModified: MODIFIED,
   author: "Matthew Diakonov",
   authorUrl: "https://m13v.com",
   publisherName: "Terminator",
@@ -474,6 +475,30 @@ fn should_cluster(b1: (f64, f64, f64, f64),
             in one part of the window and{" "}
             <code className="rounded bg-orange-50 px-1 text-orange-700">#u</code>{" "}
             in another.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2 className="text-2xl font-semibold text-zinc-900">
+            The same choice with no model in the loop
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            Everything above assumes an agent: a model reads a clustered tree and clicks a prefixed index. Plenty of desktop automation has no model in it at all. RPA jobs, QA suites, scheduled scripts, a build step that drives an installer. The accessibility-tree-versus-pixel question is identical for those, and so is the answer, but the machinery is lighter. There is no union-find clustering and no five-source merge to run, because there is no model to feed. You pick the source yourself, at author time.
+          </p>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            In that mode the selector grammar is the whole API. A deterministic script calls{" "}
+            <code className="rounded bg-orange-50 px-1 text-orange-700">desktop.locator(&quot;role:Button &amp;&amp; name:Save&quot;)</code>{" "}
+            then{" "}
+            <code className="rounded bg-orange-50 px-1 text-orange-700">.invoke()</code>{" "}
+            directly. Tree first, because role plus name resolves in a COM round trip and survives DPI, theme, and locale shifts. Pixel and OCR stay as the fallback for exactly the surfaces a model would also fall through on: canvases, games, and remote-desktop viewports where the tree is one opaque node. The only thing that changes between an agent and a script is who chooses the source. An agent reads the clustered output and picks an index; a script commits the selector when you write it, and a miss surfaces as a typed{" "}
+            <code className="rounded bg-orange-50 px-1 text-orange-700">ElementNotFoundError</code>{" "}
+            instead of a hallucinated coordinate. Terminator exposes both paths from one Rust core: the{" "}
+            <code className="rounded bg-orange-50 px-1 text-orange-700">terminator-rs</code>{" "}
+            crate and the{" "}
+            <code className="rounded bg-orange-50 px-1 text-orange-700">terminator-py</code>{" "}
+            binding for scripted automation, and the{" "}
+            <code className="rounded bg-orange-50 px-1 text-orange-700">terminator-mcp-agent</code>{" "}
+            server for the agent loop.
           </p>
         </section>
 

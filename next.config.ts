@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/alternative/accessibility-tree-vs-pixel-desktop-control",
+        destination: "/alternative/accessibility-tree-vs-pixel-computer-use",
+        permanent: true,
+      },
+      {
         source: "/t/automation-test-for-desktop-application",
         destination: "/t/automation-testing-for-desktop-application",
         permanent: true,
