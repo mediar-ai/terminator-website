@@ -113,6 +113,7 @@ const articleSchemaJson = articleSchema({
   description: DESCRIPTION,
   url: PAGE_URL,
   datePublished: PUBLISHED,
+  dateModified: UPDATED,
   author: "Matthew Diakonov",
   authorUrl: "https://m13v.com",
   publisherName: "Terminator",
@@ -612,6 +613,90 @@ export default function Page() {
               ],
             }}
           />
+        </section>
+
+        <section className="max-w-3xl mx-auto px-6 my-14">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-900">
+            Browser DOM vs OS accessibility tree vs pixels
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            Three grounding sources are in use right now for computer use
+            agents. They are not interchangeable. Each one fixes a different
+            failure mode and inherits a different one. This is the picture for
+            native apps specifically.
+          </p>
+
+          <div className="mt-6 overflow-x-auto rounded-2xl border border-zinc-200 bg-white">
+            <table className="w-full min-w-[760px] text-left text-sm">
+              <thead>
+                <tr className="border-b border-zinc-200 bg-zinc-50">
+                  <th className="px-4 py-3 font-semibold text-zinc-700 align-bottom w-[18%]">
+                    Dimension
+                  </th>
+                  <th className="px-4 py-3 font-semibold text-zinc-700 align-bottom w-[27%]">
+                    <span className="block">Browser DOM</span>
+                    <span className="block text-[0.72rem] font-mono uppercase tracking-wider text-zinc-500 mt-0.5">
+                      Playwright, Selenium
+                    </span>
+                  </th>
+                  <th className="px-4 py-3 font-semibold text-orange-700 align-bottom w-[28%] bg-orange-50/60">
+                    <span className="block">OS accessibility tree</span>
+                    <span className="block text-[0.72rem] font-mono uppercase tracking-wider text-orange-600 mt-0.5">
+                      Terminator, UIA / AX
+                    </span>
+                  </th>
+                  <th className="px-4 py-3 font-semibold text-zinc-700 align-bottom w-[27%]">
+                    <span className="block">Raw pixels</span>
+                    <span className="block text-[0.72rem] font-mono uppercase tracking-wider text-zinc-500 mt-0.5">
+                      Vision-only computer use
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {approachComparison.map((row, i) => (
+                  <tr
+                    key={row.dimension}
+                    className={
+                      i < approachComparison.length - 1
+                        ? "border-b border-zinc-100 align-top"
+                        : "align-top"
+                    }
+                  >
+                    <td className="px-4 py-3 font-medium text-zinc-900">
+                      {row.dimension}
+                    </td>
+                    <td className="px-4 py-3 text-zinc-700 leading-relaxed">
+                      {row.dom}
+                    </td>
+                    <td className="px-4 py-3 text-zinc-900 leading-relaxed bg-orange-50/40">
+                      {row.tree}
+                    </td>
+                    <td className="px-4 py-3 text-zinc-700 leading-relaxed">
+                      {row.pixels}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-5 text-zinc-700 leading-relaxed">
+            None of the three is the right answer alone. A production agent on
+            the desktop runs the tree first, falls through to vision when the
+            tree returns a single opaque node, and reaches into the DOM when it
+            crosses into a browser tab. Terminator&apos;s click_element exposes
+            that whole fallback chain through one tool so the model never has to
+            switch interfaces. The seven grounding modes, in order, are written
+            up in the{" "}
+            <a
+              href="/t/accessibility-api-computer-use-agents"
+              className="text-orange-700 underline underline-offset-2"
+            >
+              click_element router guide
+            </a>
+            .
+          </p>
         </section>
 
         <section className="max-w-3xl mx-auto px-6 my-14">
