@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/alternative/accessibility-apis-vs-computer-use",
+        destination: "/alternative/accessibility-tree-vs-pixel-computer-use",
+        permanent: true,
+      },
+      {
         source: "/t/automation-test-for-desktop-application",
         destination: "/t/automation-testing-for-desktop-application",
         permanent: true,
