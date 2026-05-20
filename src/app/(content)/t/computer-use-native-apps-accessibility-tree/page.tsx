@@ -19,13 +19,16 @@ import {
 const PAGE_URL =
   "https://t8r.tech/t/computer-use-native-apps-accessibility-tree";
 const PUBLISHED = "2026-05-15";
+const UPDATED = "2026-05-19";
 const TITLE =
   "Computer use on native apps: what the accessibility tree actually looks like to the agent";
+const SERP_TITLE =
+  "Accessibility tree for computer use agents on native apps";
 const DESCRIPTION =
   "A computer use agent never sees the raw UIAutomation or AXUIElement tree of a native app. Terminator serializes it into a compact numbered list, #1 [Button] Save (bounds: [...], focused), where every clickable element gets a 1-based index. The agent emits the index, not pixel coordinates. Source: format_node in crates/terminator/src/tree_formatter.rs.";
 
 export const metadata: Metadata = {
-  title: TITLE,
+  title: SERP_TITLE,
   description: DESCRIPTION,
   alternates: { canonical: PAGE_URL },
   openGraph: {
@@ -92,6 +95,14 @@ const faqs: FaqItem[] = [
   {
     q: "Can a small or local model handle the accessibility tree?",
     a: "Yes, and that is one of the real advantages of the tree over screenshots. A focused window serializes to a few thousand tokens of structured text, well inside the context of a 1B-parameter model, whereas the same window as a screenshot costs many thousands of visual tokens that small models cannot reason over. Terminator ships a four-file example that drives native apps with gemma3:1b over a local Ollama endpoint. The walkthrough is in our guide on running a local model on native apps through the accessibility tree.",
+  },
+  {
+    q: "How many tokens does a native app window cost as an accessibility tree versus a screenshot?",
+    a: "Order of magnitude difference. A focused Calculator or Settings pane serializes to a few hundred to a few thousand tokens of plain text. The same window encoded as a screenshot for a vision model usually costs several thousand visual tokens for the image tiles plus another budget for the prompt that explains what the model is looking at. Run a ten-step task and the screenshot path accumulates tens of thousands of tokens that the tree path does not spend. The smaller the window relative to the screen, the larger the gap. Cost compounds the same way as latency, because the tree round-trips through accessibility APIs in milliseconds while a screenshot has to be captured, encoded, and uploaded.",
+  },
+  {
+    q: "Do production computer use agents use the accessibility tree, screenshots, or both?",
+    a: "Both, and the split is moving toward tree-first. Anthropic's computer use tool in its first releases leaned on screenshots and pixel coordinates for native apps. Google's Gemini computer use surface added DOM, accessibility tree, and browser-native events as grounding sources in addition to vision. The pragmatic stack on the desktop in 2026 is: accessibility tree as the default grounding because it is fast, structured, cheap, and gives stable element handles, with a vision source (OCR, Omniparser, or a multimodal model) as the fallback for the surfaces where the tree is empty. Terminator's click_element exposes that fallback chain through a single tool, so the agent does not have to switch modalities by hand.",
   },
 ];
 
