@@ -231,6 +231,45 @@ const nativeApps = [
   "Spotify",
 ];
 
+const approachComparison = [
+  {
+    dimension: "What the model receives",
+    dom: "Serialized HTML / DOM, ARIA roles, CSS selectors. One web page, one tab.",
+    tree: "Compact text list, one line per element: #index [Role] name (bounds, flags). Every window of every running app.",
+    pixels: "An image of the screen. The model has to recognize each control visually before it can act on it.",
+  },
+  {
+    dimension: "Click contract",
+    dom: "Model emits a CSS or text selector. Browser runtime resolves and dispatches a native click event.",
+    tree: "Model emits an index or a role:name selector. Framework looks it up in index_to_bounds and invokes the element through the platform's UIA / AX pattern.",
+    pixels: "Model emits an (x, y) coordinate. The runtime moves the OS cursor and synthesizes a mouse click at that pixel.",
+  },
+  {
+    dimension: "Stability under window move / DPI change",
+    dom: "Stable. Selectors do not care about pixel position.",
+    tree: "Stable. The index is a list position, the underlying selector survives the move.",
+    pixels: "Brittle. The coordinate goes wrong the moment the window moves, the theme changes, or DPI scales.",
+  },
+  {
+    dimension: "Token cost per window",
+    dom: "Hundreds to a few thousand tokens, depending on how much of the DOM the framework prunes.",
+    tree: "Hundreds to a few thousand text tokens for a focused window. Small enough for a 1B local model.",
+    pixels: "Several thousand visual tokens per screenshot for tile encoding, plus the prompt budget. Compounds fast across a multi-step task.",
+  },
+  {
+    dimension: "Surface reach",
+    dom: "Only what is inside a browser tab. Stops at the chrome of the window.",
+    tree: "Every window of every running app: native Win32 / WinUI / AppKit, Office, Electron, and the browser itself (browsers publish their tree).",
+    pixels: "Anything on screen, including games, canvas surfaces, and remote desktops. Universal but expensive.",
+  },
+  {
+    dimension: "Failure mode",
+    dom: "Slow site or shadow DOM hides elements. Selector flake.",
+    tree: "Surface returns an opaque single node (game, canvas, DirectX). Subtree is missing or thin (some Electron apps).",
+    pixels: "Visual recognition fails or returns the wrong region. Model emits a coordinate just outside the control's hit-rect.",
+  },
+];
+
 const treeFitItems = [
   {
     text: "Native Win32, WinUI, UWP, AppKit and Office apps: rich tree, indexed elements line up with what you see.",
