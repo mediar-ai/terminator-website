@@ -60,6 +60,11 @@ const nextConfig: NextConfig = {
         destination: "/t/macos-accessibility-ui-tree",
         permanent: true,
       },
+      {
+        source: "/t/browser-automation-outside-tab",
+        destination: "/t/browser-automation-os-level-ceiling",
+        permanent: true,
+      },
     ];
   },
 };
