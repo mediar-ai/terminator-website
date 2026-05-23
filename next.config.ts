@@ -66,6 +66,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/t/accessibility-crate-rust-axuielement",
+        destination: "/t/axuielement-system-wide-accessibility-crate-rust",
+        permanent: true,
+      },
+      {
         source: "/t/macos-accessibility-automation-api",
         destination: "/t/macos-accessibility-ui-tree",
         permanent: true,
