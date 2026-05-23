@@ -467,38 +467,8 @@ export default function Home() {
             <span className="text-zinc-700">screenshot agents</span>.
           </motion.p>
 
-          <motion.div
-            variants={fadeInUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-          >
-            <a
-              href="#demo"
-              onClick={() => {
-                trackCtaClicked("hero_see_demo", "hero");
-                trackNavClicked("demo", "inline");
-              }}
-              className="group flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-hover text-black font-mono font-semibold rounded-lg transition-all"
-            >
-              See it run
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="https://github.com/mediar-ai/terminator"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => {
-                trackExternalLinkClicked("https://github.com/mediar-ai/terminator", "github");
-                trackCtaClicked("view_on_github", "hero");
-              }}
-              className="flex items-center gap-2 px-6 py-3 border border-zinc-300 hover:border-zinc-400 rounded-lg font-mono transition-colors"
-            >
-              <Github className="w-4 h-4" />
-              View on GitHub
-            </a>
-          </motion.div>
-
-          {/* Quick install (emailOnly: command is delivered by email, never on-page) */}
-          <motion.div variants={fadeInUp} className="max-w-2xl mx-auto">
+          {/* Primary CTA: install email gate (emailOnly — the command itself is delivered by email, never rendered on-page) */}
+          <motion.div variants={fadeInUp} className="max-w-2xl mx-auto mb-5">
             <InstallEmailGate
               command={TERMINATOR_HERO_CMD}
               site="terminator"
@@ -526,13 +496,13 @@ export default function Home() {
                     trackInstallCopied("hero");
                   }}
                   aria-label="Email me the MCP install for every client"
-                  className="terminal-box w-full text-left hover:border-accent transition-colors group"
+                  className="terminal-box w-full text-left hover:border-accent hover:shadow-[0_0_0_4px_rgba(255,62,0,0.08)] transition-all group ring-1 ring-accent/40"
                 >
-                  <div className="px-4 py-3 flex items-center justify-between gap-4 border-b border-zinc-100">
+                  <div className="px-4 py-3.5 flex items-center justify-between gap-4 border-b border-zinc-100 bg-accent/[0.03]">
                     <span className="font-mono text-sm md:text-[15px] text-zinc-900 font-medium">
                       <span className="text-accent">$</span> Email me the one-line MCP install
                     </span>
-                    <ArrowRight className="w-4 h-4 text-zinc-500 flex-shrink-0 group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="w-4 h-4 text-accent flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
                   </div>
                   <div className="px-4 py-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono text-zinc-500">
                     <span className="text-zinc-400 uppercase tracking-wider">Includes:</span>
@@ -562,6 +532,42 @@ export default function Home() {
                 430<span className="text-accent">+</span> devs install / week
               </span>
             </div>
+          </motion.div>
+
+          {/* Secondary actions — subdued text links so they don't fight the primary CTA */}
+          <motion.div
+            variants={fadeInUp}
+            className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-12 text-sm font-mono"
+          >
+            <a
+              href="#demo"
+              onClick={() => {
+                trackCtaClicked("hero_see_demo", "hero");
+                trackNavClicked("demo", "inline");
+              }}
+              className="group inline-flex items-center gap-1.5 text-zinc-600 hover:text-accent transition-colors"
+            >
+              <span className="underline underline-offset-4 decoration-zinc-300 group-hover:decoration-accent transition-colors">
+                or watch the 60-second demo
+              </span>
+              <ArrowRight className="w-3.5 h-3.5 rotate-90 group-hover:translate-y-0.5 transition-transform" />
+            </a>
+            <span className="text-zinc-300">·</span>
+            <a
+              href="https://github.com/mediar-ai/terminator"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackExternalLinkClicked("https://github.com/mediar-ai/terminator", "github");
+                trackCtaClicked("view_on_github", "hero");
+              }}
+              className="group inline-flex items-center gap-1.5 text-zinc-600 hover:text-zinc-900 transition-colors"
+            >
+              <Github className="w-3.5 h-3.5" />
+              <span className="underline underline-offset-4 decoration-zinc-300 group-hover:decoration-zinc-700 transition-colors">
+                read the source
+              </span>
+            </a>
           </motion.div>
         </motion.div>
       </section>
