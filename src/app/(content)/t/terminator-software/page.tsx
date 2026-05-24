@@ -94,30 +94,12 @@ const faqs: FaqItem[] = [
 ];
 
 const checklistItems = [
-  {
-    label: "Open source, MIT licensed",
-    description: "Source at github.com/mediar-ai/terminator. No per-seat fees, no telemetry, no feature gating.",
-  },
-  {
-    label: "Cross-platform (Windows + macOS)",
-    description: "UI Automation on Windows, AXUIElement on macOS. Single API for both.",
-  },
-  {
-    label: "Playwright-shaped selectors",
-    description: "role:Button && name:'Save'. Familiar if you've written browser automation.",
-  },
-  {
-    label: "MCP server included",
-    description: "Plug it into Claude Code, Cursor, VS Code, or Windsurf. The AI gets OS-level hands.",
-  },
-  {
-    label: "Works with any native app",
-    description: "Excel, Outlook, SAP GUI, File Explorer, Photoshop, Teams, internal WPF tools, browsers.",
-  },
-  {
-    label: "Multiple language bindings",
-    description: "Rust crate (terminator-rs), Python package, npm CLI. Same engine underneath.",
-  },
+  { text: "Open source, MIT licensed. Source at github.com/mediar-ai/terminator. No per-seat fees, no telemetry, no feature gating." },
+  { text: "Cross-platform (Windows + macOS). UI Automation on Windows, AXUIElement on macOS. Single API for both." },
+  { text: "Playwright-shaped selectors. role:Button && name:'Save'. Familiar if you have written browser automation." },
+  { text: "MCP server included. Plug it into Claude Code, Cursor, VS Code, or Windsurf. The AI gets OS-level hands." },
+  { text: "Works with any native app. Excel, Outlook, SAP GUI, File Explorer, Photoshop, Teams, internal WPF tools, browsers." },
+  { text: "Multiple language bindings. Rust crate (terminator-rs), Python package, npm CLI. Same engine underneath." },
 ];
 
 const installSteps = [
@@ -167,12 +149,14 @@ excel.element("role:Button && name:'Save'").click()
 
 const articleSchemaObj = articleSchema({
   url: PAGE_URL,
-  title: TITLE,
+  headline: TITLE,
   description: DESCRIPTION,
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,
   author: "Matthew Diakonov",
   authorUrl: "https://m13v.com",
+  publisherName: "Terminator",
+  publisherUrl: "https://t8r.tech",
 });
 
 const breadcrumbSchemaObj = breadcrumbListSchema(breadcrumbSchemaItems);
@@ -317,6 +301,7 @@ export default function TerminatorSoftwarePage() {
           <BeforeAfter
             title="Click 'Save' in Excel"
             before={{
+              label: "Pixel-based (pyautogui)",
               content:
                 "pyautogui finds the button at (847, 312). Tomorrow the user attaches an external monitor, Windows rescales, the button moves to (1271, 468). The script clicks empty canvas and silently fails. No exception, no log line, just the wrong outcome.",
               highlights: [
@@ -327,6 +312,7 @@ export default function TerminatorSoftwarePage() {
               ],
             }}
             after={{
+              label: "Accessibility-based (Terminator)",
               content:
                 "Terminator queries the UI Automation tree for role:Button && name:'Save'. The element survives DPI changes, dark mode swaps, window resizes, and most app updates. If the button is genuinely missing, the call raises a typed error instead of clicking nothing.",
               highlights: [
@@ -419,7 +405,7 @@ export default function TerminatorSoftwarePage() {
       />
 
       <section className="mx-auto max-w-4xl px-6 py-10">
-        <FaqSection title="Common questions about Terminator software" items={faqs} />
+        <FaqSection heading="Common questions about Terminator software" items={faqs} />
       </section>
 
       <BookCallCTA
