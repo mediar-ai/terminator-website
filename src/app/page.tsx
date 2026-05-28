@@ -495,17 +495,17 @@ export default function Home() {
                     onClick();
                     trackInstallCopied("hero");
                   }}
-                  aria-label="Email me the MCP install for every client"
+                  aria-label="Email me the install plus per-client MCP config"
                   className="terminal-box w-full text-left hover:border-accent hover:shadow-[0_0_0_4px_rgba(255,62,0,0.08)] transition-all group ring-1 ring-accent/40"
                 >
                   <div className="px-4 py-3.5 flex items-center justify-between gap-4 border-b border-zinc-100 bg-accent/[0.03]">
                     <span className="font-mono text-sm md:text-[15px] text-zinc-900 font-medium">
-                      <span className="text-accent">$</span> Email me the one-line MCP install
+                      <span className="text-accent">$</span> Email me the install + per-client config
                     </span>
                     <ArrowRight className="w-4 h-4 text-accent flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
                   </div>
                   <div className="px-4 py-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono text-zinc-500">
-                    <span className="text-zinc-400 uppercase tracking-wider">Includes:</span>
+                    <span className="text-zinc-400 uppercase tracking-wider">Configures:</span>
                     <span className="text-zinc-600">Claude Code</span>
                     <span className="text-zinc-300">·</span>
                     <span className="text-zinc-600">Cursor</span>
@@ -516,7 +516,7 @@ export default function Home() {
                     <span className="text-zinc-300">·</span>
                     <span className="text-zinc-600">Claude Desktop</span>
                     <span className="text-zinc-300">·</span>
-                    <span className="text-zinc-600">paste-ready JSON</span>
+                    <span className="text-zinc-600">no JSON to hand-write</span>
                   </div>
                 </button>
               )}
