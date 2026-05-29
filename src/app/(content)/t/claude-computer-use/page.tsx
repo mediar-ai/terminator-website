@@ -292,6 +292,14 @@ const faqs = [
     a: "Two reasons, both mechanical. First, every action pays for one image token budget plus output tokens, and screenshots are not tiny even after downscaling. Anthropic's own computer use docs note that long tasks with frequent screenshots consume significant credits. Second, wall-clock latency: every action is one full inference pass, typically one to several seconds. A 40-action workflow becomes a coffee break. A deterministic selector-driven agent can do the same 40 steps in seconds because the model is not in the inner loop.",
   },
   {
+    q: "Is Claude computer use free, and what does it cost to run?",
+    a: "It is not free in either form. The beta API tool bills per token, and computer use is token-heavy by construction: every action sends a screenshot (image tokens) plus the model call (input and output tokens), so a 40-step workflow is 40 inference passes. Anthropic's own docs warn that frequent screenshots consume significant credits. The consumer 'Claude can use your computer' preview requires a Pro or Max subscription. Terminator's MCP agent is MIT-licensed and free, and because selectors resolve locally against the accessibility tree, it removes the per-click screenshot entirely, which is where most of the token cost in a pixel loop comes from. You still pay for the Claude calls that reason about the task, just not for an image upload on every click.",
+  },
+  {
+    q: "Is Claude computer use available on Windows, or only macOS?",
+    a: "Both. Anthropic ships computer use two ways. The beta API tool (computer_20251022) is OS-agnostic: it returns pixel coordinates and your harness executes them wherever it runs, Windows or macOS. The consumer research preview started on macOS and expanded to Windows in 2026, behind a Pro or Max plan. If you are on Windows specifically, the selector path is even stronger: Windows UI Automation exposes a deep, well-labelled tree for native and Win32 apps, so Terminator can resolve role:Button && name:Save without a single screenshot. Windows is Terminator's primary target, and the same MCP server also covers macOS via the AX API.",
+  },
+  {
     q: "What exactly does Terminator's MCP server give Claude instead?",
     a: "32 typed tools that speak accessibility-tree selectors, not coordinates. You can list them by opening crates/terminator-mcp-agent/src/server.rs at line 9953, where the dispatch_tool match block has one arm per tool. Examples: click_element takes a selector like role:Button && name:Save, type_into_element takes a selector plus text, navigate_browser drives the address bar, execute_browser_script runs JS inside the page, execute_sequence accepts a YAML of steps. The complete list at the time of writing: get_window_tree, get_applications_and_windows_list, click_element, type_into_element, press_key, press_key_global, validate_element, wait_for_element, activate_element, navigate_browser, execute_browser_script, open_application, scroll_element, mouse_drag, highlight_element, select_option, set_selected, capture_screenshot, invoke_element, set_value, execute_sequence, run_command, delay, stop_highlighting, stop_execution, gemini_computer_use, read_file, write_file, edit_file, copy_content, glob_files, grep_files.",
   },
@@ -425,6 +433,67 @@ export default function ClaudeComputerUsePage() {
             </div>
           </div>
         </BackgroundGrid>
+
+        {/* Direct answer / key facts */}
+        <section className="max-w-4xl mx-auto px-6 pt-8">
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50/60 p-6 sm:p-8">
+            <p className="text-xs font-mono uppercase tracking-widest text-orange-600 mb-3">
+              The 30-second answer
+            </p>
+            <p className="text-zinc-700 text-base sm:text-lg leading-relaxed mb-6">
+              <strong className="text-zinc-900 font-semibold">
+                Claude computer use
+              </strong>{" "}
+              lets Claude operate a computer by looking at screenshots and
+              replying with mouse and keyboard actions in pixel coordinates.
+              Your harness screenshots the desktop, sends the image to the
+              model, gets back something like{" "}
+              <code className="font-mono text-xs bg-white px-1.5 py-0.5 rounded border border-zinc-200 text-orange-600">
+                {"{ action: \"left_click\", coordinate: [x, y] }"}
+              </code>
+              , executes the click, then screenshots again. Every action is one
+              image upload and one model round-trip, which is why long tasks get
+              slow and expensive. On Windows and macOS you can skip that loop for
+              most clicks: drive apps through the OS accessibility tree by
+              selector instead of by pixel. That is what Terminator&apos;s MCP
+              server gives Claude.
+            </p>
+            <dl className="grid gap-5 sm:grid-cols-3 border-t border-zinc-200 pt-6">
+              <div>
+                <dt className="text-sm font-semibold text-zinc-900 mb-1">
+                  How it works
+                </dt>
+                <dd className="text-sm text-zinc-600 leading-relaxed">
+                  Screenshot in, pixel coordinate out, on a loop. The model sits
+                  in the inner loop of every single click.
+                </dd>
+              </div>
+              <div>
+                <dt className="text-sm font-semibold text-zinc-900 mb-1">
+                  Where you get it
+                </dt>
+                <dd className="text-sm text-zinc-600 leading-relaxed">
+                  A beta API tool (
+                  <code className="font-mono text-xs text-orange-600">
+                    computer_20251022
+                  </code>
+                  ) for your own harness, plus a consumer research preview in the
+                  Claude apps on macOS and Windows (Pro or Max plan).
+                </dd>
+              </div>
+              <div>
+                <dt className="text-sm font-semibold text-zinc-900 mb-1">
+                  The faster path
+                </dt>
+                <dd className="text-sm text-zinc-600 leading-relaxed">
+                  Terminator&apos;s MCP server: 32 selector-based tools that
+                  resolve against the Windows UIA / macOS AX tree locally. No
+                  screenshot per click.
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </section>
 
         {/* Concept video */}
         <section className="max-w-4xl mx-auto px-6 py-10">
