@@ -60,6 +60,23 @@ const breadcrumbSchemaItems = [
   { name: "Terminator + Claude", url: PAGE_URL },
 ];
 
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Terminator MCP agent",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Windows, macOS",
+  description:
+    "Open-source MCP server that gives Claude (Claude Code and Claude Desktop) 35 accessibility-API-backed tools to click, type, and drive real Windows and macOS apps, resolving selectors against the OS accessibility tree instead of screenshots.",
+  url: PAGE_URL,
+  downloadUrl: "https://www.npmjs.com/package/terminator-mcp-agent",
+  softwareHelp: "https://github.com/mediar-ai/terminator",
+  license: "https://github.com/mediar-ai/terminator/blob/main/LICENSE",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  author: { "@type": "Person", name: "Matthew Diakonov", url: "https://m13v.com" },
+  publisher: { "@type": "Organization", name: "Terminator", url: "https://t8r.tech" },
+};
+
 const claudeCodeInstall = `# 1. Add the Terminator MCP server to Claude Code
 claude mcp add terminator "npx -y terminator-mcp-agent@latest" -s user
 
@@ -351,6 +368,12 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(faqPageSchema(faqs)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(softwareApplicationSchema),
         }}
       />
 
