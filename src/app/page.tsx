@@ -607,7 +607,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
-                trackExternalLinkClicked("https://crates.io/crates/terminator-rs", "crates");
+                trackExternalLinkClicked("https://crates.io/crates/terminator-rs", "other");
                 trackCtaClicked("stats_crate_downloads", "hero");
               }}
               className="group text-center md:text-left md:px-4 md:border-r md:border-zinc-200"
