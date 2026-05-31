@@ -432,7 +432,7 @@ export default function Home() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
             </span>
             <span className="text-xs font-mono text-zinc-600">
-              <Star className="inline w-3 h-3 mb-0.5 text-accent" /> 1,400+ on GitHub
+              <Star className="inline w-3 h-3 mb-0.5 text-accent" /> 1,500+ on GitHub
               <span className="mx-1.5 text-zinc-300">•</span>
               MIT licensed
               <span className="mx-1.5 text-zinc-300">•</span>
@@ -500,7 +500,7 @@ export default function Home() {
                 >
                   <div className="px-4 py-3.5 flex items-center justify-between gap-4 border-b border-zinc-100 bg-accent/[0.03]">
                     <span className="font-mono text-sm md:text-[15px] text-zinc-900 font-medium">
-                      <span className="text-accent">$</span> Email me the install + per-client config
+                      <span className="text-accent">$</span> Email me the one-line install + every client config
                     </span>
                     <ArrowRight className="w-4 h-4 text-accent flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
                   </div>
@@ -529,7 +529,7 @@ export default function Home() {
               <span>unsubscribe anytime</span>
               <span className="text-zinc-300 hidden sm:inline">·</span>
               <span className="hidden sm:inline text-zinc-600">
-                430<span className="text-accent">+</span> devs install / week
+                skips hand-writing MCP JSON for 5 clients
               </span>
             </div>
           </motion.div>
@@ -594,7 +594,7 @@ export default function Home() {
               className="group text-center md:text-left md:px-4 md:border-r md:border-zinc-200"
             >
               <div className="font-mono text-3xl md:text-4xl font-bold text-zinc-900 group-hover:text-accent transition-colors">
-                1,400<span className="text-accent">+</span>
+                1,500<span className="text-accent">+</span>
               </div>
               <div className="text-xs font-mono text-zinc-500 mt-1 uppercase tracking-wider">
                 GitHub stars
@@ -603,20 +603,20 @@ export default function Home() {
 
             <motion.a
               variants={fadeInUp}
-              href="https://www.npmjs.com/package/terminator-mcp-agent"
+              href="https://crates.io/crates/terminator-rs"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
-                trackExternalLinkClicked("https://www.npmjs.com/package/terminator-mcp-agent", "npm");
-                trackCtaClicked("stats_npm_installs", "hero");
+                trackExternalLinkClicked("https://crates.io/crates/terminator-rs", "crates");
+                trackCtaClicked("stats_crate_downloads", "hero");
               }}
               className="group text-center md:text-left md:px-4 md:border-r md:border-zinc-200"
             >
               <div className="font-mono text-3xl md:text-4xl font-bold text-zinc-900 group-hover:text-accent transition-colors">
-                430<span className="text-accent">/wk</span>
+                54k<span className="text-accent">+</span>
               </div>
               <div className="text-xs font-mono text-zinc-500 mt-1 uppercase tracking-wider">
-                MCP installs
+                crates.io downloads
               </div>
             </motion.a>
 
