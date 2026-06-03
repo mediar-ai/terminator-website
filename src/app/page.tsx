@@ -456,16 +456,37 @@ export default function Home() {
             Open-source desktop automation that drives native Windows apps through accessibility APIs, not OCR or pixel matching. Playwright-shaped SDK plus an MCP server that gives Claude, Cursor, and VS Code real OS-level hands.
           </motion.p>
 
-          <motion.p
-            variants={fadeInUp}
-            className="text-sm font-mono text-zinc-500 max-w-2xl mx-auto mb-10"
-          >
-            For developers already burned by{" "}
-            <span className="text-zinc-700">PyAutoGUI</span>,{" "}
-            <span className="text-zinc-700">AutoHotkey</span>,{" "}
-            <span className="text-zinc-700">UIAutomation</span>, and{" "}
-            <span className="text-zinc-700">screenshot agents</span>.
-          </motion.p>
+          {/* Hero code proof — the product is the API, so show it (devtool landing
+              best practice). This is SDK usage, NOT the install command, so it stays
+              guardrail-safe and never leaks the npx one-liner. */}
+          <motion.div variants={fadeInUp} className="max-w-xl mx-auto mb-8">
+            <div className="terminal-box overflow-hidden text-left">
+              <div className="flex items-center gap-2 px-4 py-2 border-b border-zinc-200 bg-zinc-50/60">
+                <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                <span className="ml-2 text-[11px] font-mono text-zinc-500">
+                  the whole API · @mediar-ai/terminator
+                </span>
+              </div>
+              <pre className="p-4 overflow-x-auto text-[12.5px] md:text-[13px] font-mono leading-relaxed text-zinc-700">
+                <code>{`const desktop = new Desktop();
+await desktop.openApplication('notepad');
+
+// find by role + name, not pixels or OCR
+await desktop
+  .locator('role:Button && name:Save')
+  .click();`}</code>
+              </pre>
+            </div>
+            <p className="mt-2.5 text-xs font-mono text-zinc-500 text-center">
+              Structural selectors, not pixels. For devs burned by{" "}
+              <span className="text-zinc-700">PyAutoGUI</span>,{" "}
+              <span className="text-zinc-700">AutoHotkey</span>,{" "}
+              <span className="text-zinc-700">UIAutomation</span>, and{" "}
+              <span className="text-zinc-700">screenshot agents</span>.
+            </p>
+          </motion.div>
 
           {/* Primary CTA: install email gate (emailOnly — the command itself is delivered by email, never rendered on-page) */}
           <motion.div variants={fadeInUp} className="max-w-2xl mx-auto mb-5">
