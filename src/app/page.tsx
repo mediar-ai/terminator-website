@@ -479,12 +479,35 @@ await desktop
   .click();`}</code>
               </pre>
             </div>
+            {/* Quantified differentiator for the 2026 computer-use buyer: the
+                accessibility tree beats screenshot / pixel-counting computer-use
+                on latency, token cost, and reliability. Pulled above the fold
+                from the comparison table because this is the reason this ICP
+                grabs the install. Palette stays black / white / accent. */}
+            <div className="mt-3 grid grid-cols-3 gap-px rounded-lg overflow-hidden border border-zinc-200 bg-zinc-200 text-center">
+              {[
+                { v: "50-300ms", l: "per step", vs: "vs 2-8s for screenshot agents" },
+                { v: "$0", l: "tokens / action", vs: "vs image tokens every step" },
+                { v: "structural", l: "survives DPI / theme", vs: "vs one pixel shift breaks it" },
+              ].map((s) => (
+                <div key={s.l} className="bg-white px-2 py-3">
+                  <div className="font-mono text-sm md:text-lg font-bold text-accent leading-none">
+                    {s.v}
+                  </div>
+                  <div className="mt-1 text-[10px] md:text-[11px] font-mono text-zinc-700 uppercase tracking-wider">
+                    {s.l}
+                  </div>
+                  <div className="mt-1.5 text-[10px] font-mono text-zinc-400 leading-tight">
+                    {s.vs}
+                  </div>
+                </div>
+              ))}
+            </div>
             <p className="mt-2.5 text-xs font-mono text-zinc-500 text-center">
-              Structural selectors, not pixels. For devs burned by{" "}
+              Accessibility tree, not pixels. For devs burned by{" "}
               <span className="text-zinc-700">PyAutoGUI</span>,{" "}
-              <span className="text-zinc-700">AutoHotkey</span>,{" "}
-              <span className="text-zinc-700">UIAutomation</span>, and{" "}
-              <span className="text-zinc-700">screenshot agents</span>.
+              <span className="text-zinc-700">AutoHotkey</span>, and{" "}
+              <span className="text-zinc-700">screenshot computer-use</span>.
             </p>
           </motion.div>
 
