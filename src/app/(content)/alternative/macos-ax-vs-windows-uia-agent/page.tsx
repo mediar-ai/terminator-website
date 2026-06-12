@@ -21,11 +21,14 @@ const PUBLISHED = "2026-05-04";
 const TITLE =
   "macOS AX vs Windows UIA agent: what a single Rust trait can hide, and where it leaks";
 const DESCRIPTION =
-  "AXUIElement on macOS and IUIAutomationElement on Windows are different OS APIs with similar shapes. A Playwright-style trait can flatten most method signatures (find_element, click, get_focused_element), but three things leak through: role names, action invocation, and focused-element semantics. Terminator's pub trait AccessibilityEngine at crates/terminator/src/platforms/mod.rs:86 is shaped cross-platform; the version on main only compiles for Windows, gated by a compile_error! at lines 319 to 320. Here is the honest comparison.";
+  "AXUIElement on macOS and IUIAutomationElement on Windows are different OS APIs with similar shapes. A Playwright-style trait can flatten most method signatures (find_element, click, get_focused_element), but four things leak through: role names, action invocation, focused-element semantics, and tree-read latency. Terminator's pub trait AccessibilityEngine at crates/terminator/src/platforms/mod.rs:86 is shaped cross-platform; the version on main only compiles for Windows, gated by a compile_error! at lines 319 to 320. Here is the honest comparison.";
+
+const META_DESCRIPTION =
+  "macOS AXUIElement vs Windows IUIAutomationElement for desktop agents: where a Playwright-shaped Rust trait holds and where role names, actions, permissions, and tree-read latency leak. Terminator's main branch ships Windows only.";
 
 export const metadata: Metadata = {
   title: TITLE,
-  description: DESCRIPTION,
+  description: META_DESCRIPTION,
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: TITLE,
@@ -80,6 +83,10 @@ const faqs: FaqItem[] = [
   {
     q: "Why is one trait method enough for a click on both platforms?",
     a: "Because the trait method is doing the heavy lifting of picking the right action. Inside element.click(), the Windows implementation tries patterns in order: InvokePattern.Invoke for buttons, TogglePattern.Toggle for checkboxes, SelectionItemPattern.Select for radios, then falls back to a synthetic mouse event at the element's bounding box if no pattern matches. The macOS implementation would try AXUIElementPerformAction with kAXPressAction first, then kAXShowMenuAction or kAXIncrementAction depending on the role, then fall back to a CGEventCreateMouseEvent at the element's AXFrame. The trait promise is 'click does the right thing for this element'. The implementation per platform owns the dispatch table for what 'right' means. The reason this works is that both APIs expose enough role information to pick a sensible default action; the leak is only that the default actions are named differently and have different fallbacks.",
+  },
+  {
+    q: "Is macOS AX faster than Windows UIA for an agent?",
+    a: "Wrong axis for most of the question: both are roughly two orders of magnitude faster than a screenshot-plus-vision loop, because you read a structured tree instead of paying for a capture and an inference. A focused-window BFS walk of the AX tree in an app like Mail, Slack, or Chrome typically lands in the tens of milliseconds (commonly cited at 30 to 80 ms), and Windows UIA is in the same ballpark for a cached subtree fetch. The real difference is the cost model per query, not raw throughput. UIA's IUIAutomationElement.FindFirst runs the match in-process against a compiled IUIAutomationCondition and hands back one element, so a targeted lookup never marshals the whole subtree across the process boundary. AX has no FindFirst: you walk children yourself and ask each node for its attributes, which means more cross-process Mach round-trips unless you batch reads. So for a single targeted click UIA tends to do less work, while for a full-window snapshot the two are comparable once you cache property reads. The trait method get_window_tree returns the same UINode either way; the latency it hides is structural, not cosmetic.",
   },
   {
     q: "Does macOS AX have anything like UIA's AutomationId?",
@@ -595,6 +602,28 @@ export default function Page() {
                     bypass list and route to vision.
                   </td>
                 </tr>
+                <tr className="border-b border-zinc-100">
+                  <td className="px-5 py-4 font-medium text-zinc-900">
+                    Tree read / query model
+                  </td>
+                  <td className="px-5 py-4">
+                    <code className="font-mono text-[0.9em] bg-zinc-100 text-zinc-800 px-1 rounded">
+                      FindFirst
+                    </code>{" "}
+                    matches in-process against a compiled condition; a
+                    targeted lookup returns one element without marshaling the
+                    subtree.
+                  </td>
+                  <td className="px-5 py-4">
+                    No{" "}
+                    <code className="font-mono text-[0.9em] bg-zinc-100 text-zinc-800 px-1 rounded">
+                      FindFirst
+                    </code>
+                    ; you DFS the tree and read attributes per node, so
+                    targeted lookups cost more cross-process round-trips unless
+                    you batch.
+                  </td>
+                </tr>
                 <tr>
                   <td className="px-5 py-4 font-medium text-zinc-900">
                     Permission surface
@@ -622,6 +651,64 @@ export default function Page() {
               AutomationError&gt;
             </code>{" "}
             looks identical, the recovery story is not.
+          </p>
+        </section>
+
+        <section className="max-w-4xl mx-auto px-6 mt-14">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-900">
+            The fourth leak: tree-read latency
+          </h2>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            The first question most people ask is &ldquo;which is
+            faster.&rdquo; For the comparison that matters, AX vs UIA, it is
+            close to a wash; the gap that actually moves your agent is{" "}
+            <em>structured tree vs screenshot</em>. Reading a live
+            accessibility tree is roughly two orders of magnitude faster than
+            a capture-plus-vision loop, because you never pay for a frame
+            grab or an inference. A focused-window BFS walk of the AX tree in
+            an app like Mail, Slack, or Chrome typically lands in the tens of
+            milliseconds (commonly cited at 30 to 80 ms), and a cached UIA
+            subtree fetch on Windows is in the same range.
+          </p>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            Where AX and UIA do diverge is the cost model of a single
+            targeted query. UIA&apos;s{" "}
+            <code className="font-mono text-[0.95em] bg-zinc-100 text-zinc-800 px-1 py-0.5 rounded">
+              IUIAutomationElement.FindFirst
+            </code>{" "}
+            runs the match in-process against a compiled{" "}
+            <code className="font-mono text-[0.95em] bg-zinc-100 text-zinc-800 px-1 py-0.5 rounded">
+              IUIAutomationCondition
+            </code>{" "}
+            and returns one element, so a targeted lookup never marshals the
+            whole subtree across the process boundary. AX has no FindFirst:
+            you walk children yourself and ask each node for its attributes
+            with{" "}
+            <code className="font-mono text-[0.95em] bg-zinc-100 text-zinc-800 px-1 py-0.5 rounded">
+              AXUIElementCopyAttributeValue
+            </code>
+            , which is more cross-process Mach round-trips unless you batch
+            reads. So for one targeted click UIA tends to do less work; for a
+            full-window snapshot the two are comparable once you cache
+            property reads.
+          </p>
+          <p className="mt-4 text-zinc-700 leading-relaxed">
+            This is the leak the trait signature hides most completely.{" "}
+            <code className="font-mono text-[0.95em] bg-zinc-100 text-zinc-800 px-1 py-0.5 rounded">
+              get_window_tree(pid, title, config)
+            </code>{" "}
+            returns the same{" "}
+            <code className="font-mono text-[0.95em] bg-zinc-100 text-zinc-800 px-1 py-0.5 rounded">
+              UINode
+            </code>{" "}
+            shape on either OS, but the Windows walk leans on{" "}
+            <code className="font-mono text-[0.95em] bg-zinc-100 text-zinc-800 px-1 py-0.5 rounded">
+              IUIAutomationTreeWalker
+            </code>{" "}
+            with a cache request to batch property reads, while the macOS walk
+            issues per-attribute calls unless it is carefully batched. Same
+            method, same return type, a latency budget you only feel in
+            production.
           </p>
         </section>
 
