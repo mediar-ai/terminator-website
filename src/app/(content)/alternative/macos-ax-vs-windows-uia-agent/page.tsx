@@ -299,8 +299,9 @@ export default function Page() {
               IUIAutomationElement
             </code>{" "}
             on Windows. A Playwright-shaped Rust trait can flatten most of
-            the surface, but three things leak through: role names, action
-            invocation, and the focused-element semantics. Terminator&apos;s
+            the surface, but four things leak through: role names, action
+            invocation, focused-element semantics, and tree-read latency.
+            Terminator&apos;s
             repo declares the trait at{" "}
             <code className="font-mono text-[0.95em] bg-orange-50 text-orange-700 px-1.5 py-0.5 rounded border border-orange-200">
               crates/terminator/src/platforms/mod.rs:86
@@ -351,7 +352,8 @@ export default function Page() {
                 crates/terminator/src/platforms/mod.rs:86
               </a>
               ) can hide most of the surface, but role names, action
-              invocation, and focused-element semantics leak through. On
+              invocation, focused-element semantics, and tree-read latency
+              leak through. On
               Terminator&apos;s main branch only the Windows half compiles;
               lines 319 to 320 of the same file emit{" "}
               <code className="font-mono text-[0.95em] text-orange-700">
