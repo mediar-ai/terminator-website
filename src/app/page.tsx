@@ -11,9 +11,8 @@ import {
   Star,
 } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { InstallEmailGate } from "@seo/components";
+import { InstallEmailGate, trackScheduleClick } from "@seo/components";
 import { WaitlistModal } from "@/components/WaitlistModal";
-import { BookCallButton } from "@/components/book-call-button";
 
 const TERMINATOR_STORAGE_KEY = "terminator_install_email_captured";
 const TERMINATOR_HERO_CMD = 'claude mcp add terminator "npx -y terminator-mcp-agent@latest"';
@@ -1584,7 +1583,7 @@ claude ▸ locator("role:Edit").type_text("hello, world")
               },
               {
                 q: "Which AI coding assistants can drive it via MCP?",
-                a: "Anything that speaks Model Context Protocol: Claude Code, Cursor, VS Code's MCP support, Windsurf. One-liner install: claude mcp add terminator \"npx -y terminator-mcp-agent@latest\". The MCP server ships 35+ tools (click, type, read tree, capture screenshot, run workflow).",
+                a: "Anything that speaks Model Context Protocol: Claude Code, Cursor, VS Code's MCP support, Windsurf, and Claude Desktop. Setup is a single one-line MCP install (one npx command, no JSON to hand-write); grab it plus the ready-to-paste config for each client from the install box above. The MCP server ships 35+ tools (click, type, read tree, capture screenshot, run workflow).",
               },
               {
                 q: "Should I use this instead of Playwright for browser work?",
@@ -1655,7 +1654,7 @@ claude ▸ locator("role:Edit").type_text("hello, world")
                     name: "Which AI coding assistants can drive Terminator via MCP?",
                     acceptedAnswer: {
                       "@type": "Answer",
-                      text: "Anything that speaks Model Context Protocol: Claude Code, Cursor, VS Code's MCP support, Windsurf. The MCP server ships 35+ tools (click, type, read tree, capture screenshot, run workflow).",
+                      text: "Anything that speaks Model Context Protocol: Claude Code, Cursor, VS Code's MCP support, Windsurf, and Claude Desktop. Setup is a single one-line MCP install (one npx command, no JSON to hand-write). The MCP server ships 35+ tools (click, type, read tree, capture screenshot, run workflow).",
                     },
                   },
                   {
@@ -1702,9 +1701,53 @@ claude ▸ locator("role:Edit").type_text("hello, world")
             Ship your first automation today
           </h2>
           <p className="text-zinc-600 mb-8 text-lg">
-            One-liner MCP install. Full TypeScript, Python, and Rust bindings. MIT licensed. Star the repo to follow the project, or book a call if you&apos;re building something serious.
+            One-line MCP install. Full TypeScript, Python, and Rust bindings. MIT licensed. We&apos;ll email you the command plus the ready-to-paste config for every client.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* Primary closing action = the install email gate (the page's main
+              conversion). GitHub / Discord / Book are demoted to secondary so the
+              most-convinced bottom-of-page reader lands in the funnel, not on a
+              free copy of the command. */}
+          <div className="max-w-md mx-auto mb-6">
+            <InstallEmailGate
+              command={TERMINATOR_HERO_CMD}
+              site="terminator"
+              section="cta"
+              storageKey={TERMINATOR_STORAGE_KEY}
+              githubUrl="https://github.com/mediar-ai/terminator"
+              modalTitle="Get the install command"
+              modalDescription="Drop your email and we'll send the one-line MCP install plus configs for every MCP client. No spam."
+              submitLabel="Email me the install"
+              emailOnly
+              sentTitle="Install command sent"
+              sentDescription={(email) => (
+                <>
+                  Sent to <span className="font-medium text-zinc-900">{email}</span>. Open
+                  your inbox to grab the install for Claude Code, Cursor, Claude Desktop,
+                  VS Code, and Windsurf. If you don&apos;t see it in a minute, check spam
+                  or promotions.
+                </>
+              )}
+              renderTrigger={({ onClick }) => (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClick();
+                    trackCtaClicked("cta_install_gate_open", "cta_section");
+                    trackInstallCopied("cta");
+                  }}
+                  aria-label="Email me the install plus per-client MCP config"
+                  className="group w-full flex items-center justify-center gap-2 px-8 py-4 bg-accent hover:bg-accent-hover text-black font-mono font-semibold rounded-lg transition-all"
+                >
+                  <span className="text-black/70">$</span> Email me the install
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              )}
+            />
+            <p className="mt-2.5 text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+              delivered instantly · no spam · configures 5 MCP clients
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
             <a
               href="https://github.com/mediar-ai/terminator"
               target="_blank"
@@ -1713,11 +1756,12 @@ claude ▸ locator("role:Edit").type_text("hello, world")
                 trackExternalLinkClicked("https://github.com/mediar-ai/terminator", "github");
                 trackCtaClicked("star_on_github", "cta_section");
               }}
-              className="group flex items-center gap-2 px-8 py-4 bg-black text-white font-mono font-semibold rounded-lg hover:bg-zinc-100 transition-colors"
+              className="group flex items-center gap-2 text-zinc-600 hover:text-zinc-900 font-mono transition-colors"
             >
-              <Github className="w-5 h-5" />
+              <Github className="w-4 h-4" />
               Star on GitHub
             </a>
+            <span className="hidden sm:inline text-zinc-300">·</span>
             <a
               href="https://discord.gg/mediar"
               target="_blank"
@@ -1726,11 +1770,27 @@ claude ▸ locator("role:Edit").type_text("hello, world")
                 trackExternalLinkClicked("https://discord.gg/mediar", "discord");
                 trackCtaClicked("join_discord", "cta_section");
               }}
-              className="flex items-center gap-2 px-8 py-4 border border-zinc-300 hover:border-zinc-400 rounded-lg font-mono transition-colors"
+              className="flex items-center gap-2 text-zinc-600 hover:text-zinc-900 font-mono transition-colors"
             >
               Join Discord
             </a>
-            <BookCallButton section="cta_section" className="px-8 py-4 text-base rounded-lg" />
+            <span className="hidden sm:inline text-zinc-300">·</span>
+            <a
+              href="https://cal.com/team/mediar/terminator"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                trackScheduleClick({
+                  destination: "https://cal.com/team/mediar/terminator",
+                  site: "terminator",
+                  section: "cta_section",
+                  text: "Book a call",
+                })
+              }
+              className="flex items-center gap-2 text-zinc-600 hover:text-zinc-900 font-mono transition-colors"
+            >
+              Book a call
+            </a>
           </div>
         </motion.div>
       </section>
