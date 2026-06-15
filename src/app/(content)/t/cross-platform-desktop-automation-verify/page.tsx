@@ -185,10 +185,10 @@ const relatedPosts: RelatedPost[] = [
     tag: "Reference",
   },
   {
-    title: "MCP desktop accessibility automation",
+    title: "The MCP click_element router for computer use agents",
     excerpt:
-      "How the MCP server gives Claude, Cursor, and VS Code real control over native apps.",
-    href: "/t/mcp-desktop-accessibility-automation",
+      "How the MCP server dispatches a click across seven grounding modes so Claude, Cursor, and VS Code get real control over native apps.",
+    href: "/t/accessibility-api-computer-use-agents",
     tag: "Architecture",
   },
 ];
