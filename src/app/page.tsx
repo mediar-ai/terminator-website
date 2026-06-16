@@ -455,61 +455,6 @@ export default function Home() {
             Open-source desktop automation that drives native Windows apps through accessibility APIs, not OCR or pixel matching. Playwright-shaped SDK plus an MCP server that gives Claude, Cursor, and VS Code real OS-level hands.
           </motion.p>
 
-          {/* Hero code proof — the product is the API, so show it (devtool landing
-              best practice). This is SDK usage, NOT the install command, so it stays
-              guardrail-safe and never leaks the npx one-liner. */}
-          <motion.div variants={fadeInUp} className="max-w-xl mx-auto mb-8">
-            <div className="terminal-box overflow-hidden text-left">
-              <div className="flex items-center gap-2 px-4 py-2 border-b border-zinc-200 bg-zinc-50/60">
-                <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                <span className="ml-2 text-[11px] font-mono text-zinc-500">
-                  the whole API · @mediar-ai/terminator
-                </span>
-              </div>
-              <pre className="p-4 overflow-x-auto text-[12.5px] md:text-[13px] font-mono leading-relaxed text-zinc-700">
-                <code>{`const desktop = new Desktop();
-await desktop.openApplication('notepad');
-
-// find by role + name, not pixels or OCR
-await desktop
-  .locator('role:Button && name:Save')
-  .click();`}</code>
-              </pre>
-            </div>
-            {/* Quantified differentiator for the 2026 computer-use buyer: the
-                accessibility tree beats screenshot / pixel-counting computer-use
-                on latency, token cost, and reliability. Pulled above the fold
-                from the comparison table because this is the reason this ICP
-                grabs the install. Palette stays black / white / accent. */}
-            <div className="mt-3 grid grid-cols-3 gap-px rounded-lg overflow-hidden border border-zinc-200 bg-zinc-200 text-center">
-              {[
-                { v: "50-300ms", l: "per step", vs: "vs 2-8s for screenshot agents" },
-                { v: "$0", l: "tokens / action", vs: "vs image tokens every step" },
-                { v: "structural", l: "survives DPI / theme", vs: "vs one pixel shift breaks it" },
-              ].map((s) => (
-                <div key={s.l} className="bg-white px-2 py-3">
-                  <div className="font-mono text-sm md:text-lg font-bold text-accent leading-none">
-                    {s.v}
-                  </div>
-                  <div className="mt-1 text-[10px] md:text-[11px] font-mono text-zinc-700 uppercase tracking-wider">
-                    {s.l}
-                  </div>
-                  <div className="mt-1.5 text-[10px] font-mono text-zinc-400 leading-tight">
-                    {s.vs}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="mt-2.5 text-xs font-mono text-zinc-500 text-center">
-              Accessibility tree, not pixels. For devs burned by{" "}
-              <span className="text-zinc-700">PyAutoGUI</span>,{" "}
-              <span className="text-zinc-700">AutoHotkey</span>, and{" "}
-              <span className="text-zinc-700">screenshot computer-use</span>.
-            </p>
-          </motion.div>
-
           {/* Primary CTA: install email gate (emailOnly — the command itself is delivered by email, never rendered on-page) */}
           <motion.div variants={fadeInUp} className="max-w-2xl mx-auto mb-5">
             <InstallEmailGate
