@@ -563,18 +563,18 @@ btn = desktop.locator("role:Button && name:Save")
             },
             {
               title:
-                "Computer use on native apps via the accessibility tree",
-              href: "/t/computer-use-native-apps-accessibility-tree",
+                "The accessibility API for computer-use agents",
+              href: "/t/accessibility-api-computer-use-agents",
               excerpt:
                 "Why agents that drive native apps through the a11y tree beat screenshot-and-click loops.",
               tag: "Agents",
             },
             {
               title:
-                "When the accessibility tree closes the browser-to-native gap",
-              href: "/t/accessibility-tree-closes-browser-to-native-gap",
+                "Why accessibility APIs beat OCR and pixel matching",
+              href: "/t/why-accessibility-apis-beat-ocr-and-pixel-matching",
               excerpt:
-                "The seam where browser refs run out and OS-level node ids take over.",
+                "The latency and stability case for structural node lookups over vision.",
               tag: "Architecture",
             },
           ]}
