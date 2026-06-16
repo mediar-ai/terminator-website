@@ -359,7 +359,7 @@ export default function Page() {
           </p>
           <div className="mt-6">
             <ComparisonTable
-              productName="Constructor"
+              productName="When to use it"
               competitorName="Returns"
               rows={constructorRows}
               heading="AXUIElement constructors (accessibility v0.2.0)"
