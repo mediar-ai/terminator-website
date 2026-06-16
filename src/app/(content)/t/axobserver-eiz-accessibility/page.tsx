@@ -207,6 +207,9 @@ export default function Page() {
     dateModified: PUBLISHED,
     author: "Matthew Diakonov",
     authorUrl: "https://m13v.com",
+    publisherName: "Terminator",
+    publisherUrl: "https://t8r.tech",
+    articleType: "TechArticle",
   });
   const breadcrumbLd = breadcrumbListSchema(breadcrumbSchemaItems);
   const faqLd = faqPageSchema(faqs);
