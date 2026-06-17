@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/t/desktop-automation-accessibility-tree",
+        destination: "/t/why-accessibility-apis-beat-ocr-and-pixel-matching",
+        permanent: true,
+      },
+      {
         source: "/alternative/accessibility-tree-vs-pixel-desktop-control",
         destination: "/alternative/accessibility-tree-vs-pixel-computer-use",
         permanent: true,
