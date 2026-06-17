@@ -96,12 +96,12 @@ const faqs: FaqItem[] = [
 const relatedPosts = [
   {
     title:
-      "Accessibility tree vs PyAutoGUI: the two clicks are not the same operation",
-    href: "/t/accessibility-tree-vs-pyautogui-desktop-automation",
+      "macOS accessibility UI tree automation: the write path nobody warns you about",
+    href: "/t/macos-accessibility-ui-tree",
     excerpt:
-      "PyAutoGUI's click(x, y) always lowers to SendInput. UIA invoke() calls a COM method on the element. Twenty two lines of Rust vs eighty.",
+      "The read path is easy: AXUIElementCopyAttributeValue walks the tree. The write path is the trap on browser-rendered views.",
     tag: "Deep dive",
-    readTime: "9 min read",
+    readTime: "8 min read",
   },
   {
     title:
@@ -114,11 +114,11 @@ const relatedPosts = [
   },
   {
     title:
-      "Desktop automation and the accessibility tree: what one node costs to capture",
-    href: "/t/desktop-automation-accessibility-tree",
+      "RPA accessibility tree selectors: the actual grammar, with operator precedence",
+    href: "/t/rpa-accessibility-tree-selectors",
     excerpt:
-      "UIElementAttributes has 17 fields. Terminator's default mode reads two. The tree is not free to capture.",
-    tag: "Deep dive",
+      "Most RPA selectors are brittle XML window paths. Terminator parses selectors as a boolean grammar with real operator precedence.",
+    tag: "Reference",
     readTime: "8 min read",
   },
 ];
