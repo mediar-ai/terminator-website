@@ -167,6 +167,8 @@ export default function Page() {
               dateModified: PUBLISHED,
               author: "Matthew Diakonov",
               authorUrl: "https://m13v.com",
+              publisherName: "Terminator",
+              publisherUrl: "https://t8r.tech",
             }),
           ),
         }}
@@ -404,11 +406,21 @@ let title = app.attribute(&AXAttribute::title())?;`}</CodeCard>
             <AnimatedChecklist
               title="Pick by project shape"
               items={[
-                "Driving a few apps, want the smallest focused dependency: accessibility (safe) + accessibility-sys (transitive). Most automation code lands here.",
-                "Already building on the objc2 ecosystem and want one binding generator for every Apple framework: objc2-application-services with the AXUIElement feature.",
-                "Want an actively-maintained safe crate with a broader API and recent releases: axuielement v0.9.1.",
-                "You only need to check or prompt for the trust grant, not drive elements: macos-accessibility-client.",
-                "You hit a C function the safe layer never re-exported (a specific AXValue conversion, AXUIElementSetAttributeValue): drop to accessibility-sys for that one call and stay in the safe crate everywhere else.",
+                {
+                  text: "Driving a few apps, want the smallest focused dependency: accessibility (safe) + accessibility-sys (transitive). Most automation code lands here.",
+                },
+                {
+                  text: "Already building on the objc2 ecosystem and want one binding generator for every Apple framework: objc2-application-services with the AXUIElement feature.",
+                },
+                {
+                  text: "Want an actively-maintained safe crate with a broader API and recent releases: axuielement v0.9.1.",
+                },
+                {
+                  text: "You only need to check or prompt for the trust grant, not drive elements: macos-accessibility-client.",
+                },
+                {
+                  text: "You hit a C function the safe layer never re-exported (a specific AXValue conversion, AXUIElementSetAttributeValue): drop to accessibility-sys for that one call and stay in the safe crate everywhere else.",
+                },
               ]}
             />
           </div>
